@@ -165,7 +165,6 @@ function draw() {
     }
 
     var background = new Image();
-    background.crossOrigin = "Anonymous";
     background.src = imageInput.value;
     background.onload = function(){
         //Draw background image
