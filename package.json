@@ -1,0 +1,23 @@
+{
+  "name": "editions-card-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server src -p 8081"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardian/editions-card-builder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guardian/editions-card-builder/issues"
+  },
+  "homepage": "https://github.com/guardian/editions-card-builder#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}

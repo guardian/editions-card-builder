@@ -1,0 +1,4 @@
+name: editions-card-builder
+mappings:
+  - prefix: editions-card-builder
+    port: 8081
