@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server src -p 8081",
+    "start": "parcel src/index.html -p 8081 --no-hmr",
     "clean": "rm -rf dist",
-    "build": "copyfiles --all src/* --flat dist && copyfiles CNAME dist",
+    "build": "parcel build src/index.html && copyfiles CNAME dist",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.1.1",
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.1.1",
+    "parcel-bundler": "^1.12.3"
   }
 }
