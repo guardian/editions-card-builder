@@ -20,9 +20,7 @@
     "url": "https://github.com/guardian/editions-card-builder/issues"
   },
   "homepage": "https://github.com/guardian/editions-card-builder#readme",
-  "dependencies": {
-    "http-server": "^0.11.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "copyfiles": "^2.1.1",
     "gh-pages": "^2.1.1",
