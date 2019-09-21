@@ -154,24 +154,38 @@
   font-style: normal;
 }
 
+:root {
+  --stickyHeight: 50px;
+  --blueish: #f1f8fc;
+  --darkblueish: #67bed8;
+}
+
 body {
   padding: 0;
   margin: 0;
 }
 
-.card-builder-header {
-  width: 100%;
-  height: 60px;
+h1 {
+  margin: 0;
+}
+
+header {
+  height: var(--stickyHeight);
+  line-height: var(--stickyHeight);
   background-color: #121212;
+  color: var(--blueish);
+  padding: 10px;
+  position: sticky;
+  top: 0px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Guardian Titlepiece";
 }
 
-.card-builder-header .card-builder-logo {
-  margin-left: 20px;
-}
-
-.card-builder-header .card-builder-logo svg {
-  width: 200px;
-  height: 60px;
+header h1 {
+  display: inline-block;
+  padding-right: 10px;
+  color: var(--darkblueish);
 }
 
 .card-builder {
@@ -182,7 +196,7 @@ body {
 }
 
 .card-builder-left {
-  background-color: #f1f8fc;
+  background-color: var(--blueish);
   width: 50%;
   padding-bottom: 50px;
 }
@@ -322,40 +336,11 @@ body {
   background-color: #ececec;
 }
 
-.card-intro {
-  margin-left: 20px;
-  font-family: "Guardian Titlepiece";
-  font-size: 20px;
-}
-
-.card-intro h1 {
-  margin: 0 0 20px;
-}
-
-.card-instructions {
-  max-width: 600px;
-  margin-left: 20px;
-  margin-top: 30px;
-}
-
-.card-instructions h1,
-.card-instructions p {
-  font-family: "Guardian Headline Full";
-  font-size: 20px;
-  margin: 0;
-}
-
-.card-instructions h1 {
-  font-weight: 700;
-}
-
 .button,
 .download-button {
   background-color: #000;
   padding: 8px 16px;
   display: inline-block;
-  margin-left: 20px;
-  margin-top: 30px;
   color: #fff;
   font-size: 24px;
   cursor: pointer;
