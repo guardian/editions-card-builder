@@ -297,6 +297,10 @@ input[type=radio]:checked + label {
   display: none;
 }
 
+.image-select {
+  width: 100%;
+}
+
 .button,
 .download-button {
   background-color: #000;

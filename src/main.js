@@ -1,3 +1,5 @@
+import GridModal from './grid/modal';
+
 var button = document.querySelector("button.preview");
 var headlineInput = document.querySelector(".input-headline");
 var standfirstInput = document.querySelector(".input-standfirst");
@@ -345,7 +347,7 @@ function init() {
 
 const form = document.querySelector('.card-builder-form');
 
-form.addEventListener('change', e => {
+form.addEventListener('input', e => {
   const formData = new FormData(form);
 
   const {
@@ -362,4 +364,10 @@ form.addEventListener('change', e => {
 
   // show custom colour input if `custom` is selected
   document.getElementById('headlineCustomColour').style.display = headlineColour === 'custom' ? 'block' : 'none';
+});
+
+new GridModal({
+  gridUrl: 'https://media.test.dev-gutools.co.uk',
+  triggerEl: document.querySelector('.image-select'),
+  targetInput: document.getElementById('image')
 });
