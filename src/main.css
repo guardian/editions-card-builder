@@ -155,7 +155,9 @@
 }
 
 :root {
-  --stickyHeight: 50px;
+  --headerHeight: 50px;
+  --padding: 10px;
+
   --blueish: #f1f8fc;
   --darkblueish: #67bed8;
 }
@@ -163,147 +165,69 @@
 body {
   padding: 0;
   margin: 0;
+  font-family: "Guardian Headline Full";
 }
 
 h1 {
   margin: 0;
+  font-family: "Guardian Titlepiece";
+  font-size: 30px;
 }
 
 header {
-  height: var(--stickyHeight);
-  line-height: var(--stickyHeight);
+  height: var(--headerHeight);
+  line-height: var(--headerHeight);
   background-color: #121212;
   color: var(--blueish);
-  padding: 10px;
+  padding: var(--padding);
   position: sticky;
   top: 0px;
   display: flex;
   justify-content: space-between;
-  font-family: "Guardian Titlepiece";
 }
 
 header h1 {
   display: inline-block;
-  padding-right: 10px;
+  padding-right: var(--padding);
   color: var(--darkblueish);
 }
 
 .card-builder {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: row;
   flex-direction: row;
+  height: calc(100vh - var(--headerHeight) - (var(--padding) * 2));
+}
+
+.card-builder-left,
+.card-builder-right {
+  width: 50%;
+  padding: var(--padding);
+  overflow-y: scroll;
 }
 
 .card-builder-left {
+  width: 600px;
   background-color: var(--blueish);
-  width: 50%;
-  padding-bottom: 50px;
 }
 
 .card-builder-right {
-  height: calc(100vh - 20px);
-  width: calc(50% - 20px);
-  padding-left: 20px;
-  padding-top: 20px;
+  flex-grow: 1;
 }
 
-.advanced-settings,
-.color,
-.color-options,
-.headline,
-.image,
-.image-platform,
-.position,
-.size,
-.standfirst,
-.svg-headline {
-  margin-left: 20px;
+.card-builder-form {
+  padding: var(--padding);
+}
+
+textarea,
+input {
+  font-family: "Guardian Headline Full";
+  padding: 0;
+  width: 100%;
   font-size: 20px;
-  margin-top: 10px;
 }
 
-.advanced-settings h1,
-.color h1,
-.color-options h1,
-.headline h1,
-.image h1,
-.image-platform h1,
-.position h1,
-.size h1,
-.standfirst h1,
-.svg-headline h1 {
-  font-size: 24px;
-  margin: 0;
-  font-family: "Guardian Titlepiece";
-}
-
-.advanced-settings h3,
-.color h3,
-.color-options h3,
-.headline h3,
-.image h3,
-.image-platform h3,
-.position h3,
-.size h3,
-.standfirst h3,
-.svg-headline h3 {
-  font-family: "Guardian Headline Full";
-  font-size: 16px;
-}
-
-.advanced-settings p,
-.color p,
-.color-options p,
-.headline p,
-.image p,
-.image-platform p,
-.position p,
-.size p,
-.standfirst p,
-.svg-headline p {
-  font-family: "Guardian Headline Full";
-}
-
-.advanced-settings input,
-.advanced-settings textarea,
-.color input,
-.color textarea,
-.color-options input,
-.color-options textarea,
-.headline input,
-.headline textarea,
-.image input,
-.image textarea,
-.image-platform input,
-.image-platform textarea,
-.position input,
-.position textarea,
-.size input,
-.size textarea,
-.standfirst input,
-.standfirst textarea,
-.svg-headline input,
-.svg-headline textarea {
-  height: 30px;
-  width: 600px;
-  font-size: 20px;
-  font-family: "Guardian Headline Full";
-  padding: 4px;
-  stroke: 0;
-}
-
-.advanced-settings textarea,
-.color textarea,
-.color-options textarea,
-.headline textarea,
-.image textarea,
-.image-platform textarea,
-.position textarea,
-.size textarea,
-.standfirst textarea,
-.svg-headline textarea {
-  height: auto;
+textarea {
+  resize: vertical;
 }
 
 .color-options {
