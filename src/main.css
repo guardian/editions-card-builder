@@ -1,255 +1,387 @@
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.ttf) format("truetype");
-    font-weight: 300;
-    font-style: normal
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.ttf)
+      format("truetype");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.ttf) format("truetype");
-    font-weight: 300;
-    font-style: italic
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.ttf)
+      format("truetype");
+  font-weight: 300;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Regular.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Regular.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Regular.ttf) format("truetype");
-    font-weight: 400;
-    font-style: normal
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Regular.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Regular.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Regular.ttf)
+      format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-RegularItalic.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-RegularItalic.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-RegularItalic.ttf) format("truetype");
-    font-weight: 400;
-    font-style: italic
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-RegularItalic.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-RegularItalic.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-RegularItalic.ttf)
+      format("truetype");
+  font-weight: 400;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Medium.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Medium.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Medium.ttf) format("truetype");
-    font-weight: 500;
-    font-style: normal
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Medium.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Medium.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Medium.ttf)
+      format("truetype");
+  font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-MediumItalic.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-MediumItalic.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-MediumItalic.ttf) format("truetype");
-    font-weight: 500;
-    font-style: italic
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-MediumItalic.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-MediumItalic.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-MediumItalic.ttf)
+      format("truetype");
+  font-weight: 500;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Semibold.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Semibold.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Semibold.ttf) format("truetype");
-    font-weight: 600;
-    font-style: normal
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Semibold.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Semibold.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Semibold.ttf)
+      format("truetype");
+  font-weight: 600;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-SemiboldItalic.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-SemiboldItalic.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-SemiboldItalic.ttf) format("truetype");
-    font-weight: 600;
-    font-style: italic
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-SemiboldItalic.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-SemiboldItalic.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-SemiboldItalic.ttf)
+      format("truetype");
+  font-weight: 600;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Bold.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Bold.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Bold.ttf) format("truetype");
-    font-weight: 700;
-    font-style: normal
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Bold.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Bold.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Bold.ttf)
+      format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BoldItalic.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BoldItalic.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BoldItalic.ttf) format("truetype");
-    font-weight: 700;
-    font-style: italic
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BoldItalic.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BoldItalic.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BoldItalic.ttf)
+      format("truetype");
+  font-weight: 700;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Black.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Black.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Black.ttf) format("truetype");
-    font-weight: 900;
-    font-style: normal
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Black.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Black.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Black.ttf)
+      format("truetype");
+  font-weight: 900;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Guardian Headline Full";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BlackItalic.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BlackItalic.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BlackItalic.ttf) format("truetype");
-    font-weight: 900;
-    font-style: italic
+  font-family: "Guardian Headline Full";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BlackItalic.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BlackItalic.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-BlackItalic.ttf)
+      format("truetype");
+  font-weight: 900;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: "Guardian Titlepiece";
-    src: url(https://interactive.guim.co.uk/fonts/garnett/GTGuardianTitlepiece-Bold.woff2) format("woff2"), url(https://interactive.guim.co.uk/fonts/garnett/GTGuardianTitlepiece-Bold.woff) format("woff"), url(https://interactive.guim.co.uk/fonts/garnett/GTGuardianTitlepiece-Bold.ttf) format("truetype");
-    font-weight: 700;
-    font-style: normal
+  font-family: "Guardian Titlepiece";
+  src: url(https://interactive.guim.co.uk/fonts/garnett/GTGuardianTitlepiece-Bold.woff2)
+      format("woff2"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GTGuardianTitlepiece-Bold.woff)
+      format("woff"),
+    url(https://interactive.guim.co.uk/fonts/garnett/GTGuardianTitlepiece-Bold.ttf)
+      format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }
 
 body {
-    padding: 0;
-    margin: 0
+  padding: 0;
+  margin: 0;
 }
 
 .card-builder-header {
-    width: 100%;
-    height: 60px;
-    background-color: #121212
+  width: 100%;
+  height: 60px;
+  background-color: #121212;
 }
 
 .card-builder-header .card-builder-logo {
-    margin-left: 20px
+  margin-left: 20px;
 }
 
 .card-builder-header .card-builder-logo svg {
-    width: 200px;
-    height: 60px
+  width: 200px;
+  height: 60px;
 }
 
 .card-builder {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: row;
-    flex-direction: row
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 
 .card-builder-left {
-    background-color: #f1f8fc;
-    width: 50%;
-    padding-bottom: 50px
+  background-color: #f1f8fc;
+  width: 50%;
+  padding-bottom: 50px;
 }
 
 .card-builder-right {
-    height: calc(100vh - 20px);
-    width: calc(50% - 20px);
-    padding-left: 20px;
-    padding-top: 20px
+  height: calc(100vh - 20px);
+  width: calc(50% - 20px);
+  padding-left: 20px;
+  padding-top: 20px;
 }
 
-.advanced-settings, .color, .color-options, .headline, .image, .image-platform, .position, .size, .standfirst, .svg-headline {
-    margin-left: 20px;
-    font-size: 20px;
-    margin-top: 10px
+.advanced-settings,
+.color,
+.color-options,
+.headline,
+.image,
+.image-platform,
+.position,
+.size,
+.standfirst,
+.svg-headline {
+  margin-left: 20px;
+  font-size: 20px;
+  margin-top: 10px;
 }
 
-.advanced-settings h1, .color h1, .color-options h1, .headline h1, .image h1, .image-platform h1, .position h1, .size h1, .standfirst h1, .svg-headline h1 {
-    font-size: 24px;
-    margin: 0;
-    font-family: "Guardian Titlepiece"
+.advanced-settings h1,
+.color h1,
+.color-options h1,
+.headline h1,
+.image h1,
+.image-platform h1,
+.position h1,
+.size h1,
+.standfirst h1,
+.svg-headline h1 {
+  font-size: 24px;
+  margin: 0;
+  font-family: "Guardian Titlepiece";
 }
 
-.advanced-settings h3, .color h3, .color-options h3, .headline h3, .image h3, .image-platform h3, .position h3, .size h3, .standfirst h3, .svg-headline h3 {
-    font-family: "Guardian Headline Full";
-    font-size: 16px
+.advanced-settings h3,
+.color h3,
+.color-options h3,
+.headline h3,
+.image h3,
+.image-platform h3,
+.position h3,
+.size h3,
+.standfirst h3,
+.svg-headline h3 {
+  font-family: "Guardian Headline Full";
+  font-size: 16px;
 }
 
-.advanced-settings p, .color p, .color-options p, .headline p, .image p, .image-platform p, .position p, .size p, .standfirst p, .svg-headline p {
-    font-family: "Guardian Headline Full"
+.advanced-settings p,
+.color p,
+.color-options p,
+.headline p,
+.image p,
+.image-platform p,
+.position p,
+.size p,
+.standfirst p,
+.svg-headline p {
+  font-family: "Guardian Headline Full";
 }
 
-.advanced-settings input, .advanced-settings textarea, .color input, .color textarea, .color-options input, .color-options textarea, .headline input, .headline textarea, .image input, .image textarea, .image-platform input, .image-platform textarea, .position input, .position textarea, .size input, .size textarea, .standfirst input, .standfirst textarea, .svg-headline input, .svg-headline textarea {
-    height: 30px;
-    width: 600px;
-    font-size: 20px;
-    font-family: "Guardian Headline Full";
-    padding: 4px;
-    stroke: 0
+.advanced-settings input,
+.advanced-settings textarea,
+.color input,
+.color textarea,
+.color-options input,
+.color-options textarea,
+.headline input,
+.headline textarea,
+.image input,
+.image textarea,
+.image-platform input,
+.image-platform textarea,
+.position input,
+.position textarea,
+.size input,
+.size textarea,
+.standfirst input,
+.standfirst textarea,
+.svg-headline input,
+.svg-headline textarea {
+  height: 30px;
+  width: 600px;
+  font-size: 20px;
+  font-family: "Guardian Headline Full";
+  padding: 4px;
+  stroke: 0;
 }
 
-.advanced-settings textarea, .color textarea, .color-options textarea, .headline textarea, .image textarea, .image-platform textarea, .position textarea, .size textarea, .standfirst textarea, .svg-headline textarea {
-    height: auto
+.advanced-settings textarea,
+.color textarea,
+.color-options textarea,
+.headline textarea,
+.image textarea,
+.image-platform textarea,
+.position textarea,
+.size textarea,
+.standfirst textarea,
+.svg-headline textarea {
+  height: auto;
 }
 
 .color-options {
-    overflow: hidden;
-    font-family: "Guardian Headline Full"
+  overflow: hidden;
+  font-family: "Guardian Headline Full";
 }
 
 .color-options div {
-    float: left;
-    padding: 10px;
-    margin-right: 10px;
-    cursor: pointer
+  float: left;
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .color-options div.blue {
-    background-color: #052962;
-    color: #fff
+  background-color: #052962;
+  color: #fff;
 }
 
 .color-options div.red {
-    background-color: #c70000;
-    color: #fff
+  background-color: #c70000;
+  color: #fff;
 }
 
 .color-options div.yellow {
-    background-color: #ffe500
+  background-color: #ffe500;
 }
 
 .color-options div.grey {
-    background-color: #ececec
+  background-color: #ececec;
 }
 
 .card-intro {
-    margin-left: 20px;
-    font-family: "Guardian Titlepiece";
-    font-size: 20px
+  margin-left: 20px;
+  font-family: "Guardian Titlepiece";
+  font-size: 20px;
 }
 
 .card-intro h1 {
-    margin: 0 0 20px
+  margin: 0 0 20px;
 }
 
 .card-instructions {
-    max-width: 600px;
-    margin-left: 20px;
-    margin-top: 30px
+  max-width: 600px;
+  margin-left: 20px;
+  margin-top: 30px;
 }
 
-.card-instructions h1, .card-instructions p {
-    font-family: "Guardian Headline Full";
-    font-size: 20px;
-    margin: 0
+.card-instructions h1,
+.card-instructions p {
+  font-family: "Guardian Headline Full";
+  font-size: 20px;
+  margin: 0;
 }
 
 .card-instructions h1 {
-    font-weight: 700
+  font-weight: 700;
 }
 
-.button, .download-button {
-    background-color: #000;
-    padding: 8px 16px;
-    display: inline-block;
-    margin-left: 20px;
-    margin-top: 30px;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    font-family: "Guardian Titlepiece"
+.button,
+.download-button {
+  background-color: #000;
+  padding: 8px 16px;
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 30px;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  font-family: "Guardian Titlepiece";
 }
 
-.button:hover, .download-button:hover {
-    background-color: #ffe500;
-    color: #000
+.button:hover,
+.download-button:hover {
+  background-color: #ffe500;
+  color: #000;
 }
 
 .download-button {
-    opacity: .2
+  opacity: 0.2;
 }
 
 .download-button:hover {
-    background-color: #000;
-    color: #fff
+  background-color: #000;
+  color: #fff;
 }
 
 .download-button.active {
-    opacity: 1
+  opacity: 1;
 }
 
 .download-button.active:hover {
-    background-color: #ffe500;
-    color: #000
+  background-color: #ffe500;
+  color: #000;
 }
