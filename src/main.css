@@ -200,7 +200,6 @@ header h1 {
 
 .card-builder-left,
 .card-builder-right {
-  width: 50%;
   padding: var(--padding);
   overflow-y: scroll;
 }
@@ -225,6 +224,13 @@ header h1 {
   padding: var(--padding);
 }
 
+.card-builder-form label,
+.card-builder-form legend {
+  display: block;
+  font-family: "Guardian Titlepiece";
+  font-size: 25px;
+}
+
 textarea,
 input {
   font-family: "Guardian Headline Full";
@@ -237,33 +243,52 @@ textarea {
   resize: vertical;
 }
 
-.color-options {
-  overflow: hidden;
-  font-family: "Guardian Headline Full";
+fieldset,
+legend {
+  padding: 0;
+  margin: 0;
 }
 
-.color-options div {
-  float: left;
-  padding: 10px;
-  margin-right: 10px;
+fieldset {
+  border: none;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
   cursor: pointer;
+  display: inline-block;
+  padding: var(--padding);
+  font-family: "Guardian Headline Full";
+  font-size: 20px;
 }
 
-.color-options div.blue {
-  background-color: #052962;
-  color: #fff;
+input[type=radio]:checked + label {
+  text-decoration: underline;
+  font-weight: 600;
 }
 
-.color-options div.red {
+.headline-colour label[for="headlineWhite"] {
+  background-color: #ffffff;
+}
+
+.headline-colour label[for="headlineRed"] {
   background-color: #c70000;
   color: #fff;
 }
 
-.color-options div.yellow {
+.headline-colour label[for="headlineBlue"] {
+  background-color: #052962;
+  color: #fff;
+}
+
+.headline-colour label[for="headlineYellow"] {
   background-color: #ffe500;
 }
 
-.color-options div.grey {
+.headline-colour label[for="headlineGrey"] {
   background-color: #ececec;
 }
 
