@@ -1,4 +1,4 @@
-var button = document.querySelector(".button");
+var button = document.querySelector("button.preview");
 var headlineInput = document.querySelector(".input-headline");
 var standfirstInput = document.querySelector(".input-standfirst");
 var imageInput = document.querySelector(".input-image");
@@ -7,7 +7,7 @@ var fontSize = document.querySelector(".select-fontSize");
 var fontColor = document.querySelector(".input-color");
 var standySize = document.querySelector(".select-fontSize-stand");
 var position = document.querySelector(".select-position");
-var downloadButton = document.querySelector(".download-button");
+var downloadButton = document.querySelector("button.download-button");
 var colorOptions = document.querySelector(".color-options");
 var svgInput = document.querySelector(".input-svg");
 var device = document.querySelector(".image-platform-select");
