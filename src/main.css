@@ -159,19 +159,23 @@ body {
   margin: 0;
 }
 
-.card-builder-header {
+h1 {
+  margin: 0;
+}
+
+:root {
+  --blueish: #f1f8fc;
+}
+
+header {
   width: 100%;
   height: 60px;
+  line-height: 60px;
   background-color: #121212;
-}
-
-.card-builder-header .card-builder-logo {
-  margin-left: 20px;
-}
-
-.card-builder-header .card-builder-logo svg {
-  width: 200px;
-  height: 60px;
+  color: var(--blueish);
+  padding: 10px;
+  position: sticky;
+  top: 0px;
 }
 
 .card-builder {
@@ -182,7 +186,7 @@ body {
 }
 
 .card-builder-left {
-  background-color: #f1f8fc;
+  background-color: var(--blueish);
   width: 50%;
   padding-bottom: 50px;
 }
