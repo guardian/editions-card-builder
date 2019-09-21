@@ -212,6 +212,13 @@ header h1 {
 
 .card-builder-right {
   flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-builder-right canvas {
+  box-shadow: 0px 10px 20px 5px rgba(92,92,92,1);
 }
 
 .card-builder-form {
