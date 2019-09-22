@@ -308,16 +308,6 @@ function drawSVG(ctx, svg) {
   };
 }
 
-function pickColor() {
-  console.log(colorOptions.querySelectorAll("div"));
-  colorOptions.querySelectorAll("div").forEach(function(el) {
-    el.addEventListener("click", function() {
-      var data = el.dataset.color;
-      fontColor.value = data;
-    });
-  });
-}
-
 function redraw() {
   headlineWrap = false;
   standfirstWrap = false;
@@ -348,9 +338,28 @@ function download() {
 }
 
 function init() {
-  console.log("init");
-  pickColor();
   build();
   download();
 }
-init();
+// init();
+
+const form = document.querySelector('.card-builder-form');
+
+form.addEventListener('change', e => {
+  const formData = new FormData(form);
+
+  const {
+    image,
+    headline,
+    headlineSize,
+    headlineColour,
+    headlineCustomColour,
+    standfirstSize,
+    position,
+    device,
+    svgHeadline
+  } = Object.fromEntries(formData);
+
+  // show custom colour input if `custom` is selected
+  document.getElementById('headlineCustomColour').style.display = headlineColour === 'custom' ? 'block' : 'none';
+});

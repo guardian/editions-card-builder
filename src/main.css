@@ -292,6 +292,11 @@ input[type=radio]:checked + label {
   background-color: #ececec;
 }
 
+#headlineCustomColour,
+.headline-colour label[for="headlineCustomColour"] {
+  display: none;
+}
+
 .button,
 .download-button {
   background-color: #000;
