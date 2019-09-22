@@ -216,7 +216,7 @@ header h1 {
   align-items: center;
 }
 
-.card-builder-right canvas {
+.card-builder-right .card {
   box-shadow: 0px 10px 20px 5px rgba(92,92,92,1);
 }
 

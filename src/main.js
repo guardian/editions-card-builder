@@ -1,4 +1,5 @@
 import GridModal from './grid/modal';
+import canvas2000 from './canvas';
 
 var button = document.querySelector("button.preview");
 var headlineInput = document.querySelector(".input-headline");
@@ -32,28 +33,28 @@ function draw() {
   canvas.style.border = "1px solid";
   var ctx = canvas.getContext("2d");
 
-  function drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
+  function drawImageProp(canvasContext, img, x, y, canvasWidth, canvasHeight, xOffset, yOffset) {
     if (arguments.length === 2) {
       x = y = 0;
-      w = ctx.canvas.width;
-      h = ctx.canvas.height;
+      canvasWidth = canvasContext.canvas.width;
+      canvasHeight = canvasContext.canvas.height;
     }
 
     // default offset is center
-    offsetX = typeof offsetX === "number" ? offsetX : 0.5;
-    offsetY = typeof offsetY === "number" ? offsetY : 0.5;
+    xOffset = typeof xOffset === "number" ? xOffset : 0.5;
+    yOffset = typeof yOffset === "number" ? yOffset : 0.5;
 
     // keep bounds [0.0, 1.0]
-    if (offsetX < 0) offsetX = 0;
-    if (offsetY < 0) offsetY = 0;
-    if (offsetX > 1) offsetX = 1;
-    if (offsetY > 1) offsetY = 1;
+    if (xOffset < 0) xOffset = 0;
+    if (yOffset < 0) yOffset = 0;
+    if (xOffset > 1) xOffset = 1;
+    if (yOffset > 1) yOffset = 1;
 
-    var iw = img.width,
-      ih = img.height,
-      r = Math.min(w / iw, h / ih),
-      nw = iw * r, // new prop. width
-      nh = ih * r, // new prop. height
+    var imageWidth = img.width,
+      imageHeight = img.height,
+      ratio = Math.min(canvasWidth / imageWidth, canvasHeight / imageHeight),
+      nw = imageWidth * ratio, // new prop. width
+      nh = imageHeight * ratio, // new prop. height
       cx,
       cy,
       cw,
@@ -61,26 +62,26 @@ function draw() {
       ar = 1;
 
     // decide which gap to fill
-    if (nw < w) ar = w / nw;
-    if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh; // updated
+    if (nw < canvasWidth) ar = canvasWidth / nw;
+    if (Math.abs(ar - 1) < 1e-14 && nh < canvasHeight) ar = canvasHeight / nh; // updated
     nw *= ar;
     nh *= ar;
 
     // calc source rectangle
-    cw = iw / (nw / w);
-    ch = ih / (nh / h);
+    cw = imageWidth / (nw / canvasWidth);
+    ch = imageHeight / (nh / canvasHeight);
 
-    cx = (iw - cw) * offsetX;
-    cy = (ih - ch) * offsetY;
+    cx = (imageWidth - cw) * xOffset;
+    cy = (imageHeight - ch) * yOffset;
 
     // make sure source rectangle is valid
     if (cx < 0) cx = 0;
     if (cy < 0) cy = 0;
-    if (cw > iw) cw = iw;
-    if (ch > ih) ch = ih;
+    if (cw > imageWidth) cw = imageWidth;
+    if (ch > imageHeight) ch = imageHeight;
 
     // fill image in dest. rectangle
-    ctx.drawImage(img, cx, cy, cw, ch, x, y, w, h);
+    canvasContext.drawImage(img, cx, cy, cw, ch, x, y, canvasWidth, canvasHeight);
   }
 
   //function to check if text does wrap - returns true or false
@@ -351,7 +352,7 @@ form.addEventListener('input', e => {
   const formData = new FormData(form);
 
   const {
-    image,
+    imageUrl,
     headline,
     headlineSize,
     headlineColour,
@@ -364,10 +365,20 @@ form.addEventListener('input', e => {
 
   // show custom colour input if `custom` is selected
   document.getElementById('headlineCustomColour').style.display = headlineColour === 'custom' ? 'block' : 'none';
+
+  canvas2000({device, imageUrl}).then(canvas => {
+    const destination = document.querySelector(".card-builder-right");
+
+    if (destination.firstChild) {
+      destination.firstChild.remove();
+    }
+
+    destination.appendChild(canvas);
+  });
 });
 
 new GridModal({
   gridUrl: 'https://media.test.dev-gutools.co.uk',
   triggerEl: document.querySelector('.image-select'),
-  targetInput: document.getElementById('image')
+  targetInput: document.getElementById('imageUrl')
 });
