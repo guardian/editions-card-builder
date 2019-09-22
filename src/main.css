@@ -270,30 +270,30 @@ input[type=radio]:checked + label {
   font-weight: 600;
 }
 
-.headline-colour label[for="headlineWhite"] {
+.colour label[for="colourWhite"] {
   background-color: #ffffff;
 }
 
-.headline-colour label[for="headlineRed"] {
+.colour label[for="colourRed"] {
   background-color: #c70000;
   color: #fff;
 }
 
-.headline-colour label[for="headlineBlue"] {
+.colour label[for="colourBlue"] {
   background-color: #052962;
   color: #fff;
 }
 
-.headline-colour label[for="headlineYellow"] {
+.colour label[for="colourYellow"] {
   background-color: #ffe500;
 }
 
-.headline-colour label[for="headlineGrey"] {
+.colour label[for="colourGrey"] {
   background-color: #ececec;
 }
 
-#headlineCustomColour,
-.headline-colour label[for="headlineCustomColour"] {
+#customColour,
+.colour label[for="customColour"] {
   display: none;
 }
 

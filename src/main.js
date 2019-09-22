@@ -1,5 +1,6 @@
 import GridModal from './grid/modal';
 import canvas2000 from './canvas';
+import Config from './config';
 
 var button = document.querySelector("button.preview");
 var headlineInput = document.querySelector(".input-headline");
@@ -355,18 +356,21 @@ form.addEventListener('input', e => {
     imageUrl,
     headline,
     headlineSize,
-    headlineColour,
-    headlineCustomColour,
+    colour,
+    customColour,
     standfirstSize,
     position,
     device,
     svgHeadline
   } = Object.fromEntries(formData);
 
-  // show custom colour input if `custom` is selected
-  document.getElementById('headlineCustomColour').style.display = headlineColour === 'custom' ? 'block' : 'none';
+  const isCustomColour = colour === Config.colours.custom;
 
-  canvas2000({device, imageUrl}).then(canvas => {
+  // show custom colour input if `custom` is selected
+  document.getElementById('customColour').style.display = isCustomColour ? 'block' : 'none';
+  const colourCode = isCustomColour ? customColour : Config.colours[colour];
+
+  canvas2000({device, imageUrl, headline, headlineSize, colourCode}).then(canvas => {
     const destination = document.querySelector(".card-builder-right");
 
     if (destination.firstChild) {

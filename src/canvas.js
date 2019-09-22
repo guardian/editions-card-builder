@@ -1,12 +1,9 @@
+import Config from './config';
+
 const DIMENSION_MULTIPLIER = 1.5;
 
-const DIMENSIONS = {
-  mobile: [350, 540],
-  tablet: [650, 725]
-}
-
 function getNewCanvas({device}) {
-  const [width, height] = DIMENSIONS[device];
+  const [width, height] = Config.dimensions[device];
   const canvas = document.createElement('canvas');
 
   canvas.classList.add('card');
@@ -64,7 +61,39 @@ function drawImage({canvasContext, image}) {
   );
 }
 
-function draw({device, imageUrl}) {
+function doesTextFit({canvasContext, maxWidth, text}) {
+  const measure = canvasContext.measureText(text);
+  return measure.width < maxWidth;
+}
+
+function splitStringIntoLines({canvasContext, maxWidth, string}) {
+  const measured = string.split('').reduce(({buffer, lines}, char) => {
+    const newBuffer = buffer + char;
+    return !doesTextFit({canvasContext, maxWidth, text: newBuffer})
+      ? { lines: [...lines, buffer], buffer: char }
+      : { lines: lines, buffer: newBuffer }
+  }, { buffer: '', lines: [] });
+
+  return [...measured.lines, measured.buffer];
+}
+
+function drawHeadline({canvasContext, headline, headlineSize}) {
+  const headlineFontSize = Config.headline.fontSize[headlineSize];
+  canvasContext.font = `${headlineFontSize}px ${Config.headline.font}`;
+
+  const lines = splitStringIntoLines({
+    canvasContext,
+    maxWidth: Config.headline.maxWidth,
+    string: headline
+  });
+
+  lines.forEach((line, i) => {
+    const yOffset = headlineFontSize * (i + 1);
+    canvasContext.fillText(line, 10, yOffset);
+  });
+}
+
+function draw({device, imageUrl, headline, headlineSize, colourCode}) {
   if(!imageUrl) {
     return Promise.reject('no-image');
   }
@@ -78,6 +107,9 @@ function draw({device, imageUrl}) {
   return new Promise(resolve => {
     image.addEventListener('load', _ => {
       drawImage({canvasContext, image});
+      canvasContext.fillStyle = colourCode;
+      drawHeadline({canvasContext, headline, headlineSize});
+
       resolve(canvas);
     });
   });
