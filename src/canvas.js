@@ -65,6 +65,10 @@ function drawImage({canvasContext, image}) {
 }
 
 function draw({device, imageUrl}) {
+  if(!imageUrl) {
+    return Promise.reject('no-image');
+  }
+
   const canvas = getNewCanvas({device});
   const canvasContext = canvas.getContext('2d');
 

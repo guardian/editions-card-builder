@@ -374,7 +374,7 @@ form.addEventListener('input', e => {
     }
 
     destination.appendChild(canvas);
-  });
+  }).catch(e => console.error(e));
 });
 
 new GridModal({
