@@ -1,6 +1,7 @@
 import Config from './config';
 
 const DIMENSION_MULTIPLIER = 1.5;
+const PADDING = 10;
 
 function getNewCanvas({device}) {
   const [width, height] = Config.dimensions[device];
@@ -66,8 +67,10 @@ function doesTextFit({canvasContext, maxWidth, text}) {
   return measure.width < maxWidth;
 }
 
-function splitStringIntoLines({canvasContext, maxWidth, string}) {
-  const measured = string.split('').reduce(({buffer, lines}, char) => {
+function splitTextIntoLines({canvasContext, maxWidth, text, font, fontSize}) {
+  canvasContext.font = `${fontSize}px ${font}`;
+
+  const measured = text.split('').reduce(({buffer, lines}, char) => {
     const newBuffer = buffer + char;
     return !doesTextFit({canvasContext, maxWidth, text: newBuffer})
       ? { lines: [...lines, buffer], buffer: char }
@@ -77,38 +80,69 @@ function splitStringIntoLines({canvasContext, maxWidth, string}) {
   return [...measured.lines, measured.buffer];
 }
 
-function drawHeadline({canvasContext, headline, headlineSize}) {
-  const headlineFontSize = Config.headline.fontSize[headlineSize];
-  canvasContext.font = `${headlineFontSize}px ${Config.headline.font}`;
-
-  const lines = splitStringIntoLines({
-    canvasContext,
-    maxWidth: Config.headline.maxWidth,
-    string: headline
-  });
+function drawText({canvasContext, lines, fontSize, font, initialOffset}) {
+  canvasContext.font = `${fontSize}px ${font}`;
 
   lines.forEach((line, i) => {
-    const yOffset = headlineFontSize * (i + 1);
-    canvasContext.fillText(line, 10, yOffset);
-  });
+    const yOffset = initialOffset + (fontSize * (i + 1));
+    canvasContext.fillText(line, PADDING, yOffset);
+  })
 }
 
-function draw({device, imageUrl, headline, headlineSize, colourCode}) {
+function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst, standfirstSize}) {
   if(!imageUrl) {
     return Promise.reject('no-image');
   }
 
-  const canvas = getNewCanvas({device});
-  const canvasContext = canvas.getContext('2d');
-
-  const image = new Image();
-  image.src = imageUrl;
-
   return new Promise(resolve => {
+    const canvas = getNewCanvas({device});
+    const canvasContext = canvas.getContext('2d');
+
+    canvasContext.fillStyle = colourCode;
+
+    const splitHeadline = !headline ? [] : splitTextIntoLines({
+      canvasContext,
+      maxWidth: Config.headline.maxWidth,
+      text: headline,
+      font: Config.headline.font,
+      fontSize: Config.headline.fontSize[headlineSize]
+    });
+
+    const splitStandfirst = !standfirst ? [] : splitTextIntoLines({
+      canvasContext,
+      maxWidth: Config.standfirst.maxWidth,
+      text: standfirst,
+      font: Config.standfirst.font,
+      fontSize: Config.standfirst.fontSize[standfirstSize]
+    });
+
+    const image = new Image();
+    image.src = imageUrl;
+
     image.addEventListener('load', _ => {
       drawImage({canvasContext, image});
-      canvasContext.fillStyle = colourCode;
-      drawHeadline({canvasContext, headline, headlineSize});
+
+      if (splitHeadline.length > 0) {
+        drawText({
+          canvasContext,
+          lines: splitHeadline,
+          font: Config.headline.font,
+          fontSize: Config.headline.fontSize[headlineSize],
+          initialOffset: 0
+        });
+      }
+
+      if (splitStandfirst.length > 0) {
+        const standfirstOffset = (splitHeadline.length * Config.headline.fontSize[headlineSize]) + (PADDING * 2);
+
+        drawText({
+          canvasContext,
+          lines: splitStandfirst,
+          font: Config.standfirst.font,
+          fontSize: Config.standfirst.fontSize[standfirstSize],
+          initialOffset: standfirstOffset
+        });
+      }
 
       resolve(canvas);
     });
