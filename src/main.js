@@ -56,7 +56,7 @@ form.addEventListener('input', e => {
 });
 
 new GridModal({
-  gridUrl: 'https://media.test.dev-gutools.co.uk',
+  gridUrl: process.env.GRID_URL,
   triggerEl: document.querySelector('.image-select'),
   targetInput: document.getElementById('imageUrl')
 });
