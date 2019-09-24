@@ -101,16 +101,42 @@ function drawSvg({canvasContext, svg}) {
   })
 }
 
+function getImageDataUrl({imageUrl}) {
+  const key = encodeURIComponent(imageUrl);
+  const maybeItem = sessionStorage.getItem(key);
+
+  if(maybeItem) {
+    return Promise.resolve(maybeItem);
+  }
+
+  return fetch(imageUrl)
+    .then(res => res.blob())
+    .then(blob => URL.createObjectURL(blob))
+    .then(dataUrl => {
+      sessionStorage.setItem(key, dataUrl);
+      return dataUrl;
+    });
+}
+
+function getImage({imageUrl}) {
+  return getImageDataUrl({imageUrl}).then(dataUrl => new Promise(resolve => {
+    const image = new Image();
+    image.addEventListener('load', _ => resolve(image));
+    image.src = dataUrl;
+  }));
+}
+
 function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst, standfirstSize, isTop, svgHeadline}) {
   if(!imageUrl) {
     return Promise.reject('no-image');
   }
 
-  return new Promise(resolve => {
+  return getImage({imageUrl}).then(image => {
     const canvas = getNewCanvas({device});
     const canvasContext = canvas.getContext('2d');
-
     canvasContext.fillStyle = colourCode;
+
+    drawImage({canvasContext, image});
 
     const splitHeadline = !headline ? [] : splitTextIntoLines({
       canvasContext,
@@ -131,57 +157,51 @@ function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst,
     const headlineHeight = (splitHeadline.length * Config.headline.fontSize[headlineSize]) + Config.padding;
     const standfirstHeight = splitStandfirst.length * Config.standfirst.fontSize[standfirstSize];
 
-    const image = new Image();
-    image.src = imageUrl;
+    if(svgHeadline) {
+      return drawSvg({canvasContext, svg: svgHeadline}).then(_ => {
+        const standfirstOffset = canvas.height - standfirstHeight - Config.padding;
 
-    image.addEventListener('load', _ => {
-      drawImage({canvasContext, image});
-
-      if(svgHeadline) {
-        drawSvg({canvasContext, svg: svgHeadline}).then(_ => {
-          const standfirstOffset = canvas.height - standfirstHeight - Config.padding;
-
-          drawText({
-            canvasContext,
-            lines: splitStandfirst,
-            font: Config.standfirst.font,
-            fontSize: Config.standfirst.fontSize[standfirstSize],
-            initialOffset: standfirstOffset
-          });
-
-          resolve(canvas);
+        drawText({
+          canvasContext,
+          lines: splitStandfirst,
+          font: Config.standfirst.font,
+          fontSize: Config.standfirst.fontSize[standfirstSize],
+          initialOffset: standfirstOffset
         });
 
-      } else {
-        if (splitHeadline.length > 0) {
-          const headlineOffset = isTop
-            ? 0
-            : canvas.height - headlineHeight - standfirstHeight - Config.padding;
+        return canvas;
+      });
+    }
 
-          drawText({
-            canvasContext,
-            lines: splitHeadline,
-            font: Config.headline.font,
-            fontSize: Config.headline.fontSize[headlineSize],
-            initialOffset: headlineOffset
-          });
-        }
-        if (splitStandfirst.length > 0) {
-          const standfirstOffset = isTop
-           ? headlineHeight
-           : canvas.height - standfirstHeight - Config.padding;
+    if (splitHeadline.length > 0) {
+      const headlineOffset = isTop
+        ? 0
+        : canvas.height - headlineHeight - standfirstHeight - Config.padding;
 
-          drawText({
-            canvasContext,
-            lines: splitStandfirst,
-            font: Config.standfirst.font,
-            fontSize: Config.standfirst.fontSize[standfirstSize],
-            initialOffset: standfirstOffset
-          });
-        }
-        resolve(canvas);
-      }
-    });
+      drawText({
+        canvasContext,
+        lines: splitHeadline,
+        font: Config.headline.font,
+        fontSize: Config.headline.fontSize[headlineSize],
+        initialOffset: headlineOffset
+      });
+    }
+
+    if (splitStandfirst.length > 0) {
+      const standfirstOffset = isTop
+        ? headlineHeight
+        : canvas.height - standfirstHeight - Config.padding;
+
+      drawText({
+        canvasContext,
+        lines: splitStandfirst,
+        font: Config.standfirst.font,
+        fontSize: Config.standfirst.fontSize[standfirstSize],
+        initialOffset: standfirstOffset
+      });
+    }
+
+    return canvas;
   });
 }
 
