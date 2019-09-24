@@ -88,7 +88,20 @@ function drawText({canvasContext, lines, fontSize, font, initialOffset}) {
   })
 }
 
-function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst, standfirstSize, isTop}) {
+function drawSvg({canvasContext, svg}) {
+  return new Promise(resolve => {
+    const image = new Image();
+    image.width = Config.svgWidth;
+    image.src = `data:image/svg+xml;base64,${window.btoa(svg)}`;
+
+    image.addEventListener('load', _ => {
+      canvasContext.drawImage(image, Config.padding, Config.padding);
+      resolve();
+    });
+  })
+}
+
+function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst, standfirstSize, isTop, svgHeadline}) {
   if(!imageUrl) {
     return Promise.reject('no-image');
   }
@@ -124,35 +137,50 @@ function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst,
     image.addEventListener('load', _ => {
       drawImage({canvasContext, image});
 
-      if (splitHeadline.length > 0) {
-        const headlineOffset = isTop
-          ? 0
-          : canvas.height - headlineHeight - standfirstHeight - Config.padding;
+      if(svgHeadline) {
+        drawSvg({canvasContext, svg: svgHeadline}).then(_ => {
+          const standfirstOffset = canvas.height - standfirstHeight - Config.padding;
 
-        drawText({
-          canvasContext,
-          lines: splitHeadline,
-          font: Config.headline.font,
-          fontSize: Config.headline.fontSize[headlineSize],
-          initialOffset: headlineOffset
+          drawText({
+            canvasContext,
+            lines: splitStandfirst,
+            font: Config.standfirst.font,
+            fontSize: Config.standfirst.fontSize[standfirstSize],
+            initialOffset: standfirstOffset
+          });
+
+          resolve(canvas);
         });
+
+      } else {
+        if (splitHeadline.length > 0) {
+          const headlineOffset = isTop
+            ? 0
+            : canvas.height - headlineHeight - standfirstHeight - Config.padding;
+
+          drawText({
+            canvasContext,
+            lines: splitHeadline,
+            font: Config.headline.font,
+            fontSize: Config.headline.fontSize[headlineSize],
+            initialOffset: headlineOffset
+          });
+        }
+        if (splitStandfirst.length > 0) {
+          const standfirstOffset = isTop
+           ? headlineHeight
+           : canvas.height - standfirstHeight - Config.padding;
+
+          drawText({
+            canvasContext,
+            lines: splitStandfirst,
+            font: Config.standfirst.font,
+            fontSize: Config.standfirst.fontSize[standfirstSize],
+            initialOffset: standfirstOffset
+          });
+        }
+        resolve(canvas);
       }
-
-      if (splitStandfirst.length > 0) {
-        const standfirstOffset = isTop
-         ? headlineHeight
-         : canvas.height - standfirstHeight - Config.padding;
-
-        drawText({
-          canvasContext,
-          lines: splitStandfirst,
-          font: Config.standfirst.font,
-          fontSize: Config.standfirst.fontSize[standfirstSize],
-          initialOffset: standfirstOffset
-        });
-      }
-
-      resolve(canvas);
     });
   });
 }
