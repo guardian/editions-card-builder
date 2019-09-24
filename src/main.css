@@ -200,7 +200,6 @@ header h1 {
 
 .card-builder-left,
 .card-builder-right {
-  width: 50%;
   padding: var(--padding);
   overflow-y: scroll;
 }
@@ -217,12 +216,19 @@ header h1 {
   align-items: center;
 }
 
-.card-builder-right canvas {
+.card-builder-right .card {
   box-shadow: 0px 10px 20px 5px rgba(92,92,92,1);
 }
 
 .card-builder-form {
   padding: var(--padding);
+}
+
+.card-builder-form label,
+.card-builder-form legend {
+  display: block;
+  font-family: "Guardian Titlepiece";
+  font-size: 25px;
 }
 
 textarea,
@@ -237,67 +243,83 @@ textarea {
   resize: vertical;
 }
 
-.color-options {
-  overflow: hidden;
-  font-family: "Guardian Headline Full";
+fieldset,
+legend {
+  padding: 0;
+  margin: 0;
 }
 
-.color-options div {
-  float: left;
-  padding: 10px;
-  margin-right: 10px;
+fieldset {
+  border: none;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
   cursor: pointer;
+  display: inline-block;
+  padding: var(--padding);
+  font-family: "Guardian Headline Full";
+  font-size: 20px;
 }
 
-.color-options div.blue {
-  background-color: #052962;
-  color: #fff;
+input[type=radio]:checked + label {
+  text-decoration: underline;
+  font-weight: 600;
 }
 
-.color-options div.red {
+.colour label[for="colourWhite"] {
+  background-color: #ffffff;
+}
+
+.colour label[for="colourRed"] {
   background-color: #c70000;
   color: #fff;
 }
 
-.color-options div.yellow {
+.colour label[for="colourBlue"] {
+  background-color: #052962;
+  color: #fff;
+}
+
+.colour label[for="colourYellow"] {
   background-color: #ffe500;
 }
 
-.color-options div.grey {
+.colour label[for="colourGrey"] {
   background-color: #ececec;
 }
 
-.button,
-.download-button {
+#customColour,
+.colour label[for="customColour"] {
+  display: none;
+}
+
+.image-select {
+  width: 100%;
+}
+
+.button {
   background-color: #000;
   padding: 8px 16px;
   display: inline-block;
   color: #fff;
   font-size: 24px;
-  cursor: pointer;
   font-family: "Guardian Titlepiece";
 }
 
-.button:hover,
-.download-button:hover {
-  background-color: #ffe500;
-  color: #000;
+.button:disabled {
+  cursor: not-allowed;
 }
 
-.download-button {
+.button:not([disabled]):hover {
+  background-color: #ffe500;
+  color: #000;
+  cursor: pointer;
+}
+
+.download-button:disabled {
   opacity: 0.2;
-}
-
-.download-button:hover {
-  background-color: #000;
-  color: #fff;
-}
-
-.download-button.active {
-  opacity: 1;
-}
-
-.download-button.active:hover {
-  background-color: #ffe500;
-  color: #000;
 }

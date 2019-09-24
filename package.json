@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html -p 8081 --no-hmr",
+    "start": "parcel src/index.html -p 8081",
     "clean": "rm -rf dist",
-    "build": "parcel build src/index.html && copyfiles CNAME dist",
+    "build": "NODE_ENV=production && parcel build src/index.html && copyfiles CNAME dist",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
