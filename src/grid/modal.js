@@ -18,9 +18,15 @@ class GridModal {
     this.triggerEl.addEventListener('click', () => this.open());
   }
 
+  getGridUrl() {
+    return this.imageId
+      ? `${this.gridUrl}/images/${this.imageId}`
+      : this.gridUrl;
+  }
+
   open() {
     const modalNode = document.importNode(this.modalTemplate.content, true);
-    modalNode.querySelector('iframe').src = this.gridUrl;
+    modalNode.querySelector('iframe').src = this.getGridUrl();
     modalNode.querySelector('.modal__dismiss').addEventListener('click', () => this.close());
 
     window.addEventListener('message', this.messageHandler, false);
@@ -46,7 +52,7 @@ class GridModal {
     if (event.origin !== this.gridUrl || !this._isValidMessage(event.data)) {
       return;
     }
-
+    this.imageId = event.data.image.data.id;
     this.targetInput.value = event.data.crop.data.master.secureUrl;
     this.targetInput.parentElement.dispatchEvent(new Event('input'));
     this.close();
