@@ -1,5 +1,5 @@
 import GridModal from './grid/modal';
-import canvas2000 from './canvas';
+import drawCanvas from './canvas';
 import Config from './config';
 
 const form = document.querySelector('.card-builder-form');
@@ -35,7 +35,7 @@ form.addEventListener('input', e => {
   customColourInput.style.display = isCustomColour ? 'block' : 'none';
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
-  canvas2000({
+  drawCanvas({
     device,
     imageUrl,
     headline,
