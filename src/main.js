@@ -371,7 +371,7 @@ form.addEventListener('input', e => {
   document.getElementById('customColour').style.display = isCustomColour ? 'block' : 'none';
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
-  canvas2000({device, imageUrl, headline, headlineSize, standfirst, standfirstSize, colourCode}).then(canvas => {
+  canvas2000({device, imageUrl, headline, headlineSize, standfirst, standfirstSize, colourCode, isTop: position === 'top'}).then(canvas => {
     const destination = document.querySelector(".card-builder-right");
 
     if (destination.firstChild) {

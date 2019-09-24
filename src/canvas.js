@@ -1,7 +1,6 @@
 import Config from './config';
 
 const DIMENSION_MULTIPLIER = 1.5;
-const PADDING = 10;
 
 function getNewCanvas({device}) {
   const [width, height] = Config.dimensions[device];
@@ -85,11 +84,11 @@ function drawText({canvasContext, lines, fontSize, font, initialOffset}) {
 
   lines.forEach((line, i) => {
     const yOffset = initialOffset + (fontSize * (i + 1));
-    canvasContext.fillText(line, PADDING, yOffset);
+    canvasContext.fillText(line, Config.padding, yOffset);
   })
 }
 
-function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst, standfirstSize}) {
+function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst, standfirstSize, isTop}) {
   if(!imageUrl) {
     return Promise.reject('no-image');
   }
@@ -116,6 +115,9 @@ function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst,
       fontSize: Config.standfirst.fontSize[standfirstSize]
     });
 
+    const headlineHeight = (splitHeadline.length * Config.headline.fontSize[headlineSize]) + Config.padding;
+    const standfirstHeight = splitStandfirst.length * Config.standfirst.fontSize[standfirstSize];
+
     const image = new Image();
     image.src = imageUrl;
 
@@ -123,17 +125,23 @@ function draw({device, imageUrl, headline, headlineSize, colourCode, standfirst,
       drawImage({canvasContext, image});
 
       if (splitHeadline.length > 0) {
+        const headlineOffset = isTop
+          ? 0
+          : canvas.height - headlineHeight - standfirstHeight - Config.padding;
+
         drawText({
           canvasContext,
           lines: splitHeadline,
           font: Config.headline.font,
           fontSize: Config.headline.fontSize[headlineSize],
-          initialOffset: 0
+          initialOffset: headlineOffset
         });
       }
 
       if (splitStandfirst.length > 0) {
-        const standfirstOffset = (splitHeadline.length * Config.headline.fontSize[headlineSize]) + (PADDING * 2);
+        const standfirstOffset = isTop
+         ? headlineHeight
+         : canvas.height - standfirstHeight - Config.padding;
 
         drawText({
           canvasContext,

@@ -3,6 +3,7 @@ export default {
     mobile: [350, 540],
     tablet: [650, 725]
   },
+  padding: 10,
   headline: {
     font: 'Guardian Titlepiece',
     maxWidth: 350,
