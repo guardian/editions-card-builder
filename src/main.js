@@ -349,6 +349,14 @@ function init() {
 
 const form = document.querySelector('.card-builder-form');
 
+const downloadButton = document.querySelector('.download-button');
+
+downloadButton.addEventListener('click', () => {
+  const canvas = document.querySelector("canvas");
+  const image = canvas.toDataURL("image/png");
+  document.write(`<img src="${image}"/>`);
+});
+
 form.addEventListener('input', e => {
   const formData = new FormData(form);
 
@@ -379,6 +387,7 @@ form.addEventListener('input', e => {
     }
 
     destination.appendChild(canvas);
+    downloadButton.disabled = false;
   }).catch(e => console.error(e));
 });
 
