@@ -3,15 +3,9 @@ import drawCanvas from './canvas';
 import Config from './config';
 
 const form = document.querySelector('.card-builder-form');
-const downloadButton = document.querySelector('.download-button');
+const downloadLink = document.querySelector('#download');
 const customColourInput = document.getElementById('customColour');
 const destination = document.querySelector(".card-builder-right");
-
-downloadButton.addEventListener('click', () => {
-  const canvas = document.querySelector("canvas");
-  const image = canvas.toDataURL("image/png");
-  document.write(`<img src="${image}"/>`);
-});
 
 form.addEventListener('input', e => {
   const formData = new FormData(form);
@@ -35,6 +29,10 @@ form.addEventListener('input', e => {
   customColourInput.style.display = isCustomColour ? 'block' : 'none';
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
+  if (destination.firstChild) {
+    destination.firstChild.remove();
+  }
+
   drawCanvas({
     device,
     imageUrl,
@@ -46,12 +44,10 @@ form.addEventListener('input', e => {
     isTop: position === 'top',
     svgHeadline
   }).then(canvas => {
-    if (destination.firstChild) {
-      destination.firstChild.remove();
-    }
-
     destination.appendChild(canvas);
-    downloadButton.disabled = false;
+    
+    const image = canvas.toDataURL("image/png");
+    downloadLink.href = image;
   }).catch(e => console.error(e));
 });
 
