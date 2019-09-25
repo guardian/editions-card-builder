@@ -111,7 +111,12 @@ function getImageDataUrl({imageUrl}) {
 
   return fetch(imageUrl)
     .then(res => res.blob())
-    .then(blob => URL.createObjectURL(blob))
+    .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    }))
     .then(dataUrl => {
       sessionStorage.setItem(key, dataUrl);
       return dataUrl;
