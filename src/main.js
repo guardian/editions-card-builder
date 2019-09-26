@@ -31,10 +31,6 @@ form.addEventListener('input', e => {
   customColourInput.style.display = isCustomColour ? 'block' : 'none';
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
-  if (destination.firstChild) {
-    destination.firstChild.remove();
-  }
-
   canvasCard.draw({
     device,
     imageUrl,
@@ -46,6 +42,10 @@ form.addEventListener('input', e => {
     isTop: position === 'top',
     svgHeadline
   }).then(canvas => {
+    if (destination.firstChild) {
+      destination.firstChild.remove();
+    }
+
     destination.appendChild(canvas);
 
     const image = canvas.toDataURL("image/png");
