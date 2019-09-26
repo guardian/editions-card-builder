@@ -3,11 +3,16 @@ import CanvasCard from './canvas';
 import Config from './config';
 
 const form = document.querySelector('.card-builder-form');
-const downloadLink = document.querySelector('#download');
+const downloadLink = document.getElementById('download');
 const customColourInput = document.getElementById('customColour');
 const destination = document.querySelector(".card-builder-right");
+const uploadButton = document.getElementById('upload');
 
 const canvasCard = new CanvasCard();
+
+uploadButton.addEventListener('click', _ => {
+  console.log('uploading image to Grid');
+});
 
 form.addEventListener('input', e => {
   const formData = new FormData(form);
@@ -31,6 +36,9 @@ form.addEventListener('input', e => {
   customColourInput.style.display = isCustomColour ? 'inline-block' : 'none';
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
+  downloadLink.removeAttribute('href');
+  uploadButton.disabled = true;
+
   canvasCard.draw({
     device,
     imageUrl,
@@ -49,7 +57,8 @@ form.addEventListener('input', e => {
     destination.appendChild(canvas);
 
     const image = canvas.toDataURL("image/png");
-    downloadLink.href = image;
+    downloadLink.setAttribute('href', image);
+    uploadButton.disabled = false;
   }).catch(e => console.error(e));
 });
 
