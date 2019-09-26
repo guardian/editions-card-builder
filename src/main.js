@@ -1,11 +1,13 @@
 import GridModal from './grid/modal';
-import drawCanvas from './canvas';
+import CanvasCard from './canvas';
 import Config from './config';
 
 const form = document.querySelector('.card-builder-form');
 const downloadLink = document.querySelector('#download');
 const customColourInput = document.getElementById('customColour');
 const destination = document.querySelector(".card-builder-right");
+
+const canvasCard = new CanvasCard();
 
 form.addEventListener('input', e => {
   const formData = new FormData(form);
@@ -29,11 +31,7 @@ form.addEventListener('input', e => {
   customColourInput.style.display = isCustomColour ? 'block' : 'none';
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
-  if (destination.firstChild) {
-    destination.firstChild.remove();
-  }
-
-  drawCanvas({
+  canvasCard.draw({
     device,
     imageUrl,
     headline,
@@ -44,8 +42,12 @@ form.addEventListener('input', e => {
     isTop: position === 'top',
     svgHeadline
   }).then(canvas => {
+    if (destination.firstChild) {
+      destination.firstChild.remove();
+    }
+
     destination.appendChild(canvas);
-    
+
     const image = canvas.toDataURL("image/png");
     downloadLink.href = image;
   }).catch(e => console.error(e));
