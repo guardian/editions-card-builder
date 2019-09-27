@@ -156,7 +156,7 @@
 
 :root {
   --headerHeight: 50px;
-  --padding: 10px;
+  --spacing: 10px;
 
   --blueish: #f1f8fc;
   --darkblueish: #67bed8;
@@ -179,7 +179,7 @@ header {
   line-height: var(--headerHeight);
   background-color: #121212;
   color: var(--blueish);
-  padding: var(--padding);
+  padding: var(--spacing);
   position: sticky;
   top: 0px;
   display: flex;
@@ -188,40 +188,35 @@ header {
 
 header h1 {
   display: inline-block;
-  padding-right: var(--padding);
+  padding-right: var(--spacing);
   color: var(--darkblueish);
 }
 
 .card-builder {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - var(--headerHeight) - (var(--padding) * 2));
+  height: calc(100vh - var(--headerHeight) - (var(--spacing) * 2));
 }
 
 .card-builder-left,
 .card-builder-right {
-  padding: var(--padding);
+  padding: var(--spacing);
   overflow-y: scroll;
 }
 
 .card-builder-left {
-  width: 600px;
+  width: 375px;
   background-color: var(--blueish);
 }
 
 .card-builder-right {
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .card-builder-right .card {
+  display: block;
+  margin: var(--spacing) auto 0 auto;
   box-shadow: 0px 10px 20px 5px rgba(92,92,92,1);
-}
-
-.card-builder-form {
-  padding: var(--padding);
 }
 
 .card-builder-form label,
@@ -229,6 +224,7 @@ header h1 {
   display: block;
   font-family: "Guardian Titlepiece";
   font-size: 25px;
+  padding-top: var(--spacing);
 }
 
 textarea,
@@ -260,7 +256,7 @@ input[type="radio"] {
 input[type="radio"] + label {
   cursor: pointer;
   display: inline-block;
-  padding: var(--padding);
+  padding: var(--spacing);
   font-family: "Guardian Headline Full";
   font-size: 20px;
 }
@@ -292,9 +288,9 @@ input[type=radio]:checked + label {
   background-color: #ececec;
 }
 
-#customColour,
-.colour label[for="customColour"] {
+#customColour {
   display: none;
+  width: 150px;
 }
 
 .image-select {

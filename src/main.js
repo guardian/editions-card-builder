@@ -28,7 +28,7 @@ form.addEventListener('input', e => {
   const isCustomColour = colour === Config.colours.custom;
 
   // show custom colour input if `custom` is selected
-  customColourInput.style.display = isCustomColour ? 'block' : 'none';
+  customColourInput.style.display = isCustomColour ? 'inline-block' : 'none';
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
   canvasCard.draw({
