@@ -305,6 +305,7 @@ button {
   color: #fff;
   font-size: 24px;
   font-family: "Guardian Titlepiece";
+  border: none;
 }
 
 a {
@@ -315,7 +316,7 @@ a {
 a:not([href]),
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.2;
+  opacity: 0.8;
 }
 
 a[href]:hover,

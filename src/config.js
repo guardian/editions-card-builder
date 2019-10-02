@@ -29,5 +29,27 @@ export default {
     yellow: '#ffe500',
     grey: '#ececec',
     custom: 'custom'
+  },
+  upload: {
+    labels: [
+      'edition-cover-card'
+    ],
+    collections: [
+      'iPad Daily Edition'
+    ],
+    metadataToCopy: [
+      'credit',
+      'description',
+      'dateTaken',
+      'byline',
+      'bylineTitle',
+      'title',
+      'copyrightNotice',
+      'copyright',
+      'suppliersReference',
+      'source',
+      'city',
+      'country'
+    ]
   }
 };

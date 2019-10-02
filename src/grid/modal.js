@@ -2,8 +2,8 @@ import templateString from './template.html';
 import './modal.css';
 
 class GridModal {
-  constructor({gridUrl, triggerEl, targetInput}) {
-    this.gridUrl = gridUrl;
+  constructor({gridDomain, triggerEl, targetInput}) {
+    this.gridUrl = `https://${gridDomain}`;
     this.triggerEl = triggerEl;
     this.targetInput = targetInput;
 
@@ -38,6 +38,10 @@ class GridModal {
     document.body.removeChild(document.querySelector('.modal'));
   }
 
+  getApiResponse() {
+    return this.apiResponse;
+  }
+
   _isValidMessage(data) {
     return (
       data
@@ -52,6 +56,7 @@ class GridModal {
     if (event.origin !== this.gridUrl || !this._isValidMessage(event.data)) {
       return;
     }
+    this.apiResponse = event.data.image;
     this.imageId = event.data.image.data.id;
     this.targetInput.value = event.data.crop.data.master.secureUrl;
     this.targetInput.parentElement.dispatchEvent(new Event('input'));
