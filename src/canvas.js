@@ -193,6 +193,7 @@ class CanvasCard {
           lines: splitHeadline,
           font: Config.headline.font,
           fontSize: Config.headline.fontSize[headlineSize],
+          lineHeight: Config.headline.lineHeight[headlineSize],
           initialOffset: headlineOffset
         });
       }
@@ -207,6 +208,7 @@ class CanvasCard {
           lines: splitStandfirst,
           font: Config.standfirst.font,
           fontSize: Config.standfirst.fontSize[standfirstSize],
+          lineHeight: Config.standfirst.lineHeight[standfirstSize],
           initialOffset: standfirstOffset
         });
       }
