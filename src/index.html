@@ -11,7 +11,6 @@
   <header>
     <div>
       <h1>Editions Card Builder</h1>
-      create cards for the Editions app
     </div>
     <div>
       <button id="upload" disabled>Upload</button>
@@ -21,12 +20,12 @@
   <div class="card-builder">
     <div class="card-builder-left">
       <form class="card-builder-form">
-        <button type="button" class="image-select">Select image</button>
+        <button type="button" class="image-select"> <svg width="26" height="20" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26 4.834l-1.743-1.773h-5.939L15.364.107h-4.757L7.652 3.06h-5.88L0 4.834v13.06l1.773 1.742h22.484L26 17.805V4.835zM13 16.357a5.29 5.29 0 01-5.318-5.289A5.296 5.296 0 0113 5.75c2.954 0 5.348 2.364 5.348 5.318 0 2.925-2.393 5.289-5.348 5.289z" fill="#000"/></svg> Select image</button>
         <input id="imageUrl" type="hidden" name="imageUrl">
-
+        <divide></divide>
         <label for="headline">Headline</label>
         <input id="headline" name="headline" class="input-headline" type="text" placeholder="headline...">
-
+        <divide></divide>
         <fieldset>
           <legend>Headline Size</legend>
           <input type="radio" id="headlineSmall" name="headlineSize" value="small" checked>
@@ -38,7 +37,7 @@
           <input type="radio" id="headlineLarge" name="headlineSize" value="large">
           <label for="headlineLarge">Large</label>
         </fieldset>
-
+        <divide></divide>
         <fieldset class="colour">
           <legend>Colour</legend>
 
@@ -63,10 +62,10 @@
             <input id="customColour" name="customColour" type="text" value="hotpink">
           </div>
         </fieldset>
-
+        <divide></divide>
         <label for="standfirst">Standfirst</label>
         <textarea id="standfirst" name="standfirst" type="text-area" placeholder="standfirst..."></textarea>
-
+        <divide></divide>
         <fieldset>
           <legend>Standfirst Size</legend>
           <input type="radio" id="standfirstSmall" name="standfirstSize" value="small" checked>
@@ -75,7 +74,7 @@
           <input type="radio" id="standfirstMedium" name="standfirstSize" value="medium">
           <label for="standfirstMedium">Medium</label>
         </fieldset>
-
+        <divide></divide>
         <fieldset>
           <legend>Position</legend>
           <input type="radio" id="positionTop" name="position" value="top" checked>
@@ -84,7 +83,7 @@
           <input type="radio" id="positionBottom" name="position" value="bottom">
           <label for="positionBottom">Bottom</label>
         </fieldset>
-
+        <divide></divide>
         <fieldset>
           <legend>Device</legend>
           <input type="radio" id="deviceMobile" name="device" value="mobile" checked>
@@ -93,7 +92,7 @@
           <input type="radio" id="deviceTablet" name="device" value="tablet">
           <label for="deviceTablet">Tablet</label>
         </fieldset>
-
+        <divide></divide>
         <label for="svgHeadline">SVG Headline</label>
         <textarea id="svgHeadline" name="svgHeadline" rows="8" type="text-area"></textarea>
       </form>
