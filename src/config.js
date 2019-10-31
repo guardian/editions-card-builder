@@ -6,7 +6,7 @@ export default {
   svgWidth: 400,
   padding: 10,
   headline: {
-    font: 'Guardian Titlepiece',
+    font: "Guardian Titlepiece",
     maxWidth: 420,
     lineHeight: {
       small: 54,
@@ -20,7 +20,7 @@ export default {
     }
   },
   standfirst: {
-    font: 'Guardian Headline Full',
+    font: "Guardian Headline Full",
     maxWidth: 280,
     lineHeight: {
       small: 34,
@@ -32,33 +32,29 @@ export default {
     }
   },
   colours: {
-    white: '#eeeeee',
-    red: '#c70000',
-    blue: '#052962',
-    yellow: '#ffe500',
-    grey: '#ececec',
-    custom: 'custom'
+    white: "#eeeeee",
+    red: "#c70000",
+    blue: "#052962",
+    yellow: "#ffe500",
+    grey: "#ececec",
+    custom: "custom"
   },
   upload: {
-    labels: [
-      'edition-cover-card'
-    ],
-    collections: [
-      'iPad Daily Edition'
-    ],
+    labels: ["edition-cover-card"],
+    collections: ["iPad Daily Edition"],
     metadataToCopy: [
-      'credit',
-      'description',
-      'dateTaken',
-      'byline',
-      'bylineTitle',
-      'title',
-      'copyrightNotice',
-      'copyright',
-      'suppliersReference',
-      'source',
-      'city',
-      'country'
+      "credit",
+      "description",
+      "dateTaken",
+      "byline",
+      "bylineTitle",
+      "title",
+      "copyrightNotice",
+      "copyright",
+      "suppliersReference",
+      "source",
+      "city",
+      "country"
     ]
   }
 };

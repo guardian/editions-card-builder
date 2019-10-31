@@ -1,4 +1,4 @@
-import Config from './config';
+import Config from "./config";
 
 const DIMENSION_MULTIPLIER = 1.5;
 
@@ -7,18 +7,18 @@ class CanvasCard {
     this.imageCache = new Map();
   }
 
-  _getNewCanvas({device}) {
+  _getNewCanvas({ device }) {
     const [width, height] = Config.dimensions[device];
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
 
-    canvas.classList.add('card');
+    canvas.classList.add("card");
     canvas.width = width * DIMENSION_MULTIPLIER;
     canvas.height = height * DIMENSION_MULTIPLIER;
 
     return canvas;
   }
 
-  _drawImage({canvasContext, image}) {
+  _drawImage({ canvasContext, image }) {
     const x = 0;
     const y = 0;
     const xOffset = 0.5;
@@ -29,7 +29,10 @@ class CanvasCard {
     const imageWidth = image.width;
     const imageHeight = image.height;
 
-    const ratio = Math.min(canvasWidth / imageWidth, canvasHeight / imageHeight);
+    const ratio = Math.min(
+      canvasWidth / imageWidth,
+      canvasHeight / imageHeight
+    );
 
     const width = imageWidth * ratio;
     const height = imageHeight * ratio;
@@ -66,110 +69,137 @@ class CanvasCard {
     );
   }
 
-  _doesTextFit({canvasContext, maxWidth, text}) {
+  _doesTextFit({ canvasContext, maxWidth, text }) {
     const measure = canvasContext.measureText(text);
     return measure.width < maxWidth;
   }
 
-  _splitTextIntoLines({canvasContext, maxWidth, text, font, fontSize}) {
+  _splitTextIntoLines({ canvasContext, maxWidth, text, font, fontSize }) {
     canvasContext.font = `${fontSize}px ${font}`;
 
-    const measured = text.split('').reduce(({buffer, lines}, char) => {
-      const newBuffer = buffer + char;
-      return !this._doesTextFit({canvasContext, maxWidth, text: newBuffer})
-        ? { lines: [...lines, buffer], buffer: char }
-        : { lines: lines, buffer: newBuffer }
-    }, { buffer: '', lines: [] });
+    const measured = text.split("").reduce(
+      ({ buffer, lines }, char) => {
+        const newBuffer = buffer + char;
+        return !this._doesTextFit({ canvasContext, maxWidth, text: newBuffer })
+          ? { lines: [...lines, buffer], buffer: char }
+          : { lines: lines, buffer: newBuffer };
+      },
+      { buffer: "", lines: [] }
+    );
 
     return [...measured.lines, measured.buffer];
   }
 
-  _drawText({canvasContext, lines, fontSize, font, initialOffset}) {
+  _drawText({ canvasContext, lines, fontSize, font, initialOffset }) {
     canvasContext.font = `${fontSize}px ${font}`;
 
     lines.forEach((line, i) => {
-      const yOffset = initialOffset + (fontSize * (i + 1));
+      const yOffset = initialOffset + fontSize * (i + 1);
       canvasContext.fillText(line, Config.padding, yOffset);
-    })
+    });
   }
 
-  _drawSvg({canvasContext, svg}) {
+  _drawSvg({ canvasContext, svg }) {
     return new Promise(resolve => {
       const image = new Image();
       image.width = Config.svgWidth;
       image.src = `data:image/svg+xml;base64,${window.btoa(svg)}`;
 
-      image.addEventListener('load', _ => {
+      image.addEventListener("load", _ => {
         canvasContext.drawImage(image, Config.padding, Config.padding);
         resolve();
       });
-    })
+    });
   }
 
-  _getImageDataUrl({imageUrl}) {
+  _getImageDataUrl({ imageUrl }) {
     const key = encodeURIComponent(imageUrl);
     const maybeItem = this.imageCache.get(key);
 
-    if(maybeItem) {
+    if (maybeItem) {
       return Promise.resolve(maybeItem);
     }
 
     return fetch(imageUrl)
       .then(res => res.blob())
-      .then(blob => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      }))
+      .then(
+        blob =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      )
       .then(dataUrl => {
         this.imageCache.set(key, dataUrl);
         return dataUrl;
       });
   }
 
-  _getImage({imageUrl}) {
-    return this._getImageDataUrl({imageUrl}).then(dataUrl => new Promise(resolve => {
-      const image = new Image();
-      image.addEventListener('load', _ => resolve(image));
-      image.src = dataUrl;
-    }));
+  _getImage({ imageUrl }) {
+    return this._getImageDataUrl({ imageUrl }).then(
+      dataUrl =>
+        new Promise(resolve => {
+          const image = new Image();
+          image.addEventListener("load", _ => resolve(image));
+          image.src = dataUrl;
+        })
+    );
   }
 
-  draw({device, imageUrl, headline, headlineSize, colourCode, standfirst, standfirstSize, isTop, svgHeadline}) {
-    if(!imageUrl) {
-      return Promise.reject('no-image');
+  draw({
+    device,
+    imageUrl,
+    headline,
+    headlineSize,
+    colourCode,
+    standfirst,
+    standfirstSize,
+    isTop,
+    svgHeadline
+  }) {
+    if (!imageUrl) {
+      return Promise.reject("no-image");
     }
 
-    return this._getImage({imageUrl}).then(image => {
-      const canvas = this._getNewCanvas({device});
-      const canvasContext = canvas.getContext('2d');
+    return this._getImage({ imageUrl }).then(image => {
+      const canvas = this._getNewCanvas({ device });
+      const canvasContext = canvas.getContext("2d");
       canvasContext.fillStyle = colourCode;
 
-      this._drawImage({canvasContext, image});
+      this._drawImage({ canvasContext, image });
 
-      const splitHeadline = !headline ? [] : this._splitTextIntoLines({
-        canvasContext,
-        maxWidth: Config.headline.maxWidth,
-        text: headline,
-        font: Config.headline.font,
-        fontSize: Config.headline.fontSize[headlineSize]
-      });
+      const splitHeadline = !headline
+        ? []
+        : this._splitTextIntoLines({
+            canvasContext,
+            maxWidth: Config.headline.maxWidth,
+            text: headline,
+            font: Config.headline.font,
+            fontSize: Config.headline.fontSize[headlineSize]
+          });
 
-      const splitStandfirst = !standfirst ? [] : this._splitTextIntoLines({
-        canvasContext,
-        maxWidth: Config.standfirst.maxWidth,
-        text: standfirst,
-        font: Config.standfirst.font,
-        fontSize: Config.standfirst.fontSize[standfirstSize]
-      });
+      const splitStandfirst = !standfirst
+        ? []
+        : this._splitTextIntoLines({
+            canvasContext,
+            maxWidth: Config.standfirst.maxWidth,
+            text: standfirst,
+            font: Config.standfirst.font,
+            fontSize: Config.standfirst.fontSize[standfirstSize]
+          });
 
-      const headlineHeight = (splitHeadline.length * Config.headline.fontSize[headlineSize]) + Config.padding;
-      const standfirstHeight = splitStandfirst.length * Config.standfirst.fontSize[standfirstSize];
+      const headlineHeight =
+        splitHeadline.length * Config.headline.fontSize[headlineSize] +
+        Config.padding;
+      const standfirstHeight =
+        splitStandfirst.length * Config.standfirst.fontSize[standfirstSize];
 
-      if(svgHeadline) {
-        return this._drawSvg({canvasContext, svg: svgHeadline}).then(_ => {
-          const standfirstOffset = canvas.height - standfirstHeight - Config.padding;
+      if (svgHeadline) {
+        return this._drawSvg({ canvasContext, svg: svgHeadline }).then(_ => {
+          const standfirstOffset =
+            canvas.height - standfirstHeight - Config.padding;
 
           this._drawText({
             canvasContext,
