@@ -105,11 +105,18 @@ class CanvasCard {
     return [...measured.lines, measured.buffer];
   }
 
-  _drawText({ canvasContext, lines, fontSize, font, initialOffset }) {
+  _drawText({
+    canvasContext,
+    lines,
+    fontSize,
+    font,
+    initialOffset,
+    lineHeight
+  }) {
     canvasContext.font = `${fontSize}px ${font}`;
 
     lines.forEach((line, i) => {
-      const yOffset = initialOffset + fontSize * (i + 1);
+      const yOffset = initialOffset + lineHeight * (i + 1);
       canvasContext.fillText(line, Config.padding, yOffset);
     });
   }
@@ -187,6 +194,7 @@ class CanvasCard {
         imageHeight: image.height,
         imageWidth: image.width
       });
+
       const canvas = this._getNewCanvas({ width, height });
 
       canvas.style.transform = `scale(${1 / scale})`;
@@ -217,12 +225,12 @@ class CanvasCard {
           });
 
       const headlineHeight =
-        (splitHeadline.length * Config.headline.fontSize[headlineSize] +
+        (splitHeadline.length * Config.headline.lineHeight[headlineSize] +
           Config.padding) *
         scale;
       const standfirstHeight =
         splitStandfirst.length *
-        Config.standfirst.fontSize[standfirstSize] *
+        Config.standfirst.lineHeight[standfirstSize] *
         scale;
 
       if (svgHeadline) {
