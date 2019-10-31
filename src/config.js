@@ -1,7 +1,7 @@
 export default {
   dimensions: {
-    mobile: [350, 540],
-    tablet: [650, 725]
+    mobile: [525, 810],
+    tablet: [975, 1088]
   },
   svgWidth: 400,
   padding: 10,

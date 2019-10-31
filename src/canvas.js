@@ -1,23 +1,37 @@
 import Config from "./config";
 
-const DIMENSION_MULTIPLIER = 1.5;
-
 class CanvasCard {
   constructor() {
     this.imageCache = new Map();
   }
 
-  _getNewCanvas({ device }) {
-    const [width, height] = Config.dimensions[device];
+  _getNewCanvas({ width, height }) {
     const canvas = document.createElement("canvas");
 
     canvas.classList.add("card");
-    canvas.width = width * DIMENSION_MULTIPLIER;
-    canvas.height = height * DIMENSION_MULTIPLIER;
+    canvas.width = width;
+    canvas.height = height;
 
     return canvas;
   }
 
+  _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }) {
+    //For each unit of width, the image has this height
+    const deviceRatio = deviceWidth / deviceHeight;
+    const imageRatio = imageWidth / imageHeight;
+    if (deviceRatio < imageRatio) {
+      return {
+        width: imageHeight * deviceRatio,
+        height: imageHeight,
+        scale: imageHeight / deviceHeight
+      };
+    }
+    return {
+      width: imageWidth,
+      height: imageWidth / deviceRatio,
+      scale: imageWidth / deviceWidth
+    };
+  }
   _drawImage({ canvasContext, image }) {
     const x = 0;
     const y = 0;
@@ -26,6 +40,7 @@ class CanvasCard {
 
     const canvasWidth = canvasContext.canvas.width;
     const canvasHeight = canvasContext.canvas.height;
+
     const imageWidth = image.width;
     const imageHeight = image.height;
 
@@ -99,10 +114,10 @@ class CanvasCard {
     });
   }
 
-  _drawSvg({ canvasContext, svg }) {
+  _drawSvg({ canvasContext, svg, scale }) {
     return new Promise(resolve => {
       const image = new Image();
-      image.width = Config.svgWidth;
+      image.width = Config.svgWidth * scale;
       image.src = `data:image/svg+xml;base64,${window.btoa(svg)}`;
 
       image.addEventListener("load", _ => {
@@ -164,66 +179,85 @@ class CanvasCard {
     }
 
     return this._getImage({ imageUrl }).then(image => {
-      const canvas = this._getNewCanvas({ device });
+      const [deviceWidth, deviceHeight] = Config.dimensions[device];
+
+      const { width, height, scale } = this._getCanvasDimensions({
+        deviceWidth,
+        deviceHeight,
+        imageHeight: image.height,
+        imageWidth: image.width
+      });
+      const canvas = this._getNewCanvas({ width, height });
+
+      canvas.style.transform = `scale(${1 / scale})`;
+
       const canvasContext = canvas.getContext("2d");
       canvasContext.fillStyle = colourCode;
 
-      this._drawImage({ canvasContext, image });
+      this._drawImage({ canvasContext, image, device });
 
       const splitHeadline = !headline
         ? []
         : this._splitTextIntoLines({
             canvasContext,
-            maxWidth: Config.headline.maxWidth,
+            maxWidth: Config.headline.maxWidth * scale,
             text: headline,
             font: Config.headline.font,
-            fontSize: Config.headline.fontSize[headlineSize]
+            fontSize: Config.headline.fontSize[headlineSize] * scale
           });
 
       const splitStandfirst = !standfirst
         ? []
         : this._splitTextIntoLines({
             canvasContext,
-            maxWidth: Config.standfirst.maxWidth,
+            maxWidth: Config.standfirst.maxWidth * scale,
             text: standfirst,
             font: Config.standfirst.font,
-            fontSize: Config.standfirst.fontSize[standfirstSize]
+            fontSize: Config.standfirst.fontSize[standfirstSize] * scale
           });
 
       const headlineHeight =
-        splitHeadline.length * Config.headline.fontSize[headlineSize] +
-        Config.padding;
+        (splitHeadline.length * Config.headline.fontSize[headlineSize] +
+          Config.padding) *
+        scale;
       const standfirstHeight =
-        splitStandfirst.length * Config.standfirst.fontSize[standfirstSize];
+        splitStandfirst.length *
+        Config.standfirst.fontSize[standfirstSize] *
+        scale;
 
       if (svgHeadline) {
-        return this._drawSvg({ canvasContext, svg: svgHeadline }).then(_ => {
-          const standfirstOffset =
-            canvas.height - standfirstHeight - Config.padding;
+        return this._drawSvg({ canvasContext, svg: svgHeadline, scale }).then(
+          _ => {
+            const standfirstOffset =
+              canvas.height - standfirstHeight - Config.padding * scale;
 
-          this._drawText({
-            canvasContext,
-            lines: splitStandfirst,
-            font: Config.standfirst.font,
-            fontSize: Config.standfirst.fontSize[standfirstSize],
-            initialOffset: standfirstOffset
-          });
+            this._drawText({
+              canvasContext,
+              lines: splitStandfirst,
+              font: Config.standfirst.font,
+              fontSize: Config.standfirst.fontSize[standfirstSize] * scale,
+              initialOffset: standfirstOffset
+            });
 
-          return canvas;
-        });
+            return canvas;
+          }
+        );
       }
 
       if (splitHeadline.length > 0) {
         const headlineOffset = isTop
           ? 0
-          : canvas.height - headlineHeight - standfirstHeight - Config.padding;
+          : canvas.height -
+            headlineHeight -
+            standfirstHeight -
+            Config.padding * scale;
 
         this._drawText({
           canvasContext,
           lines: splitHeadline,
           font: Config.headline.font,
-          fontSize: Config.headline.fontSize[headlineSize],
-          lineHeight: Config.headline.lineHeight[headlineSize],
+          fontSize: Config.headline.fontSize[headlineSize] * scale,
+          lineHeight: Config.headline.lineHeight[headlineSize] * scale,
           initialOffset: headlineOffset
         });
       }
@@ -231,14 +265,14 @@ class CanvasCard {
       if (splitStandfirst.length > 0) {
         const standfirstOffset = isTop
           ? headlineHeight
-          : canvas.height - standfirstHeight - Config.padding;
+          : canvas.height - standfirstHeight - Config.padding * scale;
 
         this._drawText({
           canvasContext,
           lines: splitStandfirst,
           font: Config.standfirst.font,
-          fontSize: Config.standfirst.fontSize[standfirstSize],
-          lineHeight: Config.standfirst.lineHeight[standfirstSize],
+          fontSize: Config.standfirst.fontSize[standfirstSize] * scale,
+          lineHeight: Config.standfirst.lineHeight[standfirstSize] * scale,
           initialOffset: standfirstOffset
         });
       }
