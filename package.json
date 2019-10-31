@@ -8,7 +8,8 @@
     "start": "parcel src/index.html -p 8081",
     "clean": "rm -rf dist",
     "build": "NODE_ENV=production && parcel build src/index.html && copyfiles CNAME dist",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "format": "prettier --write \"src/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "copyfiles": "^2.1.1",
     "gh-pages": "^2.1.1",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.3",
+    "prettier": "1.18.2"
   }
 }
