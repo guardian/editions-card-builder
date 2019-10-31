@@ -71,7 +71,7 @@ class CanvasCard {
     return measure.width < maxWidth;
   }
 
-  _splitTextIntoLines({canvasContext, maxWidth, text, font, fontSize}) {
+  _splitTextIntoLines({canvasContext, maxWidth, text, font, fontSize, lineHeight}) {
     canvasContext.font = `${fontSize}px ${font}`;
 
     const measured = text.split('').reduce(({buffer, lines}, char) => {
@@ -84,11 +84,11 @@ class CanvasCard {
     return [...measured.lines, measured.buffer];
   }
 
-  _drawText({canvasContext, lines, fontSize, font, initialOffset}) {
+  _drawText({canvasContext, lines, fontSize, font, initialOffset, lineHeight}) {
     canvasContext.font = `${fontSize}px ${font}`;
 
     lines.forEach((line, i) => {
-      const yOffset = initialOffset + (fontSize * (i + 1));
+      const yOffset = initialOffset + (lineHeight * (i + 1));
       canvasContext.fillText(line, Config.padding, yOffset);
     })
   }
@@ -153,7 +153,8 @@ class CanvasCard {
         maxWidth: Config.headline.maxWidth,
         text: headline,
         font: Config.headline.font,
-        fontSize: Config.headline.fontSize[headlineSize]
+        fontSize: Config.headline.fontSize[headlineSize],
+        lineHeight: Config.headline.lineHeight[headlineSize]
       });
 
       const splitStandfirst = !standfirst ? [] : this._splitTextIntoLines({
@@ -161,7 +162,8 @@ class CanvasCard {
         maxWidth: Config.standfirst.maxWidth,
         text: standfirst,
         font: Config.standfirst.font,
-        fontSize: Config.standfirst.fontSize[standfirstSize]
+        fontSize: Config.standfirst.fontSize[standfirstSize],
+        lineHeight: Config.standfirst.lineHeight[standfirstSize]
       });
 
       const headlineHeight = (splitHeadline.length * Config.headline.fontSize[headlineSize]) + Config.padding;
@@ -176,6 +178,7 @@ class CanvasCard {
             lines: splitStandfirst,
             font: Config.standfirst.font,
             fontSize: Config.standfirst.fontSize[standfirstSize],
+            lineHeight: Config.standfirst.lineHeight[standfirstSize],
             initialOffset: standfirstOffset
           });
 
