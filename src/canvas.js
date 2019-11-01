@@ -128,13 +128,14 @@ class CanvasCard {
     fontSize,
     font,
     initialOffset,
-    lineHeight
+    lineHeight,
+    scale
   }) {
     canvasContext.font = `${fontSize}px ${font}`;
 
     lines.forEach((line, i) => {
       const yOffset = initialOffset + lineHeight * (i + 1);
-      canvasContext.fillText(line, Config.padding, yOffset);
+      canvasContext.fillText(line, Config.padding * scale, yOffset);
     });
   }
 
@@ -145,7 +146,11 @@ class CanvasCard {
       image.src = `data:image/svg+xml;base64,${window.btoa(svg)}`;
 
       image.addEventListener("load", _ => {
-        canvasContext.drawImage(image, Config.padding, Config.padding);
+        canvasContext.drawImage(
+          image,
+          Config.padding * scale,
+          Config.padding * scale
+        );
         resolve();
       });
     });
@@ -259,7 +264,8 @@ class CanvasCard {
               lines: splitStandfirst,
               font: Config.standfirst.font,
               fontSize: Config.standfirst.fontSize[standfirstSize] * scale,
-              initialOffset: standfirstOffset
+              initialOffset: standfirstOffset,
+              scale
             });
 
             return canvas;
@@ -281,7 +287,8 @@ class CanvasCard {
           font: Config.headline.font,
           fontSize: Config.headline.fontSize[headlineSize] * scale,
           lineHeight: Config.headline.lineHeight[headlineSize] * scale,
-          initialOffset: headlineOffset
+          initialOffset: headlineOffset,
+          scale
         });
       }
 
@@ -296,7 +303,8 @@ class CanvasCard {
           font: Config.standfirst.font,
           fontSize: Config.standfirst.fontSize[standfirstSize] * scale,
           lineHeight: Config.standfirst.lineHeight[standfirstSize] * scale,
-          initialOffset: standfirstOffset
+          initialOffset: standfirstOffset,
+          scale
         });
       }
 
