@@ -3,9 +3,10 @@ import CanvasCard from "./canvas";
 import Config from "./config";
 import GridUpload from "./grid/upload";
 import debounce from "debounce";
+import download from "downloadjs";
 
 const form = document.querySelector(".card-builder-form");
-const downloadLink = document.getElementById("download");
+const downloadButton = document.getElementById("download");
 const customColourInput = document.getElementById("customColour");
 const destination = document.querySelector(".card-builder-right");
 const uploadButton = document.getElementById("upload");
@@ -45,6 +46,15 @@ uploadButton.addEventListener("click", _ => {
   });
 });
 
+downloadButton.addEventListener("click", _ => {
+  downloadButton.disabled = true;
+
+  const canvas = document.querySelector("canvas");
+
+  canvas.toBlob(blob => {
+    download(blob, "image.png", "image/png");
+  });
+});
 const draw = () => {
   const formData = new FormData(form);
 
@@ -67,8 +77,8 @@ const draw = () => {
   customColourInput.style.display = isCustomColour ? "inline-block" : "none";
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
 
-  downloadLink.removeAttribute("href");
   uploadButton.disabled = true;
+  downloadButton.disabled = true;
 
   canvasCard
     .draw({
@@ -86,12 +96,9 @@ const draw = () => {
       if (destination.firstChild) {
         destination.firstChild.remove();
       }
-
       destination.appendChild(canvas);
-
-      const image = canvas.toDataURL("image/png");
-      downloadLink.setAttribute("href", image);
       uploadButton.disabled = false;
+      downloadButton.disabled = false;
     })
     .catch(e => console.error(e));
 };
