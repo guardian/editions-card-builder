@@ -197,8 +197,6 @@ class CanvasCard {
 
       const canvas = this._getNewCanvas({ width, height });
 
-      canvas.style.transform = `scale(${1 / scale})`;
-
       const canvasContext = canvas.getContext("2d");
       canvasContext.fillStyle = colourCode;
 
