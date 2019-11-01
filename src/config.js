@@ -9,9 +9,9 @@ export default {
     font: "Guardian Titlepiece",
     maxWidth: 420,
     lineHeight: {
-      small: 54,
-      medium: 70,
-      large: 82
+      small: 56,
+      medium: 74,
+      large: 84
     },
     fontSize: {
       small: 52,
@@ -23,8 +23,8 @@ export default {
     font: "Guardian Headline Full",
     maxWidth: 280,
     lineHeight: {
-      small: 34,
-      medium: 38
+      small: 36,
+      medium: 40
     },
     fontSize: {
       small: 28,
