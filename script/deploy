@@ -4,4 +4,9 @@ set -e
 
 npm run clean
 npm run build
+
+# make current git commit hash available on /build-info.json for prout
+COMMIT_ID=$(git rev-parse HEAD)
+echo "{\"gitCommitId\": \"$COMMIT_ID\"}" > dist/build-info.json
+
 npm run deploy
