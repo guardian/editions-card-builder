@@ -2,6 +2,7 @@ import GridModal from "./grid/modal";
 import CanvasCard from "./canvas";
 import Config from "./config";
 import GridUpload from "./grid/upload";
+import debounce from "debounce";
 
 const form = document.querySelector(".card-builder-form");
 const downloadLink = document.getElementById("download");
@@ -44,7 +45,7 @@ uploadButton.addEventListener("click", _ => {
   });
 });
 
-form.addEventListener("input", e => {
+const draw = () => {
   const formData = new FormData(form);
 
   const {
@@ -93,4 +94,6 @@ form.addEventListener("input", e => {
       uploadButton.disabled = false;
     })
     .catch(e => console.error(e));
-});
+};
+
+form.addEventListener("input", debounce(draw, 200));

@@ -325,3 +325,7 @@ button:not([disabled]):hover {
   color: #000;
   cursor: pointer;
 }
+
+canvas {
+  height: 80%;
+}
