@@ -95,9 +95,26 @@ class CanvasCard {
     const measured = text.split("").reduce(
       ({ buffer, lines }, char) => {
         const newBuffer = buffer + char;
-        return !this._doesTextFit({ canvasContext, maxWidth, text: newBuffer })
-          ? { lines: [...lines, buffer], buffer: char }
-          : { lines: lines, buffer: newBuffer };
+        //Are we on a newline?
+        if (char === "\n") {
+          return { lines: [...lines, buffer], buffer: char };
+        }
+        //Does the text fit ok?
+        if (this._doesTextFit({ canvasContext, maxWidth, text: newBuffer })) {
+          return { lines: lines, buffer: newBuffer };
+        }
+
+        //Can we split at a space?
+        const lastSpace = newBuffer.lastIndexOf(" ");
+        if (lastSpace !== -1) {
+          const left = newBuffer.substring(0, lastSpace);
+          const right = newBuffer.substring(lastSpace + 1);
+          return {
+            lines: [...lines, left],
+            buffer: right
+          };
+        }
+        return { lines: [...lines, buffer], buffer: char };
       },
       { buffer: "", lines: [] }
     );
