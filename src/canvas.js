@@ -97,7 +97,7 @@ class CanvasCard {
         const newBuffer = buffer + char;
         //Are we on a newline?
         if (char === "\n") {
-          return { lines: [...lines, buffer], buffer: char };
+          return { lines: [...lines, buffer], buffer: "" };
         }
         //Does the text fit ok?
         if (this._doesTextFit({ canvasContext, maxWidth, text: newBuffer })) {
