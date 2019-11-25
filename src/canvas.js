@@ -228,29 +228,29 @@ class CanvasCard {
         ? []
         : this._splitTextIntoLines({
             canvasContext,
-            maxWidth: Config.headline.maxWidth * scale,
+            maxWidth: Config.headline[device].maxWidth * scale,
             text: headline,
             font: Config.headline.font,
-            fontSize: Config.headline.fontSize[headlineSize] * scale
+            fontSize: Config.headline[device].fontSize[headlineSize] * scale
           });
 
       const splitStandfirst = !standfirst
         ? []
         : this._splitTextIntoLines({
             canvasContext,
-            maxWidth: Config.standfirst.maxWidth * scale,
+            maxWidth: Config.standfirst[device].maxWidth * scale,
             text: standfirst,
             font: Config.standfirst.font,
-            fontSize: Config.standfirst.fontSize[standfirstSize] * scale
+            fontSize: Config.standfirst[device].fontSize[standfirstSize] * scale
           });
 
       const headlineHeight =
-        (splitHeadline.length * Config.headline.lineHeight[headlineSize] +
+        (splitHeadline.length * Config.headline[device].lineHeight[headlineSize] +
           Config.padding) *
         scale;
       const standfirstHeight =
         splitStandfirst.length *
-        Config.standfirst.lineHeight[standfirstSize] *
+        Config.standfirst[device].lineHeight[standfirstSize] *
         scale;
 
       if (svgHeadline) {
@@ -263,7 +263,7 @@ class CanvasCard {
               canvasContext,
               lines: splitStandfirst,
               font: Config.standfirst.font,
-              fontSize: Config.standfirst.fontSize[standfirstSize] * scale,
+              fontSize: Config.standfirst[device].fontSize[standfirstSize] * scale,
               initialOffset: standfirstOffset,
               scale
             });
@@ -285,8 +285,8 @@ class CanvasCard {
           canvasContext,
           lines: splitHeadline,
           font: Config.headline.font,
-          fontSize: Config.headline.fontSize[headlineSize] * scale,
-          lineHeight: Config.headline.lineHeight[headlineSize] * scale,
+          fontSize: Config.headline[device].fontSize[headlineSize] * scale,
+          lineHeight: Config.headline[device].lineHeight[headlineSize] * scale,
           initialOffset: headlineOffset,
           scale
         });
@@ -301,8 +301,8 @@ class CanvasCard {
           canvasContext,
           lines: splitStandfirst,
           font: Config.standfirst.font,
-          fontSize: Config.standfirst.fontSize[standfirstSize] * scale,
-          lineHeight: Config.standfirst.lineHeight[standfirstSize] * scale,
+          fontSize: Config.standfirst[device].fontSize[standfirstSize] * scale,
+          lineHeight: Config.standfirst[device].lineHeight[standfirstSize] * scale,
           initialOffset: standfirstOffset,
           scale
         });

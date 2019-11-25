@@ -7,28 +7,56 @@ export default {
   padding: 10,
   headline: {
     font: "Guardian Titlepiece",
-    maxWidth: 420,
-    lineHeight: {
-      small: 56,
-      medium: 74,
-      large: 84
+    mobile: {
+      maxWidth: 420,
+      lineHeight: {
+        small: 56,
+        medium: 74,
+        large: 84
+      },
+      fontSize: {
+        small: 52,
+        medium: 68,
+        large: 130
+      }
     },
-    fontSize: {
-      small: 52,
-      medium: 68,
-      large: 82
+    tablet: {
+      maxWidth: 648,
+      lineHeight: {
+        small: 86,
+        medium: 114,
+        large: 130
+      },
+      fontSize: {
+        small: 80,
+        medium: 105,
+        large: 200
+      }
     }
   },
   standfirst: {
     font: "Guardian Headline Full",
-    maxWidth: 280,
-    lineHeight: {
-      small: 36,
-      medium: 40
+    mobile: {
+      maxWidth: 280,
+      lineHeight: {
+        small: 36,
+        medium: 40
+      },
+      fontSize: {
+        small: 28,
+        medium: 32
+      }
     },
-    fontSize: {
-      small: 28,
-      medium: 32
+    tablet: {
+      maxWidth: 432,
+      lineHeight: {
+        small: 55,
+        medium: 62
+      },
+      fontSize: {
+        small: 43,
+        medium: 49
+      }
     }
   },
   colours: {
