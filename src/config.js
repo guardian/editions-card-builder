@@ -11,7 +11,7 @@ export default {
       maxWidth: 420,
       lineHeight: {
         small: 56,
-        medium: 74,
+        medium: 70,
         large: 84
       },
       fontSize: {
@@ -25,19 +25,19 @@ export default {
       lineHeight: {
         small: 86,
         medium: 114,
-        large: 130
+        large: 200
       },
       fontSize: {
         small: 80,
         medium: 105,
-        large: 200
+        large: 180
       }
     }
   },
   standfirst: {
     font: "Guardian Headline Full",
     mobile: {
-      maxWidth: 280,
+      maxWidth: 350,
       lineHeight: {
         small: 36,
         medium: 40
@@ -48,10 +48,10 @@ export default {
       }
     },
     tablet: {
-      maxWidth: 432,
+      maxWidth: 572,
       lineHeight: {
-        small: 55,
-        medium: 62
+        small: 50,
+        medium: 59
       },
       fontSize: {
         small: 43,
