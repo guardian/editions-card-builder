@@ -1,7 +1,7 @@
 import GridModal from "./grid/modal";
 import CanvasCard from "./canvas";
 import Config from "./config";
-import GridUpload from "./grid/upload";
+import { upload as GridUpload } from "./grid/upload";
 import debounce from "debounce";
 import download from "downloadjs";
 
@@ -41,7 +41,16 @@ uploadButton.addEventListener("click", _ => {
       )
       .then(_ => {
         uploadButton.innerText = "Uploaded";
-        setTimeout(() => (uploadButton.innerText = "Upload"), 1000);
+        setTimeout(() => {
+          uploadButton.innerText = "Upload";
+          uploadButton.disabled = false;
+        }, 1000);
+      })
+      .catch(error => {
+        uploadButton.innerText = "Upload";
+        uploadButton.disabled = false;
+        console.error(error);
+        throw error;
       });
   });
 });

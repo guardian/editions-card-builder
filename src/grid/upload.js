@@ -87,7 +87,7 @@ function addCollections({ apiResponse }) {
   });
 }
 
-function upload({ gridDomain, image, originalImage }) {
+export function upload({ gridDomain, image, originalImage }) {
   return uploadImage({ gridDomain, image }).then(apiResponse =>
     Promise.all([
       addLabels({ apiResponse }),
@@ -97,5 +97,3 @@ function upload({ gridDomain, image, originalImage }) {
     ])
   );
 }
-
-export default upload;
