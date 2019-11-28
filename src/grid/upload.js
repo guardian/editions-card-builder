@@ -87,15 +87,13 @@ function addCollections({ apiResponse }) {
   });
 }
 
-function upload({ gridDomain, image, originalImage }) {
-  return uploadImage({ gridDomain, image }).then(apiResponse =>
-    Promise.all([
-      addLabels({ apiResponse }),
-      copyMetadata({ apiResponse, originalImage }),
-      copyUsageRights({ apiResponse, originalImage }),
-      addCollections({ apiResponse })
-    ])
-  );
+export async function upload({ gridDomain, image, originalImage }) {
+  const apiResponse = await uploadImage({ gridDomain, image });
+  await Promise.all([
+    addLabels({ apiResponse }),
+    copyMetadata({ apiResponse, originalImage }),
+    copyUsageRights({ apiResponse, originalImage }),
+    addCollections({ apiResponse })
+  ]);
+  return apiResponse;
 }
-
-export default upload;

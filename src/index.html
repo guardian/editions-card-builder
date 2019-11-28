@@ -1,106 +1,191 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Editions Card Builder</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="main.css">
-  <title>Editions Card Builder</title>
-</head>
+  <body>
+    <header>
+      <div>
+        <h1>Editions Card Builder</h1>
+        create cards for the Editions app
+      </div>
+      <div>
+        <a id="gridLink" target="_blank" rel="noopener noreferrer"></a>
+        <button id="upload" disabled>Upload</button>
+        <button id="download" download>Download</button>
+      </div>
+    </header>
+    <div class="card-builder">
+      <div class="card-builder-left">
+        <form class="card-builder-form">
+          <button type="button" class="image-select">Select image</button>
+          <input id="imageUrl" type="hidden" name="imageUrl" />
 
-<body>
-  <header>
-    <div>
-      <h1>Editions Card Builder</h1>
-      create cards for the Editions app
+          <label for="headline">Headline</label>
+          <input
+            id="headline"
+            name="headline"
+            class="input-headline"
+            type="text"
+            placeholder="headline..."
+          />
+
+          <fieldset>
+            <legend>Headline Size</legend>
+            <input
+              type="radio"
+              id="headlineSmall"
+              name="headlineSize"
+              value="small"
+              checked
+            />
+            <label for="headlineSmall">Small</label>
+
+            <input
+              type="radio"
+              id="headlineMedium"
+              name="headlineSize"
+              value="medium"
+            />
+            <label for="headlineMedium">Medium</label>
+
+            <input
+              type="radio"
+              id="headlineLarge"
+              name="headlineSize"
+              value="large"
+            />
+            <label for="headlineLarge">Large</label>
+          </fieldset>
+
+          <fieldset class="colour">
+            <legend>Colour</legend>
+
+            <input
+              type="radio"
+              id="colourWhite"
+              name="colour"
+              value="white"
+              checked
+            />
+            <label for="colourWhite">White</label>
+
+            <input type="radio" id="colourRed" name="colour" value="red" />
+            <label for="colourRed">Red</label>
+
+            <input type="radio" id="colourBlue" name="colour" value="blue" />
+            <label for="colourBlue">Blue</label>
+
+            <input
+              type="radio"
+              id="colourYellow"
+              name="colour"
+              value="yellow"
+            />
+            <label for="colourYellow">Yellow</label>
+
+            <input type="radio" id="colourGrey" name="colour" value="grey" />
+            <label for="colourGrey">Grey</label>
+
+            <div>
+              <input
+                type="radio"
+                id="colourCustom"
+                name="colour"
+                value="custom"
+              />
+              <label for="colourCustom">Custom</label>
+              <input
+                id="customColour"
+                name="customColour"
+                type="text"
+                value="hotpink"
+              />
+            </div>
+          </fieldset>
+
+          <label for="standfirst">Standfirst</label>
+          <textarea
+            id="standfirst"
+            name="standfirst"
+            type="text-area"
+            placeholder="standfirst..."
+          ></textarea>
+
+          <fieldset>
+            <legend>Standfirst Size</legend>
+            <input
+              type="radio"
+              id="standfirstSmall"
+              name="standfirstSize"
+              value="small"
+              checked
+            />
+            <label for="standfirstSmall">Small</label>
+
+            <input
+              type="radio"
+              id="standfirstMedium"
+              name="standfirstSize"
+              value="medium"
+            />
+            <label for="standfirstMedium">Medium</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Position</legend>
+            <input
+              type="radio"
+              id="positionTop"
+              name="position"
+              value="top"
+              checked
+            />
+            <label for="positionTop">Top</label>
+
+            <input
+              type="radio"
+              id="positionBottom"
+              name="position"
+              value="bottom"
+            />
+            <label for="positionBottom">Bottom</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Device</legend>
+            <input
+              type="radio"
+              id="deviceMobile"
+              name="device"
+              value="mobile"
+              checked
+            />
+            <label for="deviceMobile">Mobile</label>
+
+            <input
+              type="radio"
+              id="deviceTablet"
+              name="device"
+              value="tablet"
+            />
+            <label for="deviceTablet">Tablet</label>
+          </fieldset>
+
+          <label for="svgHeadline">SVG Headline</label>
+          <textarea
+            id="svgHeadline"
+            name="svgHeadline"
+            rows="8"
+            type="text-area"
+          ></textarea>
+        </form>
+      </div>
+      <div class="card-builder-right"></div>
     </div>
-    <div>
-      <button id="upload" disabled>Upload</button>
-      <button id="download" download>Download</button>
-    </div>
-  </header>
-  <div class="card-builder">
-    <div class="card-builder-left">
-      <form class="card-builder-form">
-        <button type="button" class="image-select">Select image</button>
-        <input id="imageUrl" type="hidden" name="imageUrl">
-
-        <label for="headline">Headline</label>
-        <input id="headline" name="headline" class="input-headline" type="text" placeholder="headline...">
-
-        <fieldset>
-          <legend>Headline Size</legend>
-          <input type="radio" id="headlineSmall" name="headlineSize" value="small" checked>
-          <label for="headlineSmall">Small</label>
-
-          <input type="radio" id="headlineMedium" name="headlineSize" value="medium">
-          <label for="headlineMedium">Medium</label>
-
-          <input type="radio" id="headlineLarge" name="headlineSize" value="large">
-          <label for="headlineLarge">Large</label>
-        </fieldset>
-
-        <fieldset class="colour">
-          <legend>Colour</legend>
-
-          <input type="radio" id="colourWhite" name="colour" value="white" checked>
-          <label for="colourWhite">White</label>
-
-          <input type="radio" id="colourRed" name="colour" value="red">
-          <label for="colourRed">Red</label>
-
-          <input type="radio" id="colourBlue" name="colour" value="blue">
-          <label for="colourBlue">Blue</label>
-
-          <input type="radio" id="colourYellow" name="colour" value="yellow">
-          <label for="colourYellow">Yellow</label>
-
-          <input type="radio" id="colourGrey" name="colour" value="grey">
-          <label for="colourGrey">Grey</label>
-
-          <div>
-            <input type="radio" id="colourCustom" name="colour" value="custom">
-            <label for="colourCustom">Custom</label>
-            <input id="customColour" name="customColour" type="text" value="hotpink">
-          </div>
-        </fieldset>
-
-        <label for="standfirst">Standfirst</label>
-        <textarea id="standfirst" name="standfirst" type="text-area" placeholder="standfirst..."></textarea>
-
-        <fieldset>
-          <legend>Standfirst Size</legend>
-          <input type="radio" id="standfirstSmall" name="standfirstSize" value="small" checked>
-          <label for="standfirstSmall">Small</label>
-
-          <input type="radio" id="standfirstMedium" name="standfirstSize" value="medium">
-          <label for="standfirstMedium">Medium</label>
-        </fieldset>
-
-        <fieldset>
-          <legend>Position</legend>
-          <input type="radio" id="positionTop" name="position" value="top" checked>
-          <label for="positionTop">Top</label>
-
-          <input type="radio" id="positionBottom" name="position" value="bottom">
-          <label for="positionBottom">Bottom</label>
-        </fieldset>
-
-        <fieldset>
-          <legend>Device</legend>
-          <input type="radio" id="deviceMobile" name="device" value="mobile" checked>
-          <label for="deviceMobile">Mobile</label>
-
-          <input type="radio" id="deviceTablet" name="device" value="tablet">
-          <label for="deviceTablet">Tablet</label>
-        </fieldset>
-
-        <label for="svgHeadline">SVG Headline</label>
-        <textarea id="svgHeadline" name="svgHeadline" rows="8" type="text-area"></textarea>
-      </form>
-    </div>
-    <div class="card-builder-right"></div>
-  </div>
-  <script src="main.js" type="text/javascript"></script>
-</body>
-
+    <script src="main.js" type="text/javascript"></script>
+  </body>
 </html>

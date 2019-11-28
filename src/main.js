@@ -1,7 +1,7 @@
 import GridModal from "./grid/modal";
 import CanvasCard from "./canvas";
 import Config from "./config";
-import GridUpload from "./grid/upload";
+import { upload as GridUpload } from "./grid/upload";
 import debounce from "debounce";
 import download from "downloadjs";
 
@@ -10,10 +10,11 @@ const downloadButton = document.getElementById("download");
 const customColourInput = document.getElementById("customColour");
 const destination = document.querySelector(".card-builder-right");
 const uploadButton = document.getElementById("upload");
+const gridLink = document.getElementById("gridLink");
 
 const canvasCard = new CanvasCard();
 
-const { GRID_DOMAIN } = process.env;
+const GRID_DOMAIN = process.env.GRID_DOMAIN;
 
 const gridModal = new GridModal({
   gridDomain: GRID_DOMAIN,
@@ -39,9 +40,18 @@ uploadButton.addEventListener("click", _ => {
           originalImage: gridModal.getApiResponse()
         })
       )
-      .then(_ => {
+      .then(apiResponse => {
+        const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")
+          .href;
+        gridLink.href = imageUrl;
+        gridLink.innerText = "🖼 Grid";
         uploadButton.innerText = "Uploaded";
-        setTimeout(() => (uploadButton.innerText = "Upload"), 1000);
+      })
+      .catch(error => {
+        uploadButton.innerText = "Upload";
+        uploadButton.disabled = false;
+        console.error(error);
+        throw error;
       });
   });
 });
