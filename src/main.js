@@ -41,7 +41,6 @@ uploadButton.addEventListener("click", _ => {
         })
       )
       .then(apiResponse => {
-        console.log(apiResponse);
         const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")
           .href;
         console.log(imageUrl);
