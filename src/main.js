@@ -43,7 +43,6 @@ uploadButton.addEventListener("click", _ => {
       .then(apiResponse => {
         const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")
           .href;
-        console.log(imageUrl);
         gridLink.href = imageUrl;
         gridLink.innerText = "🖼 Grid";
         uploadButton.innerText = "Uploaded";
