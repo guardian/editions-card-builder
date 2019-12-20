@@ -44,7 +44,6 @@ uploadButton.addEventListener("click", _ => {
         const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")
           .href;
         gridLink.href = imageUrl;
-        gridLink.innerText = "🖼 Grid";
         uploadButton.innerText = "Uploaded";
       })
       .catch(error => {
@@ -89,6 +88,7 @@ const draw = () => {
 
   uploadButton.disabled = true;
   downloadButton.disabled = true;
+  gridLink.removeAttribute("href");
 
   canvasCard
     .draw({
