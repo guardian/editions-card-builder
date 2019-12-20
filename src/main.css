@@ -313,7 +313,10 @@ a {
   text-decoration: none;
 }
 
-a:not([href]),
+a:not([href]) {
+  display: none;
+}
+
 button:disabled {
   cursor: not-allowed;
   opacity: 0.8;
