@@ -99,7 +99,7 @@ const draw = () => {
       standfirst,
       standfirstSize,
       colourCode,
-      isTop: position === "top",
+      position,
       svgHeadline
     })
     .then(canvas => {
