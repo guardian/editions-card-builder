@@ -59,20 +59,21 @@ export default {
       }
     }
   },
+  // colours taken directly from: https://design.theguardian.com/#colour-palette-4
   swatches: {
     uk: {
       white: "#eeeeee",
-      red: "#c70000",
-      blue: "#052962",
-      yellow: "#ffe500",
-      grey: "#ececec"
+      red: "#c70000",     // news main
+      blue: "#052962",    // brand main
+      yellow: "#ffe500",  // highlight main
+      grey: "#ededed",    // neutral (brightness 93)
     },
     australia: {
       white: "#ffffff",
-      blue: "#041F4A",
-      ochre: "#A1845C",
-      purple: "#7D0068",
-      orange: "#E05E00"
+      blue: "#041F4A",    // brand dark
+      ochre: "#A1845C",   // cuture main
+      purple: "#7D0068",  // lifestyle dark
+      orange: "#E05E00"   // opinion main
     }
   },
   upload: {
