@@ -98,11 +98,11 @@ const addColours = () => {
       coloursBySwatchChild.style.display="none"
 
     for (var colourKey in Config.swatches[swatch]) {
-      var colourKeyDisplay = colourKey.charAt(0).toUpperCase() + colourKey.slice(1);
+      const colourKeyDisplay = colourKey.charAt(0).toUpperCase() + colourKey.slice(1);
 
-      var id = "colour-" + colourKey + "-" + swatch
+      const id = "colour-" + colourKey + "-" + swatch
 
-      var colourInputElement = document.createElement("input")
+      const colourInputElement = document.createElement("input")
       colourInputElement.type="radio"
       colourInputElement.id=id
       colourInputElement.name="colour"
@@ -110,7 +110,7 @@ const addColours = () => {
       colourInputElement.checked = first;
       coloursBySwatchChild.appendChild(colourInputElement)
 
-      var colourLabelElement = document.createElement("label")
+      const colourLabelElement = document.createElement("label")
       colourLabelElement.htmlFor=id
       colourLabelElement.textContent = colourKeyDisplay
       colourLabelElement.className="swatchcolour"
