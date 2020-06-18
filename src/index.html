@@ -61,35 +61,31 @@
             <label for="headlineLarge">Large</label>
           </fieldset>
 
-          <fieldset class="colour">
-            <legend>Colour</legend>
-
+          <fieldset class="swatch">
+            <legend>Swatch</legend>
             <input
               type="radio"
-              id="colourWhite"
-              name="colour"
-              value="white"
+              id="uk"
+              name="swatch"
+              value="uk"
               checked
             />
-            <label for="colourWhite">White</label>
-
-            <input type="radio" id="colourRed" name="colour" value="red" />
-            <label for="colourRed">Red</label>
-
-            <input type="radio" id="colourBlue" name="colour" value="blue" />
-            <label for="colourBlue">Blue</label>
+            <label for="uk">UK</label>
 
             <input
               type="radio"
-              id="colourYellow"
-              name="colour"
-              value="yellow"
+              id="au"
+              name="swatch"
+              value="australia"
             />
-            <label for="colourYellow">Yellow</label>
+            <label for="au">Australia</label>
+          </fieldset>
 
-            <input type="radio" id="colourGrey" name="colour" value="grey" />
-            <label for="colourGrey">Grey</label>
+          <fieldset class="colour">
+            <legend>Colour</legend>
+            <div class="coloursBySwatch">
 
+            </div>
             <div>
               <input
                 type="radio"

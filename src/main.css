@@ -205,8 +205,8 @@ header h1 {
 }
 
 .card-builder-left {
-  min-width: 375px;
-  width: 375px;
+  min-width: 400px;
+  width: 400px;
   background-color: var(--blueish);
 }
 
@@ -265,28 +265,6 @@ input[type="radio"] + label {
 input[type="radio"]:checked + label {
   text-decoration: underline;
   font-weight: 600;
-}
-
-.colour label[for="colourWhite"] {
-  background-color: #ffffff;
-}
-
-.colour label[for="colourRed"] {
-  background-color: #c70000;
-  color: #fff;
-}
-
-.colour label[for="colourBlue"] {
-  background-color: #052962;
-  color: #fff;
-}
-
-.colour label[for="colourYellow"] {
-  background-color: #ffe500;
-}
-
-.colour label[for="colourGrey"] {
-  background-color: #ececec;
 }
 
 #customColour {

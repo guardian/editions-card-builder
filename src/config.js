@@ -59,13 +59,21 @@ export default {
       }
     }
   },
-  colours: {
-    white: "#eeeeee",
-    red: "#c70000",
-    blue: "#052962",
-    yellow: "#ffe500",
-    grey: "#ececec",
-    custom: "custom"
+  swatches: {
+    uk: {
+      white: "#eeeeee",
+      red: "#c70000",
+      blue: "#052962",
+      yellow: "#ffe500",
+      grey: "#ececec"
+    },
+    australia: {
+      white: "#ffffff",
+      blue: "#041F4A",
+      ochre: "#A1845C",
+      purple: "#7D0068",
+      orange: "#E05E00"
+    }
   },
   upload: {
     labels: ["edition-cover-card"],
