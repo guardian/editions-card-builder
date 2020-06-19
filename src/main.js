@@ -88,7 +88,7 @@ function contrastTextColor(hex) {
 
 const addColours = () => {
 
-  var first=true;
+  let first=true;
   for (var swatch in Config.swatches) {
     var coloursBySwatchChild = document.createElement("div")
     coloursBySwatchChild.className="swatchset swatch-" + swatch
