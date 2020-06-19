@@ -140,7 +140,6 @@ const draw = () => {
     svgHeadline
   } = Object.fromEntries(formData);
 
-console.log(Object.fromEntries(formData))
   var activeSwatchset = document.querySelector(".swatch-" + swatch)
 
   // If we have just switched swatch, use the first child, otherwise the last value.
