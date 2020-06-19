@@ -151,7 +151,7 @@ const draw = () => {
     var allColours = document.querySelectorAll(".swatchset")
     for (let node of allColours) node.style.display="none";
     activeSwatchset.style.display="inline-block";
-    var activeColourInput = activeSwatchset.firstChild
+    const activeColourInput = activeSwatchset.firstChild
     activeColourInput.checked=true
   }
 
