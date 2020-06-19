@@ -143,7 +143,7 @@ const draw = () => {
   var activeSwatchset = document.querySelector(".swatch-" + swatch)
 
   // If we have just switched swatch, use the first child, otherwise the last value.
-  var activeColour= activeSwatchset.style.display == "none" ? activeSwatchset.firstChild.value : colour
+  const activeColour= activeSwatchset.style.display == "none" ? activeSwatchset.firstChild.value : colour
 
   // Show/hide colour selectors according to chosen swatch
   if (activeSwatchset.style.display == "none") {
