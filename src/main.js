@@ -8,6 +8,7 @@ import download from "downloadjs";
 const form = document.querySelector(".card-builder-form");
 const downloadButton = document.getElementById("download");
 const customColourInput = document.getElementById("customColour");
+const customPositionInput = document.getElementById("customPosition");
 const destination = document.querySelector(".card-builder-right");
 const uploadButton = document.getElementById("upload");
 const gridLink = document.getElementById("gridLink");
@@ -75,16 +76,22 @@ const draw = () => {
     standfirstSize,
     colour,
     customColour,
-    position,
+    positionValue,
+    customPosition,
     device,
     svgHeadline
   } = Object.fromEntries(formData);
 
-  const isCustomColour = colour === Config.colours.custom;
 
   // show custom colour input if `custom` is selected
+  const isCustomColour = colour === Config.colours.custom;
   customColourInput.style.display = isCustomColour ? "inline-block" : "none";
   const colourCode = isCustomColour ? customColour : Config.colours[colour];
+
+  // show custom position input if `custom` is selected
+  const isCustomPosition = positionValue === "-1";
+  customPositionInput.style.display = isCustomPosition ? "inline-block" : "none";
+  const position = isCustomPosition ? customPosition : parseInt(positionValue);
 
   uploadButton.disabled = true;
   downloadButton.disabled = true;

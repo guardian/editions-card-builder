@@ -138,7 +138,7 @@
             <input
               type="radio"
               id="positionTop"
-              name="position"
+              name="positionValue"
               value="0"
               checked
             />
@@ -147,18 +147,35 @@
             <input
               type="radio"
               id="positionMiddle"
-              name="position"
+              name="positionValue"
               value="40"
             />
             <label for="positionMiddle">Middle</label>
-
             <input
               type="radio"
               id="positionBottom"
-              name="position"
+              name="positionValue"
               value="100"
             />
             <label for="positionBottom">Bottom</label>
+            <br/>
+            <div>
+              <input
+                type="radio"
+                id="positionCustom"
+                name="positionValue"
+                value="-1"
+              />
+              <label for="positionCustom">Custom</label>
+              <input
+                id="customPosition"
+                name="customPosition"
+                type="number"
+                value="40"
+                min="1"
+                max="99"
+              />
+            </div>
 
           </fieldset>
 
