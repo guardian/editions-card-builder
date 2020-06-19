@@ -148,7 +148,7 @@ const draw = () => {
   // Show/hide colour selectors according to chosen swatch
   if (activeSwatchset.style.display == "none") {
      // swatch has changed
-    var allColours = document.querySelectorAll(".swatchset")
+    const allColours = document.querySelectorAll(".swatchset")
     for (let node of allColours) node.style.display="none";
     activeSwatchset.style.display="inline-block";
     const activeColourInput = activeSwatchset.firstChild
