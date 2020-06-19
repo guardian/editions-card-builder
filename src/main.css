@@ -205,8 +205,8 @@ header h1 {
 }
 
 .card-builder-left {
-  min-width: 400px;
-  width: 400px;
+  min-width: 375px;
+  width: 375px;
   background-color: var(--blueish);
 }
 

@@ -80,7 +80,7 @@ function contrastTextColor(hex) {
     }
     const brightness =
       parseInt(hex.slice(0, 2), 16) + parseInt(hex.slice(2, 4), 16) + parseInt(hex.slice(4, 6), 16)
-    if (brightness < 200)
+    if (brightness < 300)
       return '#ffffff'
     else
       return '#000000'
@@ -116,7 +116,6 @@ const addColours = () => {
       colourLabelElement.className="swatchcolour"
       colourLabelElement.style.backgroundColor=Config.swatches[swatch][colourKey]
       colourLabelElement.style.color=contrastTextColor(Config.swatches[swatch][colourKey])
-      colourLabelElement.addEventListener("click", debounce(draw, 200));
       coloursBySwatchChild.appendChild(colourLabelElement)
       first=false;
     }
@@ -141,6 +140,7 @@ const draw = () => {
     svgHeadline
   } = Object.fromEntries(formData);
 
+console.log(Object.fromEntries(formData))
   var activeSwatchset = document.querySelector(".swatch-" + swatch)
 
   // If we have just switched swatch, use the first child, otherwise the last value.
@@ -191,5 +191,3 @@ const draw = () => {
 addColours()
 
 form.addEventListener("input", debounce(draw, 200));
-
-draw()
