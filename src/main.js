@@ -90,7 +90,7 @@ const addColours = () => {
 
   let first=true;
   for (let swatch in Config.swatches) {
-    var coloursBySwatchChild = document.createElement("div")
+    const coloursBySwatchChild = document.createElement("div")
     coloursBySwatchChild.className=`swatchset swatch-${swatch}`
     if (first)
       coloursBySwatchChild.style.display="inline-block"
