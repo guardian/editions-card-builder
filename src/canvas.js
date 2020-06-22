@@ -200,7 +200,7 @@ class CanvasCard {
     colourCode,
     standfirst,
     standfirstSize,
-    isTop,
+    position,
     svgHeadline
   }) {
     if (!imageUrl) {
@@ -273,13 +273,10 @@ class CanvasCard {
         );
       }
 
+      const availableHeight = canvas.height - standfirstHeight - headlineHeight - Config.padding * scale
+
       if (splitHeadline.length > 0) {
-        const headlineOffset = isTop
-          ? 0
-          : canvas.height -
-            headlineHeight -
-            standfirstHeight -
-            Config.padding * scale;
+        const headlineOffset = availableHeight * position / 100
 
         this._drawText({
           canvasContext,
@@ -293,10 +290,7 @@ class CanvasCard {
       }
 
       if (splitStandfirst.length > 0) {
-        const standfirstOffset = isTop
-          ? headlineHeight
-          : canvas.height - standfirstHeight - Config.padding * scale;
-
+        const standfirstOffset = availableHeight * position / 100 + headlineHeight
         this._drawText({
           canvasContext,
           lines: splitStandfirst,

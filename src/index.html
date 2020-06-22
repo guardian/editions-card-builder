@@ -25,13 +25,11 @@
           <input id="imageUrl" type="hidden" name="imageUrl" />
 
           <label for="headline">Headline</label>
-          <input
+          <textarea
             id="headline"
             name="headline"
-            class="input-headline"
-            type="text"
             placeholder="headline..."
-          />
+          ></textarea>
 
           <fieldset>
             <legend>Headline Size</legend>
@@ -199,19 +197,45 @@
             <input
               type="radio"
               id="positionTop"
-              name="position"
-              value="top"
+              name="positionValue"
+              value="0"
               checked
             />
             <label for="positionTop">Top</label>
 
             <input
               type="radio"
+              id="positionMiddle"
+              name="positionValue"
+              value="40"
+            />
+            <label for="positionMiddle">Middle</label>
+            <input
+              type="radio"
               id="positionBottom"
-              name="position"
-              value="bottom"
+              name="positionValue"
+              value="100"
             />
             <label for="positionBottom">Bottom</label>
+            <br/>
+            <div>
+              <input
+                type="radio"
+                id="positionCustom"
+                name="positionValue"
+                value="-1"
+              />
+              <label for="positionCustom">Custom</label>
+              <input
+                id="customPosition"
+                name="customPosition"
+                type="number"
+                value="40"
+                min="1"
+                max="99"
+              />
+            </div>
+
           </fieldset>
 
           <fieldset>

@@ -9,6 +9,7 @@ const form = document.querySelector(".card-builder-form");
 const coloursBySwatch = document.querySelector(".coloursBySwatch")
 const downloadButton = document.getElementById("download");
 const customColourInput = document.getElementById("customColour");
+const customPositionInput = document.getElementById("customPosition");
 const destination = document.querySelector(".card-builder-right");
 const uploadButton = document.getElementById("upload");
 const gridLink = document.getElementById("gridLink");
@@ -135,7 +136,8 @@ const draw = () => {
     swatch,
     colour,
     customColour,
-    position,
+    positionValue,
+    customPosition,
     device,
     svgHeadline
   } = Object.fromEntries(formData);
@@ -143,7 +145,7 @@ const draw = () => {
   var activeSwatchset = document.querySelector(".swatch-" + swatch)
 
   // If we have just switched swatch, use the first child, otherwise the last value.
-  const activeColour= activeSwatchset.style.display == "none" ? activeSwatchset.firstChild.value : colour
+  const activeColour = activeSwatchset.style.display == "none" ? activeSwatchset.firstChild.value : colour
 
   // Show/hide colour selectors according to chosen swatch
   if (activeSwatchset.style.display == "none") {
@@ -156,9 +158,10 @@ const draw = () => {
   }
 
   // show custom colour input if `custom` is selected
-  const isCustomColour = activeColour === "custom";
-  customColourInput.style.display = isCustomColour ? "inline-block" : "none";
-  const colourCode = isCustomColour ? customColour : Config.swatches[swatch][activeColour];
+  const colourCode = activeColour === "custom" ? customColour : Config.swatches[swatch][activeColour];
+
+  // show custom position input if `custom` is selected
+  const position = positionValue === "-1" ? customPosition : parseInt(positionValue);
 
   uploadButton.disabled = true;
   downloadButton.disabled = true;
@@ -173,7 +176,7 @@ const draw = () => {
       standfirst,
       standfirstSize,
       colourCode,
-      isTop: position === "top",
+      position,
       svgHeadline
     })
     .then(canvas => {

@@ -272,6 +272,21 @@ input[type="radio"]:checked + label {
   width: 150px;
 }
 
+#colourCustom:checked ~ #customColour {
+  display: inline-block
+}
+
+
+#customPosition {
+  display: none;
+  width: 150px;
+}
+
+#positionCustom:checked ~ #customPosition {
+  display: inline-block
+}
+
+
 .image-select {
   width: 100%;
 }
