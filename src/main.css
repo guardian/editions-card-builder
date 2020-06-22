@@ -267,37 +267,25 @@ input[type="radio"]:checked + label {
   font-weight: 600;
 }
 
-.colour label[for="colourWhite"] {
-  background-color: #ffffff;
-}
-
-.colour label[for="colourRed"] {
-  background-color: #c70000;
-  color: #fff;
-}
-
-.colour label[for="colourBlue"] {
-  background-color: #052962;
-  color: #fff;
-}
-
-.colour label[for="colourYellow"] {
-  background-color: #ffe500;
-}
-
-.colour label[for="colourGrey"] {
-  background-color: #ececec;
-}
-
 #customColour {
   display: none;
   width: 150px;
 }
 
+#colourCustom:checked ~ #customColour {
+  display: inline-block
+}
+
+
 #customPosition {
   display: none;
   width: 150px;
 }
+
+#positionCustom:checked ~ #customPosition {
+  display: inline-block
+}
+
 
 .image-select {
   width: 100%;

@@ -1,3 +1,5 @@
+import { labs, lifestyle, culture, sport, opinion, news, brand, brandAlt, neutral, specialReport } from '@guardian/src-foundations/palette'
+
 export default {
   dimensions: {
     mobile: [525, 810],
@@ -59,13 +61,24 @@ export default {
       }
     }
   },
-  colours: {
-    white: "#eeeeee",
-    red: "#c70000",
-    blue: "#052962",
-    yellow: "#ffe500",
-    grey: "#ececec",
-    custom: "custom"
+  swatches: {
+    simple: {
+      white: "#ffffff",
+      red: "#c70000",     // news main
+      blue: "#052962",    // brand main
+      yellow: "#ffe500",  // highlight main
+      grey: "#ededed"     // neutral (brightness 93)
+    },
+    brand: (({ dark, main, pastel }) => ({ dark, main, pastel }))(brand),
+    highlight: (({ dark, main }) => ({ dark, main }))(brandAlt),
+    news: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(news),
+    opinion: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(opinion),
+    sport: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(sport),
+    culture: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(culture),
+    lifestyle: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(lifestyle),
+    labs: (({ dark, main }) => ({ dark, main }))(labs),
+    neutral: { main: neutral["60"] },
+    special: { main: specialReport["100"] }
   },
   upload: {
     labels: ["edition-cover-card"],
