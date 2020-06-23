@@ -5,7 +5,6 @@ export default {
     mobile: [525, 810],
     tablet: [975, 1088]
   },
-  svgWidth: 400,
   padding: 10,
   headline: {
     font: "Guardian Titlepiece",

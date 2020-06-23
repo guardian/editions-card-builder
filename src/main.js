@@ -138,8 +138,7 @@ const draw = () => {
     customColour,
     positionValue,
     customPosition,
-    device,
-    svgHeadline
+    device
   } = Object.fromEntries(formData);
 
   var activeSwatchset = document.querySelector(".swatch-" + swatch)
@@ -176,8 +175,7 @@ const draw = () => {
       standfirst,
       standfirstSize,
       colourCode,
-      position,
-      svgHeadline
+      position
     })
     .then(canvas => {
       if (destination.firstChild) {

@@ -139,23 +139,6 @@ class CanvasCard {
     });
   }
 
-  _drawSvg({ canvasContext, svg, scale }) {
-    return new Promise(resolve => {
-      const image = new Image();
-      image.width = Config.svgWidth * scale;
-      image.src = `data:image/svg+xml;base64,${window.btoa(svg)}`;
-
-      image.addEventListener("load", _ => {
-        canvasContext.drawImage(
-          image,
-          Config.padding * scale,
-          Config.padding * scale
-        );
-        resolve();
-      });
-    });
-  }
-
   _getImageDataUrl({ imageUrl }) {
     const key = encodeURIComponent(imageUrl);
     const maybeItem = this.imageCache.get(key);
@@ -200,8 +183,7 @@ class CanvasCard {
     colourCode,
     standfirst,
     standfirstSize,
-    position,
-    svgHeadline
+    position
   }) {
     if (!imageUrl) {
       return Promise.reject("no-image");
@@ -252,26 +234,6 @@ class CanvasCard {
         splitStandfirst.length *
         Config.standfirst[device].lineHeight[standfirstSize] *
         scale;
-
-      if (svgHeadline) {
-        return this._drawSvg({ canvasContext, svg: svgHeadline, scale }).then(
-          _ => {
-            const standfirstOffset =
-              canvas.height - standfirstHeight - Config.padding * scale;
-
-            this._drawText({
-              canvasContext,
-              lines: splitStandfirst,
-              font: Config.standfirst.font,
-              fontSize: Config.standfirst[device].fontSize[standfirstSize] * scale,
-              initialOffset: standfirstOffset,
-              scale
-            });
-
-            return canvas;
-          }
-        );
-      }
 
       const availableHeight = canvas.height - standfirstHeight - headlineHeight - Config.padding * scale
 
