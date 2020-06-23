@@ -229,7 +229,8 @@ header h1 {
 }
 
 textarea,
-input {
+input,
+select {
   font-family: "Guardian Headline Full";
   padding: 0;
   width: 100%;
