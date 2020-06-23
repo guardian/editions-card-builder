@@ -156,7 +156,7 @@
 
 :root {
   --headerHeight: 50px;
-  --spacing: 10px;
+  --spacing: 5px;
 
   --blueish: #f1f8fc;
   --darkblueish: #67bed8;
@@ -166,6 +166,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Guardian Headline Full";
+  font-size: 15px;
 }
 
 h1 {
@@ -224,7 +225,6 @@ header h1 {
 .card-builder-form legend {
   display: block;
   font-family: "Guardian Titlepiece";
-  font-size: 25px;
   padding-top: var(--spacing);
 }
 
@@ -233,7 +233,6 @@ input {
   font-family: "Guardian Headline Full";
   padding: 0;
   width: 100%;
-  font-size: 20px;
 }
 
 textarea {
@@ -259,7 +258,6 @@ input[type="radio"] + label {
   display: inline-block;
   padding: var(--spacing);
   font-family: "Guardian Headline Full";
-  font-size: 20px;
 }
 
 input[type="radio"]:checked + label {
@@ -297,7 +295,7 @@ button {
   padding: 8px 16px;
   display: inline-block;
   color: #fff;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Guardian Titlepiece";
   border: none;
 }
