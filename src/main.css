@@ -225,6 +225,7 @@ header h1 {
 .card-builder-form legend {
   display: block;
   font-family: "Guardian Titlepiece";
+  font-size: 18px;
   padding-top: var(--spacing);
 }
 
@@ -234,6 +235,7 @@ select {
   font-family: "Guardian Headline Full";
   padding: 0;
   width: 100%;
+  font-size: 18px;
 }
 
 textarea {
