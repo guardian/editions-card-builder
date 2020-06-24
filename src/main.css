@@ -287,6 +287,9 @@ input[type="radio"]:checked + label {
   display: inline-block
 }
 
+#customPosition {
+    width: 70%
+}
 
 .image-select {
   width: 100%;

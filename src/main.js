@@ -191,3 +191,4 @@ const draw = () => {
 addColours()
 
 form.addEventListener("input", debounce(draw, 200));
+customPositionInput.addEventListener("change", debounce(draw, 200));
