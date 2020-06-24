@@ -68,6 +68,25 @@ export default {
       yellow: "#ffe500",  // highlight main
       grey: "#ededed"     // neutral (brightness 93)
     },
+
+//  Explanation from Ana Pradas:
+//
+//    The reason why it was changed to numeric naming is because we might
+//    want to add more swatches in the future, so it's easier to do when
+//    we tag them numerically rather than dark, extra dark, extra extra
+//    dark.
+//
+//    But since we are using a limited amount of swatches here, I don't
+//    see why we shouldn't make it easier for the team using the tool and
+//    go with bright/pastel, etc.
+//
+//    The main thing for us would be to avoid generic names like "red".
+
+// Note from Justin:
+//
+//    We considered merging labs/neutral/special into one entry, but Katy V
+//    was of the opinion that separate entries, even if short, were better.
+
     brand: (({ dark, main, pastel }) => ({ dark, main, pastel }))(brand),
     highlight: (({ dark, main }) => ({ dark, main }))(brandAlt),
     news: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(news),
