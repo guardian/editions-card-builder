@@ -191,4 +191,5 @@ const draw = () => {
 addColours()
 
 form.addEventListener("input", debounce(draw, 200));
+// Needed so the event fires without releasing the mouse.
 customPositionInput.addEventListener("change", debounce(draw, 200));
