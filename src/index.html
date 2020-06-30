@@ -24,6 +24,26 @@
           <button type="button" class="image-select">Select image</button>
           <input id="imageUrl" type="hidden" name="imageUrl" />
 
+          <fieldset>
+            <legend>Device</legend>
+            <input
+              type="radio"
+              id="deviceMobile"
+              name="device"
+              value="mobile"
+              checked
+            />
+            <label for="deviceMobile">Mobile</label>
+
+            <input
+              type="radio"
+              id="deviceTablet"
+              name="device"
+              value="tablet"
+            />
+            <label for="deviceTablet">Tablet</label>
+          </fieldset>
+
           <label for="headline">Headline</label>
           <textarea
             id="headline"
@@ -171,26 +191,6 @@
               />
             </div>
 
-          </fieldset>
-
-          <fieldset>
-            <legend>Device</legend>
-            <input
-              type="radio"
-              id="deviceMobile"
-              name="device"
-              value="mobile"
-              checked
-            />
-            <label for="deviceMobile">Mobile</label>
-
-            <input
-              type="radio"
-              id="deviceTablet"
-              name="device"
-              value="tablet"
-            />
-            <label for="deviceTablet">Tablet</label>
           </fieldset>
         </form>
       </div>
