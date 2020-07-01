@@ -1,18 +1,18 @@
-import GridModal from "./grid/modal";
 import CanvasCard from "./canvas";
+import GridModal from "./grid/modal";
 import Config from "./config";
 import { upload as GridUpload } from "./grid/upload";
 import debounce from "debounce";
 import download from "downloadjs";
 
-const form = document.querySelector(".card-builder-form");
+const form = <HTMLFormElement>document.querySelector(".card-builder-form");
 const coloursBySwatch = document.querySelector(".coloursBySwatch")
-const downloadButton = document.getElementById("download");
+const downloadButton = <HTMLInputElement>document.getElementById("download");
 const customColourInput = document.getElementById("customColour");
 const customPositionInput = document.getElementById("customPosition");
 const destination = document.querySelector(".card-builder-right");
-const uploadButton = document.getElementById("upload");
-const gridLink = document.getElementById("gridLink");
+const uploadButton = <HTMLInputElement>document.getElementById("upload");
+const gridLink = <HTMLLinkElement>document.getElementById("gridLink");
 
 const canvasCard = new CanvasCard();
 
@@ -30,12 +30,12 @@ uploadButton.addEventListener("click", _ => {
   const canvas = document.querySelector("canvas");
 
   canvas.toBlob(blob => {
-    new Promise(resolve => {
+    new Promise<ArrayBuffer>(resolve => {
       const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
+      reader.onloadend = () => resolve(<ArrayBuffer>reader.result);
       reader.readAsArrayBuffer(blob);
     })
-      .then(arrayBuffer =>
+      .then(arrayBuffer  =>
         GridUpload({
           gridDomain: GRID_DOMAIN,
           image: new Uint8Array(arrayBuffer),
@@ -141,26 +141,26 @@ const draw = () => {
     device
   } = Object.fromEntries(formData);
 
-  var activeSwatchset = document.querySelector(".swatch-" + swatch)
+  var activeSwatchset = <HTMLElement>document.querySelector(".swatch-" + swatch)
 
   // If we have just switched swatch, use the first child, otherwise the last value.
-  const activeColour = activeSwatchset.style.display == "none" ? activeSwatchset.firstChild.value : colour
+  const activeColour = activeSwatchset.style.display == "none" ? (<HTMLInputElement>activeSwatchset.firstChild).value : colour
 
   // Show/hide colour selectors according to chosen swatch
   if (activeSwatchset.style.display == "none") {
      // swatch has changed
     const allColours = document.querySelectorAll(".swatchset")
-    for (let node of allColours) node.style.display="none";
+    for (let node of allColours) (<HTMLElement>node).style.display="none";
     activeSwatchset.style.display="inline-block";
-    const activeColourInput = activeSwatchset.firstChild
+    const activeColourInput = <HTMLInputElement>activeSwatchset.firstChild
     activeColourInput.checked=true
   }
 
   // show custom colour input if `custom` is selected
-  const colourCode = activeColour === "custom" ? customColour : Config.swatches[swatch][activeColour];
+  const colourCode = activeColour === "custom" ? customColour : Config.swatches[swatch.toString()][activeColour];
 
   // show custom position input if `custom` is selected
-  const position = positionValue === "-1" ? customPosition : parseInt(positionValue);
+  const position = positionValue === "-1" ? customPosition : parseInt(positionValue.toString());
 
   uploadButton.disabled = true;
   downloadButton.disabled = true;
