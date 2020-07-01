@@ -19,8 +19,4 @@ Images originate from [Grid](https://github.com/guardian/grid).
 🌍 Run `./script/start` and open https://editions-card-builder.local.dev-gutools.co.uk/ in your browser
 
 ## Deploying
-CI and CD not currently setup, meaning it's a push button deploy 😢.
-
-🚀 Run `./script/deploy`
-
-This app runs on GitHub Pages - deploying will update the `gh-pages` branch with the contents from [`src`](src).
+Upon merging a PR, the [CD workflow](./.github/workflows/cd.yml) will be run and publish to GitHub Pages.
