@@ -1,4 +1,4 @@
-import Config from "../config";
+import Config from "../utils/config";
 import { GridResponse } from "../types/grid-response";
 
 const TIMEOUT = 1500;
