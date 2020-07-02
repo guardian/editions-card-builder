@@ -1,6 +1,9 @@
 import Config from "./config";
 
 class CanvasCard {
+
+  imageCache: Map<any,any>;
+
   constructor() {
     this.imageCache = new Map();
   }
@@ -167,7 +170,7 @@ class CanvasCard {
   _getImage({ imageUrl }) {
     return this._getImageDataUrl({ imageUrl }).then(
       dataUrl =>
-        new Promise(resolve => {
+        new Promise<HTMLImageElement>(resolve => {
           const image = new Image();
           image.addEventListener("load", _ => resolve(image));
           image.src = dataUrl;
@@ -204,7 +207,7 @@ class CanvasCard {
       const canvasContext = canvas.getContext("2d");
       canvasContext.fillStyle = colourCode;
 
-      this._drawImage({ canvasContext, image, device });
+      this._drawImage({ canvasContext, image });
 
       const splitHeadline = !headline
         ? []

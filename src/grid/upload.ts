@@ -1,12 +1,13 @@
 import Config from "../config";
+import { GridResponse } from "../types/grid-response";
 
 const TIMEOUT = 1500;
 
-function wait(fn) {
+function wait<T>(fn): Promise<T> {
   return new Promise(resolve => setTimeout(_ => resolve(fn()), TIMEOUT));
 }
 
-function uploadImage({ gridDomain, image }) {
+function uploadImage({ gridDomain, image }): Promise<GridResponse> {
   return fetch(`https://loader.${gridDomain}/images`, {
     method: "POST",
     credentials: "include",
@@ -17,7 +18,7 @@ function uploadImage({ gridDomain, image }) {
   })
     .then(res => res.json())
     .then(res =>
-      wait(
+      wait<GridResponse>(
         // wait for media-api to index the new image
         () => fetch(res.uri, { credentials: "include" }).then(res => res.json())
       )
@@ -87,7 +88,7 @@ function addCollections({ apiResponse }) {
   });
 }
 
-export async function upload({ gridDomain, image, originalImage }) {
+export async function upload({ gridDomain, image, originalImage }): Promise<GridResponse> {
   const apiResponse = await uploadImage({ gridDomain, image });
   await Promise.all([
     addLabels({ apiResponse }),

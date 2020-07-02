@@ -1,7 +1,16 @@
-import templateString from "./template.html";
 import "./modal.css";
+import { GridResponse } from "../types/grid-response";
 
 class GridModal {
+
+  gridUrl: string;
+  triggerEl: HTMLElement;
+  targetInput: HTMLInputElement;
+  modalTemplate: HTMLTemplateElement;
+  messageHandler: EventHandlerNonNull;
+  imageId: string;
+  apiResponse: GridResponse;
+
   constructor({ gridDomain, triggerEl, targetInput }) {
     this.gridUrl = `https://${gridDomain}`;
     this.triggerEl = triggerEl;
@@ -9,8 +18,19 @@ class GridModal {
 
     const templates = document
       .createRange()
-      .createContextualFragment(templateString);
-    this.modalTemplate = templates.getElementById("grid-modal-template");
+      .createContextualFragment(`<template id="grid-modal-template">
+      <div class="modal">
+        <div class="modal__content">
+          <div class="modal__header">
+            <button type="button" class="button modal__dismiss">Close</button>
+          </div>
+          <div class="modal__body">
+            <iframe frameborder="0"></iframe>
+          </div>
+        </div>
+      </div>
+    </template>`);
+    this.modalTemplate = <HTMLTemplateElement>templates.getElementById("grid-modal-template");
 
     this.messageHandler = event => {
       this._handleMessage(event);
