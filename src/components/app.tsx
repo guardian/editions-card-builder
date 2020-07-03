@@ -17,7 +17,16 @@ class App extends React.Component<any, AppState> {
     super(props);
     this.state = {
       canvasBlob: undefined,
-      furniture: undefined
+      furniture: {
+        headline: "",
+        headlineSize: "small",
+        standfirst: "",
+        standfirstSize: "small",
+        position: 0,
+        device: "mobile",
+        imageUrl: "",
+        colourCode: ""
+      }
     }
   }
 
@@ -28,12 +37,19 @@ class App extends React.Component<any, AppState> {
     })
   }
 
+  updateFurniture = (newFurniture: Furniture) => {
+    console.log("updating with new furniture")
+    this.setState({
+      furniture: newFurniture
+    })
+  }
+
   render() {
     return <div>
       <Header canvasBlob={this.state.canvasBlob} />
       <div className="card-builder">
-        {/* <Form/> */}
-        <Canvas furniture={this.state.furniture} update={this.updateCanvasBlob} message="Hello"/>
+        <Form furniture={this.state.furniture} updateFurniture={this.updateFurniture}/>
+        <Canvas furniture={this.state.furniture} update={this.updateCanvasBlob}/>
       </div>
     </div>;
   }
