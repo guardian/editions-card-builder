@@ -1,9 +1,9 @@
 export interface Furniture {
   device: any
   imageUrl: any
-  headline: any
+  headline: string
   headlineSize: any
-  standfirst: any
+  standfirst: string
   standfirstSize: any
   colourCode: any
   position: any

@@ -1,4 +1,5 @@
 import Config from "./config";
+import { Furniture } from "../types/furniture";
 
 class CanvasCard {
 
@@ -6,16 +7,6 @@ class CanvasCard {
 
   constructor() {
     this.imageCache = new Map();
-  }
-
-  _getNewCanvas({ width, height }) {
-    const canvas = document.createElement("canvas");
-
-    canvas.classList.add("card");
-    canvas.width = width;
-    canvas.height = height;
-
-    return canvas;
   }
 
   _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }) {
@@ -178,22 +169,16 @@ class CanvasCard {
     );
   }
 
-  draw({
-    device,
-    imageUrl,
-    headline,
-    headlineSize,
-    colourCode,
-    standfirst,
-    standfirstSize,
-    position
-  }) {
-    if (!imageUrl) {
+  draw(
+    canvas: HTMLCanvasElement,
+    furniture: Furniture
+   ) {
+    if (!furniture.imageUrl) {
       return Promise.reject("no-image");
     }
 
-    return this._getImage({ imageUrl }).then(image => {
-      const [deviceWidth, deviceHeight] = Config.dimensions[device];
+    return this._getImage(furniture).then(image => {
+      const [deviceWidth, deviceHeight] = Config.dimensions[furniture.device];
 
       const { width, height, scale } = this._getCanvasDimensions({
         deviceWidth,
@@ -202,72 +187,71 @@ class CanvasCard {
         imageWidth: image.width
       });
 
-      const canvas = this._getNewCanvas({ width, height });
+      canvas.width = width;
+      canvas.height = height;
 
       const canvasContext = canvas.getContext("2d");
-      canvasContext.fillStyle = colourCode;
+      canvasContext.fillStyle = furniture.colourCode;
 
       this._drawImage({ canvasContext, image });
 
-      const splitHeadline = !headline
+      const splitHeadline = !furniture.headline
         ? []
         : this._splitTextIntoLines({
             canvasContext,
-            maxWidth: Config.headline[device].maxWidth * scale,
-            text: headline,
+            maxWidth: Config.headline[furniture.device].maxWidth * scale,
+            text: furniture.headline,
             font: Config.headline.font,
-            fontSize: Config.headline[device].fontSize[headlineSize] * scale
+            fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale
           });
 
-      const splitStandfirst = !standfirst
+      const splitStandfirst = !furniture.standfirst
         ? []
         : this._splitTextIntoLines({
             canvasContext,
-            maxWidth: Config.standfirst[device].maxWidth * scale,
-            text: standfirst,
+            maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
+            text: furniture.standfirst,
             font: Config.standfirst.font,
-            fontSize: Config.standfirst[device].fontSize[standfirstSize] * scale
+            fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale
           });
 
       const headlineHeight =
-        (splitHeadline.length * Config.headline[device].lineHeight[headlineSize] +
+        (splitHeadline.length * Config.headline[furniture.device].lineHeight[furniture.headlineSize] +
           Config.padding) *
         scale;
       const standfirstHeight =
         splitStandfirst.length *
-        Config.standfirst[device].lineHeight[standfirstSize] *
+        Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] *
         scale;
 
       const availableHeight = canvas.height - standfirstHeight - headlineHeight - Config.padding * scale
 
       if (splitHeadline.length > 0) {
-        const headlineOffset = availableHeight * position / 100
+        const headlineOffset = availableHeight * furniture.position / 100
 
         this._drawText({
           canvasContext,
           lines: splitHeadline,
           font: Config.headline.font,
-          fontSize: Config.headline[device].fontSize[headlineSize] * scale,
-          lineHeight: Config.headline[device].lineHeight[headlineSize] * scale,
+          fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
+          lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
           initialOffset: headlineOffset,
           scale
         });
       }
 
       if (splitStandfirst.length > 0) {
-        const standfirstOffset = availableHeight * position / 100 + headlineHeight
+        const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight
         this._drawText({
           canvasContext,
           lines: splitStandfirst,
           font: Config.standfirst.font,
-          fontSize: Config.standfirst[device].fontSize[standfirstSize] * scale,
-          lineHeight: Config.standfirst[device].lineHeight[standfirstSize] * scale,
+          fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
+          lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
           initialOffset: standfirstOffset,
           scale
         });
       }
-
-      return canvas;
     });
   }
 }

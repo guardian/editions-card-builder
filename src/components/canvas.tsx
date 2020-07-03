@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import Header from "./header"
-import Form from "./form"
 import { Furniture } from '../types/furniture'
 import * as React from 'react'
+import CanvasCard from '../utils/canvas'
 
 interface CanvasProps {
   update: (blob : Blob) => void
@@ -22,19 +21,15 @@ class Canvas extends React.Component<CanvasProps> {
   componentDidUpdate() {
     const canvas = this.refs.canvas as HTMLCanvasElement;
 
-    const canvasContext = canvas.getContext("2d");
-    canvasContext.fillStyle = "red";
-    canvasContext.fillText(this.props.furniture.headline, 250, 250);
-    console.log("Drew text")
+    const card = new CanvasCard();
 
-    canvas.toBlob( (blob) => this.props.update(blob));
+    card.draw(canvas, this.props.furniture)
+    .then(() => canvas.toBlob( (blob) => this.props.update(blob)));
   }
 
   render() {
     return (
-      <canvas ref="canvas" width="500px" height="500px">
-
-      </canvas>
+      <canvas ref="canvas" width="500px" height="500px" className="card"></canvas>
     )
   }
 }

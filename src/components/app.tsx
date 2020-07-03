@@ -38,7 +38,7 @@ class App extends React.Component<any, AppState> {
   }
 
   updateFurniture = (newFurniture: Furniture) => {
-    console.log("updating with new furniture")
+    console.log("updating with new furniture", newFurniture)
     this.setState({
       furniture: newFurniture
     })
