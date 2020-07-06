@@ -4,13 +4,20 @@ import Config from "../utils/config";
 import { Furniture } from '../types/furniture';
 import ColourPicker from "./colour-picker"
 import ImageSelect from "./image-select"
+import { useState } from 'react';
 
 export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Furniture) => void}) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
+  const [position, setPostion] = useState("top");
 
   function update(field: string, value: any) {
     const newFurniture = {...props.furniture, [field]: value} as Furniture;
     props.updateFurniture(newFurniture);
+  }
+
+  function updatePostion(postion: string, value: any){
+    setPostion(postion);
+    update('position', value);
   }
 
   return (
@@ -100,9 +107,9 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="positionTop"
           name="positionValue"
-          value={0}
-          checked={props.furniture.position === 0}
-          onChange={event => update('position', event.target.value)}
+          value="top"
+          checked={position == "top"}
+          onChange={event => updatePostion("top", 0)}
         />
         <label htmlFor="positionTop">Top</label>
 
@@ -110,38 +117,41 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="positionMiddle"
           name="positionValue"
-          value={40}
-          checked={props.furniture.position === 40}
-          onChange={event => update('position', event.target.value)}
+          value="middle"
+          checked={position == "middle"}
+          onChange={event => updatePostion("middle", 40)}
         />
         <label htmlFor="positionMiddle">Middle</label>
         <input
           type="radio"
           id="positionBottom"
           name="positionValue"
-          value={100}
-          checked={props.furniture.position === 100}
-          onChange={event => update('position', event.target.value)}
+          value="bottom"
+          checked={position == "bottom"}
+          onChange={event => updatePostion("bottom", 100)}
         />
         <label htmlFor="positionBottom">Bottom</label>
-        {/* <br/>
+        <br/>
         <div>
           <input
             type="radio"
             id="positionCustom"
             name="positionValue"
-            value="-1"
+            checked={position == "custom"}
+            onChange={() => updatePostion("custom", 50)}
+            value="custom"
           />
           <label htmlFor="positionCustom">Custom</label>
           <input
             id="customPosition"
             name="customPosition"
             type="range"
-            value="40"
+            value={props.furniture.position}
             min="1"
             max="99"
+            onChange={event => updatePostion("custom", event.target.value)}
           />
-        </div> */}
+        </div>
 
       </fieldset>
 
