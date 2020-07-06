@@ -24,7 +24,7 @@ class Canvas extends React.Component<CanvasProps> {
 
     const card = new CanvasCard();
 
-    debounce(card.draw(canvas, this.props.furniture).then(() => canvas.toBlob( (blob) => this.props.update(blob))), 200);
+    debounce(card.draw(canvas, this.props.furniture).then(() => canvas.toBlob( (blob) => this.props.update(blob))), 50);
 
   }
 

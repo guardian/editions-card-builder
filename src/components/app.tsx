@@ -24,7 +24,6 @@ class App extends React.Component<any, AppState> {
         headlineColour: config.swatches.simple.white,
         standfirst: "",
         standfirstSize: "small",
-        standfirstColour: config.swatches.simple.white,
         position: 0,
         device: "mobile",
         imageUrl: "",

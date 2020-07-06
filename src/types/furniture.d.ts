@@ -6,6 +6,5 @@ export interface Furniture {
   headlineColour: any
   standfirst: string
   standfirstSize: any
-  standfirstColour: any
   position: any
 }

@@ -10,13 +10,15 @@ interface GridModalProps {
 
 interface GridModalState {
   modalOpen: boolean
+  imageId: string
 }
 
 class ImageSelect extends React.Component<GridModalProps, GridModalState> {
   constructor(props: GridModalProps, state: GridModalState) {
     super(props);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      imageId: ""
       }
     }
 
@@ -58,6 +60,9 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
     }
 
     const imageUrl = event.data.crop.data.master.secureUrl;
+    this.setState({
+      imageId: event.data.image.data.id as string
+    });
 
     this.closeModal();
     this.props.update(imageUrl);
@@ -66,10 +71,9 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
 
   getGridUrl() {
     var gridUrl = `https://${config.gridDomain}`;
-    return gridUrl;
-    // return this.imageId
-    //   ? `${gridUrl}/images/${imageId}`
-    //   : gridUrl;
+    return this.state.imageId
+      ? `${gridUrl}/images/${this.state.imageId}`
+      : gridUrl;
   }
 
   render() {
