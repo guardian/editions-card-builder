@@ -6,7 +6,7 @@ import ColourPicker from "./colour-picker"
 import ImageSelect from "./image-select"
 import { useState } from 'react';
 
-export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Furniture) => void}) => {
+export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
   const [position, setPostion] = useState("top");
 
@@ -23,7 +23,7 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
   return (
     <div className="card-builder-left">
       <form className="card-builder-form">
-        <ImageSelect update={imageUrl => update('imageUrl', imageUrl)} />
+        <ImageSelect updateImageUrl={imageUrl => update('imageUrl', imageUrl)} updateOriginalImageData={props.updateOriginalImageData} />
 
         <label htmlFor="headline">Headline</label>
         <textarea

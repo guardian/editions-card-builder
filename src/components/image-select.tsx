@@ -5,7 +5,8 @@ import config from "../utils/config"
 import Modal from './modal';
 
 interface GridModalProps {
-  update: (imageUrl: string) => void
+  updateImageUrl: (imageUrl: string) => void
+  updateOriginalImageData: (imageData: object) => void
 }
 
 interface GridModalState {
@@ -65,7 +66,8 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
     });
 
     this.closeModal();
-    this.props.update(imageUrl);
+    this.props.updateImageUrl(imageUrl);
+    this.props.updateOriginalImageData(event.data.image);
   };
 
 

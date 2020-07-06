@@ -10,6 +10,7 @@ import config from '../utils/config'
 interface AppState {
   canvasBlob?: Blob
   furniture?: Furniture
+  originalImageData?: object
 }
 
 
@@ -45,11 +46,17 @@ class App extends React.Component<any, AppState> {
     })
   }
 
+  updateOriginalImageData = (imageData: object) => {
+    this.setState({
+      originalImageData: imageData
+    })
+  }
+
   render() {
     return <div>
-      <Header canvasBlob={this.state.canvasBlob} />
+      <Header canvasBlob={this.state.canvasBlob} originalImageData={this.state.originalImageData} />
       <div className="card-builder">
-        <Form furniture={this.state.furniture} updateFurniture={this.updateFurniture}/>
+        <Form furniture={this.state.furniture} updateFurniture={this.updateFurniture} updateOriginalImageData={this.updateOriginalImageData}/>
         <Canvas furniture={this.state.furniture} update={this.updateCanvasBlob}/>
       </div>
     </div>;

@@ -1,58 +1,60 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { upload as GridUpload } from "../grid/upload";
-import GridModal from "../grid/modal";
+import { upload as GridUpload, upload } from "../grid/upload";
 import download from "downloadjs";
+import config from '../utils/config';
+import { useState } from 'react';
 
 interface HeaderProps {
   canvasBlob?: Blob
+  originalImageData: object
 }
 
 export default function(props: HeaderProps){
   const {canvasBlob} = props;
 
-  // const gridLink = document.getElementById("gridLink") as HTMLLinkElement;
-  // const GRID_DOMAIN = process.env.GRID_DOMAIN;
-
-  // const gridModal = new GridModal({
-  //   gridDomain: GRID_DOMAIN,
-  //   triggerEl: document.querySelector(".image-select"),
-  //   targetInput: document.getElementById("imageUrl")
-  // });
+  const [gridLink, setGridLink] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const uploadImage = () => {
-     //   uploadButton.disabled = true;
-  //   uploadButton.innerText = "Uploading";
-  //   const canvas = document.querySelector("canvas");
 
-    // canvasBlob =>
-    //   new Promise<ArrayBuffer>(resolve => {
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => resolve(reader.result as ArrayBuffer);
-    //     reader.readAsArrayBuffer(canvasBlob);
-    //   })
-    //     .then(arrayBuffer  =>
-    //       GridUpload({
-    //         gridDomain: GRID_DOMAIN,
-    //         image: new Uint8Array(arrayBuffer),
-    //         originalImage: gridModal.getApiResponse()
-    //       })
-    //     )
-    //     .then(apiResponse => {
-    //       const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")
-    //         .href;
-    //       gridLink.href = imageUrl;
-    //       //uploadButton.innerText = "Uploaded";
-    //     })
-    //     .catch(error => {
-    //       // uploadButton.innerText = "Upload";
-    //       // uploadButton.disabled = false;
-    //       console.error(error);
-    //       throw error;
-    //     });
+    if(uploading){
+      return;
+    }
+
+    console.log("Uploading image")
+
+    var uplaod = canvasBlob =>
+      new Promise<ArrayBuffer>(resolve => {
+        setUploading(true);
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as ArrayBuffer);
+        reader.readAsArrayBuffer(canvasBlob);
+      })
+      .then(arrayBuffer  =>
+        GridUpload({
+          gridDomain: config.gridDomain,
+          image: new Uint8Array(arrayBuffer),
+          originalImage: props.originalImageData
+        })
+      )
+      .then(apiResponse => {
+        setUploading(false);
+        const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")
+          .href;
+          setGridLink(imageUrl);
+      })
+      .catch(error => {
+        setUploading(false);
+        console.error(error);
+        throw error;
+      });
+
+      uplaod(canvasBlob);
   }
 
   const downloadImage = () => {
+    console.log("Downloading image")
     download(canvasBlob, "image.png", "image/png");
   }
 
@@ -64,10 +66,9 @@ export default function(props: HeaderProps){
         create cards for the Editions app
       </div>
       <div>
-        <a id="gridLink" target="_blank" rel="noopener noreferrer">🖼 Grid</a>
-        <button id="upload" disabled onClick={uploadImage}>Upload</button>
-
-        {!!canvasBlob ? <a id="download" onClick={downloadImage}>Download</a> : null}
+        {!!gridLink ? <a href={gridLink} id="gridLink" target="_blank" rel="noopener noreferrer">🖼 Grid</a> : null}
+        {!!canvasBlob ? <button id="upload" onClick={uploadImage}>{uploading ? "Uploading" : "Upload"}</button>: null}
+        {!!canvasBlob ? <button id="download" onClick={downloadImage}>Download</button> : null}
       </div>
     </header>
   )
