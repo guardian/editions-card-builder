@@ -191,7 +191,6 @@ class CanvasCard {
       canvas.height = height;
 
       const canvasContext = canvas.getContext("2d");
-      canvasContext.fillStyle = furniture.colourCode;
 
       this._drawImage({ canvasContext, image });
 
@@ -226,6 +225,8 @@ class CanvasCard {
 
       const availableHeight = canvas.height - standfirstHeight - headlineHeight - Config.padding * scale
 
+      canvasContext.fillStyle = furniture.headlineColour;
+
       if (splitHeadline.length > 0) {
         const headlineOffset = availableHeight * furniture.position / 100
 
@@ -239,6 +240,8 @@ class CanvasCard {
           scale
         });
       }
+
+      canvasContext.fillStyle = furniture.standfirstColour;
 
       if (splitStandfirst.length > 0) {
         const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight

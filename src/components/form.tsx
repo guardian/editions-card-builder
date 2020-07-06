@@ -60,7 +60,7 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
         <label htmlFor="headlineLarge">Large</label>
       </fieldset>
 
-      <ColourPicker/>
+      <ColourPicker id="headline" colour={props.furniture.headlineColour} update={colour => update('headlineColour', colour)}/>
 
       <label htmlFor="standfirst">Standfirst</label>
       <textarea
@@ -94,7 +94,7 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
         <label htmlFor="standfirstMedium">Medium</label>
       </fieldset>
 
-      <ColourPicker/>
+      <ColourPicker id="standfirst" colour={props.furniture.standfirstColour} update={colour => update('standfirstColour', colour)}/>
 
       <fieldset>
         <legend>Position</legend>

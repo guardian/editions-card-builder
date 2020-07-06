@@ -20,12 +20,13 @@ class App extends React.Component<any, AppState> {
       furniture: {
         headline: "",
         headlineSize: "small",
+        headlineColour: "",
         standfirst: "",
         standfirstSize: "small",
+        standfirstColour: "",
         position: 0,
         device: "mobile",
         imageUrl: "",
-        colourCode: ""
       }
     }
   }

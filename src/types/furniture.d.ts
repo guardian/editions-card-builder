@@ -3,8 +3,9 @@ export interface Furniture {
   imageUrl: any
   headline: string
   headlineSize: any
+  headlineColour: any
   standfirst: string
   standfirstSize: any
-  colourCode: any
+  standfirstColour: any
   position: any
 }

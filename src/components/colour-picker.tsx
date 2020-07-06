@@ -1,43 +1,45 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import config from "../utils/config"
+import { useState } from 'react';
 
-export default () => {
+export default(props: {id: string, colour: string, update: (colour: string) => void}) => {
 
-  var state = {
+  const [swatch, setSwatch] = useState(Object.keys(config.swatches).find(() => true));
 
+  function updateSwatch(event) {
+    props.update(Object.values(config.swatches[event.target.value]).find(() => true) as string);
+    setSwatch(event.target.value);
   }
 
   return(
     <div>
       <label>
       Swatch
-      <select css={{textTransform: 'capitalize'}} name="swatch">
-        {Object.keys(config.swatches).map(swatch => (
-          <option value={swatch} key={swatch}>{swatch}</option>
-        ))}
-      </select>
-    </label>
+        <select css={{textTransform: 'capitalize'}} name="swatch" value={swatch} onChange={updateSwatch}>
+          {Object.keys(config.swatches).map(swatch => (
+            <option value={swatch} key={swatch}>{swatch}</option>
+          ))}
+        </select>
+      </label>
     <fieldset className="colour">
       <legend>Colour</legend>
       <div className="coloursBySwatch">
-
-      </div>
-      {/* <div>
-        <input
+        {Object.entries<string>(config.swatches[swatch]).map(([name, value]) => (
+        <div key={name} css={{display: "inline-block"}}>
+          <input
           type="radio"
-          id="colourCustom"
-          name="colour"
-          value="custom"
-        />
-        <label htmlFor="colourCustom">Custom</label>
-        <input
-          id="customColour"
-          name="customColour"
-          type="text"
-          value="hotpink"
-        />
-      </div> */}
+          id={`${props.id}_${name}`}
+          name={name}
+          onChange={() => props.update(value)}
+          checked={props.colour == value}/>
+          <label
+          htmlFor={`${props.id}_${name}`}
+          css={{backgroundColor: value, textTransform: 'capitalize'}}
+          className="swatchcolour">{name}</label>
+        </div>
+        ))}
+      </div>
     </fieldset>
   </div>);
 }
