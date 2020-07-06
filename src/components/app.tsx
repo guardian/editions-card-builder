@@ -5,6 +5,7 @@ import Form from "./form"
 import Canvas from "./canvas"
 import * as React from 'react'
 import { Furniture } from '../types/furniture'
+import config from '../utils/config'
 
 interface AppState {
   canvasBlob?: Blob
@@ -20,10 +21,10 @@ class App extends React.Component<any, AppState> {
       furniture: {
         headline: "",
         headlineSize: "small",
-        headlineColour: "",
+        headlineColour: config.swatches.simple.white,
         standfirst: "",
         standfirstSize: "small",
-        standfirstColour: "",
+        standfirstColour: config.swatches.simple.white,
         position: 0,
         device: "mobile",
         imageUrl: "",

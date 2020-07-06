@@ -30,7 +30,7 @@ export default(props: {id: string, colour: string, update: (colour: string) => v
           <input
           type="radio"
           id={`${props.id}_${name}`}
-          name={name}
+          name={`${props.id}_${name}`}
           onChange={() => props.update(value)}
           checked={props.colour == value}/>
           <label

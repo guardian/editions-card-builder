@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core'
 import { Furniture } from '../types/furniture'
 import * as React from 'react'
 import CanvasCard from '../utils/canvas'
+import debounce from "debounce";
 
 interface CanvasProps {
   update: (blob : Blob) => void
@@ -23,8 +24,8 @@ class Canvas extends React.Component<CanvasProps> {
 
     const card = new CanvasCard();
 
-    card.draw(canvas, this.props.furniture)
-    .then(() => canvas.toBlob( (blob) => this.props.update(blob)));
+    debounce(card.draw(canvas, this.props.furniture).then(() => canvas.toBlob( (blob) => this.props.update(blob))), 200);
+
   }
 
   render() {
