@@ -12,6 +12,25 @@ export default(props: {id: string, colour: string, update: (colour: string) => v
     setSwatch(event.target.value);
   }
 
+  function contrastTextColor(hex) {
+    if (hex.indexOf('#') === 0) {
+        hex = hex.slice(1);
+    }
+    // convert 3-digit hex to 6-digits.
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    if (hex.length !== 6) {
+        throw new Error('Invalid HEX color.');
+    }
+    const brightness =
+      parseInt(hex.slice(0, 2), 16) + parseInt(hex.slice(2, 4), 16) + parseInt(hex.slice(4, 6), 16)
+    if (brightness < 300)
+      return '#ffffff'
+    else
+      return '#000000'
+}
+
   return(
     <div>
       <label>
@@ -35,7 +54,7 @@ export default(props: {id: string, colour: string, update: (colour: string) => v
           checked={props.colour == value}/>
           <label
           htmlFor={`${props.id}_${name}`}
-          css={{backgroundColor: value, textTransform: 'capitalize'}}
+          css={{backgroundColor: value, textTransform: 'capitalize', color: contrastTextColor(value)}}
           className="swatchcolour">{name}</label>
         </div>
         ))}
