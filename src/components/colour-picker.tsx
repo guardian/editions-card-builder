@@ -6,10 +6,16 @@ import { useState } from 'react';
 export default(props: {id: string, colour: string, update: (colour: string) => void}) => {
 
   const [swatch, setSwatch] = useState(Object.keys(config.swatches).find(() => true));
+  const [custom, setCustom] = useState(false);
 
   function updateSwatch(event) {
     props.update(Object.values(config.swatches[event.target.value]).find(() => true) as string);
     setSwatch(event.target.value);
+  }
+
+  function updateColour(colour: any){
+    props.update(colour);
+    setCustom(false);
   }
 
   function contrastTextColor(hex) {
@@ -50,7 +56,7 @@ export default(props: {id: string, colour: string, update: (colour: string) => v
           type="radio"
           id={`${props.id}_${name}`}
           name={`${props.id}_${name}`}
-          onChange={() => props.update(value)}
+          onChange={() => updateColour(value)}
           checked={props.colour == value}/>
           <label
           htmlFor={`${props.id}_${name}`}
@@ -58,6 +64,24 @@ export default(props: {id: string, colour: string, update: (colour: string) => v
           className="swatchcolour">{name}</label>
         </div>
         ))}
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="colourCustom"
+          name="colour"
+          value="custom"
+          checked={custom == true}
+          onChange={() => setCustom(true)}
+        />
+        <label htmlFor="colourCustom">Custom</label>
+        <input
+          id="customColour"
+          name="customColour"
+          type="text"
+          value={props.colour}
+          onChange={event => props.update(event.target.value)}
+        />
       </div>
     </fieldset>
   </div>);
