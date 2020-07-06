@@ -22,8 +22,6 @@ export default function(props: HeaderProps){
       return;
     }
 
-    console.log("Uploading image")
-
     var uplaod = canvasBlob =>
       new Promise<ArrayBuffer>(resolve => {
         setUploading(true);
@@ -54,7 +52,6 @@ export default function(props: HeaderProps){
   }
 
   const downloadImage = () => {
-    console.log("Downloading image")
     download(canvasBlob, "image.png", "image/png");
   }
 

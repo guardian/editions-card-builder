@@ -33,14 +33,12 @@ class App extends React.Component<any, AppState> {
   }
 
   updateCanvasBlob = (newBlob) => {
-    console.log("updating with a new blob")
     this.setState({
       canvasBlob: newBlob
     })
   }
 
   updateFurniture = (newFurniture: Furniture) => {
-    console.log("updating with new furniture", newFurniture)
     this.setState({
       furniture: newFurniture
     })

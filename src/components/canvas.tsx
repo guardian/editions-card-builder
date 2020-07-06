@@ -40,7 +40,6 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
   }
 
   draw(canvas: HTMLCanvasElement, state: CanvasState, props: CanvasProps) {
-    console.log("draw");
     state.card.draw(canvas, props.furniture)
       .then(() => canvas.toBlob( (blob) => props.update(blob)));
   }
