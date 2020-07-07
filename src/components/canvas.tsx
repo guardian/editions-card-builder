@@ -46,7 +46,7 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
 
   render() {
     return (
-      <canvas ref="canvas" width="500px" height="500px" className="card"></canvas>
+      <canvas ref="canvas" className="card"></canvas>
     )
   }
 }
