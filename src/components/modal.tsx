@@ -8,7 +8,7 @@ interface ModalProps {
 }
 
 export default class Modal extends React.Component<ModalProps> {
-  preventClosingClick(event) {
+  preventClosingClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     event.stopPropagation();
   }
 

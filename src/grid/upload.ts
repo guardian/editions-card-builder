@@ -3,11 +3,11 @@ import { GridResponse } from "../types/grid-response";
 
 const TIMEOUT = 1500;
 
-function wait<T>(fn): Promise<T> {
+function wait<T>(fn: () => any): Promise<T> {
   return new Promise(resolve => setTimeout(_ => resolve(fn()), TIMEOUT));
 }
 
-function uploadImage({ gridDomain, image }): Promise<GridResponse> {
+function uploadImage({ gridDomain, image }: { gridDomain: string, image: any }): Promise<GridResponse> {
   return fetch(`https://loader.${gridDomain}/images`, {
     method: "POST",
     credentials: "include",
@@ -25,7 +25,7 @@ function uploadImage({ gridDomain, image }): Promise<GridResponse> {
     );
 }
 
-function editImage({ endpoint, method, body }) {
+function editImage({ endpoint, method, body }: { endpoint: string, method: string, body: any }) {
   return fetch(endpoint, {
     method: method,
     credentials: "include",
@@ -36,7 +36,7 @@ function editImage({ endpoint, method, body }) {
   }).then(res => res.json());
 }
 
-function addLabels({ apiResponse }) {
+function addLabels({ apiResponse }: { apiResponse: any }) {
   return editImage({
     endpoint: apiResponse.data.userMetadata.data.labels.uri,
     method: "POST",
@@ -44,7 +44,7 @@ function addLabels({ apiResponse }) {
   });
 }
 
-function copyMetadata({ apiResponse, originalImage }) {
+function copyMetadata({ apiResponse, originalImage }: { apiResponse: any, originalImage: any }) {
   const originalMetadata = originalImage.data.metadata;
   const copiedMetadata = Object.entries(originalMetadata).reduce(
     (acc, [key, value]) => {
@@ -62,7 +62,7 @@ function copyMetadata({ apiResponse, originalImage }) {
   });
 }
 
-function copyUsageRights({ apiResponse, originalImage }) {
+function copyUsageRights({ apiResponse, originalImage }: { apiResponse: any, originalImage: any }) {
   const originalUsageRights = originalImage.data.usageRights;
 
   if (!originalUsageRights) {
@@ -76,9 +76,9 @@ function copyUsageRights({ apiResponse, originalImage }) {
   });
 }
 
-function addCollections({ apiResponse }) {
+function addCollections({ apiResponse }: { apiResponse: any}) {
   const endpoint = apiResponse.actions.find(
-    action => action.name === "add-collection"
+    (action: any) => action.name === "add-collection"
   ).href;
 
   return editImage({
@@ -88,7 +88,7 @@ function addCollections({ apiResponse }) {
   });
 }
 
-export async function upload({ gridDomain, image, originalImage }): Promise<GridResponse> {
+export async function upload({ gridDomain, image, originalImage }: { gridDomain: string, image: any, originalImage: any }): Promise<GridResponse> {
   const apiResponse = await uploadImage({ gridDomain, image });
   await Promise.all([
     addLabels({ apiResponse }),

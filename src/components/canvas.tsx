@@ -3,10 +3,10 @@ import { jsx } from '@emotion/core'
 import { Furniture } from '../types/furniture'
 import * as React from 'react'
 import CanvasCard from '../utils/canvas'
-import debounce from 'debounce'
+import debounce  from 'debounce'
 
 interface CanvasProps {
-  update: (blob : Blob) => void
+  update: (blob? : Blob) => void
   furniture?: Furniture
 }
 
@@ -16,7 +16,7 @@ interface CanvasState {
 }
 
 class Canvas extends React.Component<CanvasProps, CanvasState> {
-  constructor(props){
+  constructor(props: CanvasProps){
     super(props)
     this.state = {
       card: new CanvasCard(),
@@ -28,7 +28,7 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
     this.setState({drawDebounce : debounce(this.draw, 200)});
   }
 
-  shouldComponentUpdate(nextProps){
+  shouldComponentUpdate(nextProps: CanvasProps){
     return this.props.furniture != nextProps.furniture;
   }
 
@@ -40,8 +40,9 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
   }
 
   draw(canvas: HTMLCanvasElement, state: CanvasState, props: CanvasProps) {
+    if( props.furniture)
     state.card.draw(canvas, props.furniture)
-      .then(() => canvas.toBlob( (blob) => props.update(blob)));
+      .then(() => canvas.toBlob( (blob) => props.update(blob || undefined)));
   }
 
   render() {

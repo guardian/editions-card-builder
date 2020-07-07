@@ -31,7 +31,7 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
     }
   };
 
-  validMessage(data) {
+  validMessage(data: any) {
     return data && data.crop && data.crop.data && data.image && data.image.data;
   }
 
@@ -45,7 +45,7 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
     window.addEventListener('message', this.onMessage, false);
   };
 
-  onMessage = event => {
+  onMessage = (event: MessageEvent) => {
     if (event.origin !== this.getGridUrl()) {
       return;
     }

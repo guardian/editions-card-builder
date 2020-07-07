@@ -5,10 +5,10 @@ import ColourPicker from "./colour-picker"
 import ImageSelect from "./image-select"
 import { useState } from 'react'
 import { Furniture } from '../types/furniture';
-import { Size } from '../types/size';
+import { HeadlineSize, StandfirstSize } from '../types/size';
 import { Device } from '../types/device';
 
-export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
+export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
   const [position, setPostion] = useState("top");
 
@@ -32,7 +32,7 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           id="headline"
           name="headline"
           placeholder="headline..."
-          value={props.furniture.headline}
+          value={props.furniture?.headline}
           onChange={event => update('headline', event.target.value)}
         ></textarea>
 
@@ -42,8 +42,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="headlineSmall"
           name="headlineSize"
-          value={Size.Small}
-          checked={props.furniture.headlineSize === Size.Small}
+          value={HeadlineSize.Small}
+          checked={props.furniture?.headlineSize === HeadlineSize.Small}
           onChange={event => update('headlineSize', event.target.value)}
         />
         <label htmlFor="headlineSmall">Small</label>
@@ -52,8 +52,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="headlineMedium"
           name="headlineSize"
-          value={Size.Medium}
-          checked={props.furniture.headlineSize === Size.Medium}
+          value={HeadlineSize.Medium}
+          checked={props.furniture?.headlineSize === HeadlineSize.Medium}
           onChange={event => update('headlineSize', event.target.value)}
         />
         <label htmlFor="headlineMedium">Medium</label>
@@ -62,21 +62,21 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="headlineLarge"
           name="headlineSize"
-          value={Size.Large}
-          checked={props.furniture.headlineSize === Size.Large}
+          value={HeadlineSize.Large}
+          checked={props.furniture?.headlineSize === HeadlineSize.Large}
           onChange={event => update('headlineSize', event.target.value)}
         />
         <label htmlFor="headlineLarge">Large</label>
       </fieldset>
 
-      <ColourPicker id="headline" colour={props.furniture.headlineColour} update={colour => update('headlineColour', colour)}/>
+      <ColourPicker id="headline" colour={props.furniture?.headlineColour} update={colour => update('headlineColour', colour)}/>
 
       <label htmlFor="standfirst">Standfirst</label>
       <textarea
         id="standfirst"
         name="standfirst"
         placeholder="standfirst..."
-        value={props.furniture.standfirst}
+        value={props.furniture?.standfirst}
         onChange={event => update('standfirst', event.target.value)}
       ></textarea>
 
@@ -86,8 +86,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="standfirstSmall"
           name="standfirstSize"
-          value={Size.Small}
-          checked={props.furniture.standfirstSize === Size.Small}
+          value={StandfirstSize.Small}
+          checked={props.furniture?.standfirstSize === StandfirstSize.Small}
           onChange={event => update('standfirstSize', event.target.value)}
         />
         <label htmlFor="standfirstSmall">Small</label>
@@ -96,8 +96,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="standfirstMedium"
           name="standfirstSize"
-          value={Size.Medium}
-          checked={props.furniture.standfirstSize === Size.Medium}
+          value={StandfirstSize.Medium}
+          checked={props.furniture?.standfirstSize === StandfirstSize.Medium}
           onChange={event => update('standfirstSize', event.target.value)}
         />
         <label htmlFor="standfirstMedium">Medium</label>
@@ -148,7 +148,7 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
             id="customPosition"
             name="customPosition"
             type="range"
-            value={props.furniture.position}
+            value={props.furniture?.position}
             min="1"
             max="99"
             onChange={event => updatePostion("custom", event.target.value)}
@@ -164,7 +164,7 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           id="deviceMobile"
           name="device"
           value={Device.Mobile}
-          checked={props.furniture.device === Device.Mobile}
+          checked={props.furniture?.device === Device.Mobile}
           onChange={event => update('device', event.target.value)}
         />
         <label htmlFor="deviceMobile">Mobile</label>
@@ -174,7 +174,7 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           id="deviceTablet"
           name="device"
           value={Device.Tablet}
-          checked={props.furniture.device === Device.Tablet}
+          checked={props.furniture?.device === Device.Tablet}
           onChange={event => update('device', event.target.value)}
         />
         <label htmlFor="deviceTablet">Tablet</label>

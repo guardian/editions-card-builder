@@ -24,7 +24,7 @@ class App extends React.Component<any, AppState> {
     }
   }
 
-  updateCanvasBlob = (newBlob) => {
+  updateCanvasBlob = (newBlob?: Blob) => {
     this.setState({
       canvasBlob: newBlob
     })

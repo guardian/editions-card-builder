@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 interface HeaderProps {
   canvasBlob?: Blob
-  originalImageData: object
+  originalImageData?: object
 }
 
 export default function(props: HeaderProps){
@@ -22,7 +22,7 @@ export default function(props: HeaderProps){
       return;
     }
 
-    var upload = canvasBlob =>
+    var upload = (canvasBlob: Blob) =>
       new Promise<ArrayBuffer>(resolve => {
         setUploading(true);
         const reader = new FileReader();
@@ -38,9 +38,10 @@ export default function(props: HeaderProps){
       )
       .then(apiResponse => {
         setUploading(false);
-        const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")
-          .href;
+        const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")?.href;
+        if(imageUrl){
           setGridLink(imageUrl);
+        }
       })
       .catch(error => {
         setUploading(false);
@@ -48,11 +49,15 @@ export default function(props: HeaderProps){
         throw error;
       });
 
-      upload(canvasBlob);
+      if(canvasBlob){
+        upload(canvasBlob);
+      }
   }
 
   const downloadImage = () => {
-    download(canvasBlob, "image.png", "image/png");
+    if(canvasBlob){
+      download(canvasBlob, "image.png", "image/png");
+    }
   }
 
 

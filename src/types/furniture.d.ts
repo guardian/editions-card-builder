@@ -1,14 +1,14 @@
 import { Device } from "./device";
-import { Size } from "./size";
+import { HeadlineSize, StandfirstSize } from "./size";
 
 export interface Furniture {
   device: Device
   imageUrl: string
   headline: string
-  headlineSize: Size
+  headlineSize: HeadlineSize
   headlineColour: string
   standfirst: string
-  standfirstSize: Size
+  standfirstSize: StandfirstSize
   position: number
 }
 

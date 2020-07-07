@@ -1,16 +1,22 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import config from "../utils/config"
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 
-export default(props: {id: string, colour: string, update: (colour: string) => void}) => {
+export default(props: {id: string, colour?: string, update: (colour: string) => void}) => {
 
-  const [swatch, setSwatch] = useState(Object.keys(config.swatches).find(() => true));
+  const [swatch, setSwatch] = useState(Object.keys(config.swatches).find(() => true) as string);
   const [custom, setCustom] = useState(false);
 
-  function updateSwatch(event) {
-    props.update(Object.values(config.swatches[event.target.value]).find(() => true) as string);
+  function updateSwatch(event: ChangeEvent<HTMLSelectElement>) {
+    let swatch = findSwatch(event.target.value);
+    let colour = Object.values(swatch).find(() => true) as string
+    props.update(colour);
     setSwatch(event.target.value);
+  }
+
+  function findSwatch(name: string){
+    return Object.entries(config.swatches).find(([key, value]) => key == name)?.pop() || {};
   }
 
   function updateColour(colour: any){
@@ -18,7 +24,7 @@ export default(props: {id: string, colour: string, update: (colour: string) => v
     setCustom(false);
   }
 
-  function contrastTextColor(hex) {
+  function contrastTextColor(hex: String) {
     if (hex.indexOf('#') === 0) {
         hex = hex.slice(1);
     }
@@ -50,7 +56,7 @@ export default(props: {id: string, colour: string, update: (colour: string) => v
     <fieldset className="colour">
       <legend>Colour</legend>
       <div className="coloursBySwatch">
-        {Object.entries<string>(config.swatches[swatch]).map(([name, value]) => (
+        {Object.entries<string>(findSwatch(swatch)).map(([name, value]) => (
         <div key={name} css={{display: "inline-block"}}>
           <input
           type="radio"
