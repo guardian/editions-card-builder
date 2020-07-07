@@ -22,7 +22,7 @@ export default function(props: HeaderProps){
       return;
     }
 
-    var uplaod = canvasBlob =>
+    var upload = canvasBlob =>
       new Promise<ArrayBuffer>(resolve => {
         setUploading(true);
         const reader = new FileReader();
@@ -48,7 +48,7 @@ export default function(props: HeaderProps){
         throw error;
       });
 
-      uplaod(canvasBlob);
+      upload(canvasBlob);
   }
 
   const downloadImage = () => {
