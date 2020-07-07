@@ -1,5 +1,5 @@
-import { Device } from "./device";
-import { HeadlineSize, StandfirstSize } from "./size";
+import { Device } from "../enums/device";
+import { HeadlineSize, StandfirstSize } from "../enums/size";
 
 export interface Furniture {
   device: Device

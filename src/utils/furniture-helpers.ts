@@ -1,7 +1,7 @@
 import config from './config'
 import { Furniture } from '../types/furniture'
-import {  HeadlineSize, StandfirstSize } from "../types/size"
-import { Device } from "../types/device"
+import {  HeadlineSize, StandfirstSize } from "../enums/size"
+import { Device } from "../enums/device"
 
 export default function(): Furniture {
   return {
