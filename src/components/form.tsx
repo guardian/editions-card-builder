@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import Config from "../utils/config";
-import { Furniture } from '../types/furniture';
 import ColourPicker from "./colour-picker"
 import ImageSelect from "./image-select"
-import { useState } from 'react';
+import { useState } from 'react'
+import { Furniture } from '../types/furniture';
+import { Size } from '../types/size';
+import { Device } from '../types/device';
 
 export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
@@ -40,8 +42,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="headlineSmall"
           name="headlineSize"
-          value="small"
-          checked={props.furniture.headlineSize === 'small'}
+          value={Size.Small}
+          checked={props.furniture.headlineSize === Size.Small}
           onChange={event => update('headlineSize', event.target.value)}
         />
         <label htmlFor="headlineSmall">Small</label>
@@ -50,8 +52,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="headlineMedium"
           name="headlineSize"
-          value="medium"
-          checked={props.furniture.headlineSize === 'medium'}
+          value={Size.Medium}
+          checked={props.furniture.headlineSize === Size.Medium}
           onChange={event => update('headlineSize', event.target.value)}
         />
         <label htmlFor="headlineMedium">Medium</label>
@@ -60,8 +62,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="headlineLarge"
           name="headlineSize"
-          value="large"
-          checked={props.furniture.headlineSize === 'large'}
+          value={Size.Large}
+          checked={props.furniture.headlineSize === Size.Large}
           onChange={event => update('headlineSize', event.target.value)}
         />
         <label htmlFor="headlineLarge">Large</label>
@@ -84,8 +86,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="standfirstSmall"
           name="standfirstSize"
-          value="small"
-          checked={props.furniture.standfirstSize === 'small'}
+          value={Size.Small}
+          checked={props.furniture.standfirstSize === Size.Small}
           onChange={event => update('standfirstSize', event.target.value)}
         />
         <label htmlFor="standfirstSmall">Small</label>
@@ -94,8 +96,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="standfirstMedium"
           name="standfirstSize"
-          value="medium"
-          checked={props.furniture.standfirstSize === 'medium'}
+          value={Size.Medium}
+          checked={props.furniture.standfirstSize === Size.Medium}
           onChange={event => update('standfirstSize', event.target.value)}
         />
         <label htmlFor="standfirstMedium">Medium</label>
@@ -161,8 +163,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="deviceMobile"
           name="device"
-          value="mobile"
-          checked={props.furniture.device === "mobile"}
+          value={Device.Mobile}
+          checked={props.furniture.device === Device.Mobile}
           onChange={event => update('device', event.target.value)}
         />
         <label htmlFor="deviceMobile">Mobile</label>
@@ -171,8 +173,8 @@ export default (props: {furniture: Furniture, updateFurniture: (newFurniture: Fu
           type="radio"
           id="deviceTablet"
           name="device"
-          value="tablet"
-          checked={props.furniture.device === "tablet"}
+          value={Device.Tablet}
+          checked={props.furniture.device === Device.Tablet}
           onChange={event => update('device', event.target.value)}
         />
         <label htmlFor="deviceTablet">Tablet</label>

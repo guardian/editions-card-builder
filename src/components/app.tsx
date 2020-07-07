@@ -7,6 +7,7 @@ import * as React from 'react'
 import { Furniture } from '../types/furniture'
 import newFurniture from '../utils/furniture-helpers'
 
+
 interface AppState {
   canvasBlob?: Blob
   furniture?: Furniture
