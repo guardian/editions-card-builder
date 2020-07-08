@@ -1,7 +1,6 @@
 import { labs, lifestyle, culture, sport, opinion, news, brand, brandAlt, neutral, specialReport } from '@guardian/src-foundations/palette'
 
 export default {
-  gridDomain: process.env.GRID_DOMAIN as string,
   dimensions: {
     mobile: [525, 810],
     tablet: [975, 1088]

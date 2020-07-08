@@ -2,12 +2,200 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="main.css" />
     <title>Editions Card Builder</title>
   </head>
 
   <body>
-    <div id="root"></div>
-    <script src="./index.tsx"></script>
+    <header>
+      <div>
+        <h1>Editions Card Builder</h1>
+        create cards for the Editions app
+      </div>
+      <div>
+        <a id="gridLink" target="_blank" rel="noopener noreferrer">🖼 Grid</a>
+        <button id="upload" disabled>Upload</button>
+        <button id="download" download>Download</button>
+      </div>
+    </header>
+    <div class="card-builder">
+      <div class="card-builder-left">
+        <form class="card-builder-form">
+          <button type="button" class="image-select">Select image</button>
+          <input id="imageUrl" type="hidden" name="imageUrl" />
+
+          <label for="headline">Headline</label>
+          <textarea
+            id="headline"
+            name="headline"
+            placeholder="headline..."
+          ></textarea>
+
+          <fieldset>
+            <legend>Headline Size</legend>
+            <input
+              type="radio"
+              id="headlineSmall"
+              name="headlineSize"
+              value="small"
+              checked
+            />
+            <label for="headlineSmall">Small</label>
+
+            <input
+              type="radio"
+              id="headlineMedium"
+              name="headlineSize"
+              value="medium"
+            />
+            <label for="headlineMedium">Medium</label>
+
+            <input
+              type="radio"
+              id="headlineLarge"
+              name="headlineSize"
+              value="large"
+            />
+            <label for="headlineLarge">Large</label>
+          </fieldset>
+
+          <label>
+            Swatch
+            <select name="swatch">
+              <option value="simple">Simple</option>
+              <option value="brand">Brand</option>
+              <option value="highlight">Highlight</option>
+              <option value="news">News</option>
+              <option value="opinion">Opinion</option>
+              <option value="labs">Labs</option>
+              <option value="lifestyle">Lifestyle</option>
+              <option value="sport">Sport</option>
+              <option value="culture">Culture</option>
+              <option value="neutral">Neutral</option>
+              <option value="special">Special</option>
+            </select>
+          </label>
+
+          <fieldset class="colour">
+            <legend>Colour</legend>
+            <div class="coloursBySwatch">
+
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="colourCustom"
+                name="colour"
+                value="custom"
+              />
+              <label for="colourCustom">Custom</label>
+              <input
+                id="customColour"
+                name="customColour"
+                type="text"
+                value="hotpink"
+              />
+
+            </div>
+          </fieldset>
+
+          <label for="standfirst">Standfirst</label>
+          <textarea
+            id="standfirst"
+            name="standfirst"
+            type="text-area"
+            placeholder="standfirst..."
+          ></textarea>
+
+          <fieldset>
+            <legend>Standfirst Size</legend>
+            <input
+              type="radio"
+              id="standfirstSmall"
+              name="standfirstSize"
+              value="small"
+              checked
+            />
+            <label for="standfirstSmall">Small</label>
+
+            <input
+              type="radio"
+              id="standfirstMedium"
+              name="standfirstSize"
+              value="medium"
+            />
+            <label for="standfirstMedium">Medium</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Position</legend>
+            <input
+              type="radio"
+              id="positionTop"
+              name="positionValue"
+              value="0"
+              checked
+            />
+            <label for="positionTop">Top</label>
+
+            <input
+              type="radio"
+              id="positionMiddle"
+              name="positionValue"
+              value="40"
+            />
+            <label for="positionMiddle">Middle</label>
+            <input
+              type="radio"
+              id="positionBottom"
+              name="positionValue"
+              value="100"
+            />
+            <label for="positionBottom">Bottom</label>
+            <br/>
+            <div>
+              <input
+                type="radio"
+                id="positionCustom"
+                name="positionValue"
+                value="-1"
+              />
+              <label for="positionCustom">Custom</label>
+              <input
+                id="customPosition"
+                name="customPosition"
+                type="range"
+                value="40"
+                min="1"
+                max="99"
+              />
+            </div>
+
+          </fieldset>
+
+          <fieldset>
+            <legend>Device</legend>
+            <input
+              type="radio"
+              id="deviceMobile"
+              name="device"
+              value="mobile"
+              checked
+            />
+            <label for="deviceMobile">Mobile</label>
+
+            <input
+              type="radio"
+              id="deviceTablet"
+              name="device"
+              value="tablet"
+            />
+            <label for="deviceTablet">Tablet</label>
+          </fieldset>
+        </form>
+      </div>
+      <div class="card-builder-right"></div>
+    </div>
+    <script src="main.ts" type="text/javascript"></script>
   </body>
 </html>
