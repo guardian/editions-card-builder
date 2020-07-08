@@ -13,7 +13,7 @@ interface HeaderProps {
 export default function(props: HeaderProps){
   const {canvasBlob} = props;
 
-  const [gridLink, setGridLink] = useState("");
+  const [gridLink, setGridLink] = useState<string>();
   const [uploading, setUploading] = useState(false);
 
   const uploadImage = () => {
@@ -50,7 +50,7 @@ export default function(props: HeaderProps){
       });
 
       if(canvasBlob){
-        setGridLink("");
+        setGridLink(undefined);
         upload(canvasBlob);
       }
   }
