@@ -13,6 +13,7 @@ export default(props: {id: string, colour?: string, update: (colour: string) => 
     let colour = Object.values(swatch).find(() => true) as string
     props.update(colour);
     setSwatch(event.target.value);
+    setCustom(false);
   }
 
   function findSwatch(name: string){
@@ -63,7 +64,7 @@ export default(props: {id: string, colour?: string, update: (colour: string) => 
           id={`${props.id}_${name}`}
           name={`${props.id}_${name}`}
           onChange={() => updateColour(value)}
-          checked={props.colour == value}/>
+          checked={props.colour == value && !custom}/>
           <label
           htmlFor={`${props.id}_${name}`}
           css={{backgroundColor: value, textTransform: 'capitalize', color: contrastTextColor(value)}}
@@ -74,20 +75,21 @@ export default(props: {id: string, colour?: string, update: (colour: string) => 
       <div>
         <input
           type="radio"
-          id="colourCustom"
-          name="colour"
+          id={`${props.id}_colourCustom`}
+          name={`${props.id}_colour`}
           value="custom"
-          checked={custom == true}
+          checked={custom}
           onChange={() => setCustom(true)}
         />
-        <label htmlFor="colourCustom">Custom</label>
-        <input
-          id="customColour"
-          name="customColour"
+        <label htmlFor={`${props.id}_colourCustom`}>Custom</label>
+        {custom ? <input
+          id={`${props.id}_customColour`}
+          name={`${props.id}_customColour`}
+          css={{width: "150px"}}
           type="text"
           value={props.colour}
           onChange={event => props.update(event.target.value)}
-        />
+        /> : null}
       </div>
     </fieldset>
   </div>);
