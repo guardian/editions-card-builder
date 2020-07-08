@@ -50,6 +50,7 @@ export default function(props: HeaderProps){
       });
 
       if(canvasBlob){
+        setGridLink("");
         upload(canvasBlob);
       }
   }
