@@ -70,12 +70,14 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
     this.props.updateOriginalImageData(event.data.image);
   };
 
+  getIframeUrl(){
+    return this.state.imageId
+      ? `${this.getGridUrl()}/images/${this.state.imageId}`
+      : this.getGridUrl();
+  }
 
   getGridUrl() {
-    var gridUrl = `https://${config.gridDomain}`;
-    return this.state.imageId
-      ? `${gridUrl}/images/${this.state.imageId}`
-      : gridUrl;
+    return`https://${config.gridDomain}`;
   }
 
   render() {
@@ -84,7 +86,7 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
         <button type="button" className="image-select" onClick={this.openModal}>Select image</button>
 
         <Modal isOpen={this.state.modalOpen} dismiss={this.closeModal}>
-          <iframe css={{border: 'none'}} src={this.getGridUrl()} />
+          <iframe css={{border: 'none'}} src={this.getIframeUrl()} />
         </Modal>
 
       </div>
