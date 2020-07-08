@@ -252,6 +252,8 @@ class CanvasCard {
           });
         }
 
+        canvasContext.fillStyle = furniture.standfirstColour;
+
         if (splitStandfirst.length > 0) {
           const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight
           this._drawText({

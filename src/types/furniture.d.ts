@@ -9,6 +9,7 @@ export interface Furniture {
   headlineColour: string
   standfirst: string
   standfirstSize: StandfirstSize
+  standfirstColour: string
   position: number
 }
 
