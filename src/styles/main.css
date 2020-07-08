@@ -267,16 +267,6 @@ input[type="radio"]:checked + label {
   font-weight: 600;
 }
 
-#customColour {
-  display: none;
-  width: 150px;
-}
-
-#colourCustom:checked ~ #customColour {
-  display: inline-block
-}
-
-
 #customPosition {
   display: none;
   width: 150px;
