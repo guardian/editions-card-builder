@@ -10,6 +10,7 @@ export default function(): Furniture {
     headlineColour: config.swatches.simple.white,
     standfirst: "",
     standfirstSize: StandfirstSize.Small,
+    standfirstColour: config.swatches.simple.white,
     position: 0,
     device: Device.Mobile,
     imageUrl: "",

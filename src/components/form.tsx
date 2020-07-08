@@ -103,6 +103,8 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
         <label htmlFor="standfirstMedium">Medium</label>
       </fieldset>
 
+      <ColourPicker id="standfirst" colour={props.furniture?.standfirstColour} update={colour => update('standfirstColour', colour)}/>
+
       <fieldset>
         <legend>Position</legend>
         <input
