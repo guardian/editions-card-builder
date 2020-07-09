@@ -25,7 +25,7 @@ export default class Modal extends React.Component<collapsibleProps, collapsible
   render(){
     return(
     <div>
-      <button type="button" className="collapsible" onClick={() => this.setState({show: !this.state.show})}>{this.props.name}</button>
+      <button type="button" className={`collapsible ${this.state.show? "active" : ""}`} onClick={() => this.setState({show: !this.state.show})}>{this.props.name}</button>
       <div css={{display: this.state.show ? "inherit" : "none"}}>
         {this.props.children}
       </div>

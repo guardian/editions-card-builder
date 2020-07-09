@@ -321,6 +321,18 @@ button.collapsible {
   background-color: #424242
 }
 
+button.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+button.collapsible.active:after {
+  content: "\2212";
+}
+
 canvas {
   height: 80%;
 }
