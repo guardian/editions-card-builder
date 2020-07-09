@@ -312,6 +312,15 @@ button:not([disabled]):hover {
   cursor: pointer;
 }
 
+button.collapsible {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  background-color: #424242
+}
+
 canvas {
   height: 80%;
 }
