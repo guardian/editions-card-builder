@@ -1,6 +1,8 @@
 import Config from "./config";
 import { Furniture } from "../types/furniture";
 import { promises } from "fs";
+import { line } from "@guardian/src-foundations/palette";
+import { TextRenderer } from "./text-renderer"
 
 class CanvasCard {
 
@@ -10,7 +12,7 @@ class CanvasCard {
     this.imageCache = new Map();
   }
 
-  _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }:
+  private _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }:
      { deviceWidth: number, deviceHeight: number, imageWidth: number, imageHeight: number }) {
     //For each unit of width, the image has this height
     const deviceRatio = deviceWidth / deviceHeight;
@@ -28,7 +30,8 @@ class CanvasCard {
       scale: imageWidth / deviceWidth
     };
   }
-  _drawImage({ canvasContext, image }: { canvasContext: CanvasRenderingContext2D, image: HTMLImageElement }) {
+
+  private _drawImage({ canvasContext, image }: { canvasContext: CanvasRenderingContext2D, image: HTMLImageElement }) {
     const x = 0;
     const y = 0;
     const xOffset = 0.5;
@@ -80,164 +83,119 @@ class CanvasCard {
     );
   }
 
-  _doesTextFit({ canvasContext, maxWidth, text }: { canvasContext: CanvasRenderingContext2D, maxWidth: number, text: string }) {
-    const measure = canvasContext.measureText(text);
-    return measure.width < maxWidth;
-  }
+  private _drawKickerAndHeadline(headlineRenderer: TextRenderer, canvas: HTMLCanvasElement, furniture: Furniture, scale: number, availableHeight: number){
+    //Split kicker into multiple lines
+    const splitKicker = headlineRenderer.splitTextIntoLines(furniture.kicker as string);
+    const lastKickerLine = splitKicker[splitKicker.length - 1];
 
-  _splitTextIntoLines({ canvasContext, maxWidth, text, font, fontSize }:
-  { canvasContext: CanvasRenderingContext2D, maxWidth: number, text: string, font: string, fontSize: number }) {
-    canvasContext.font = `${fontSize}px ${font}`;
+    //split split kicker last line and rest of headline
+    const splitHeadlineAndKicker = headlineRenderer.splitTextIntoLines(`${lastKickerLine} ${furniture.headline}`);
 
-    const measured = text.split("").reduce(
-      ({ buffer, lines }: {buffer: string, lines: any}, char: string) => {
-        const newBuffer = buffer + char;
-        //Are we on a newline?
-        if (char === "\n") {
-          return { lines: [...lines, buffer], buffer: "" };
-        }
-        //Does the text fit ok?
-        if (this._doesTextFit({ canvasContext, maxWidth, text: newBuffer })) {
-          return { lines: lines, buffer: newBuffer };
-        }
-
-        //Can we split at a space?
-        const lastSpace = newBuffer.lastIndexOf(" ");
-        if (lastSpace !== -1) {
-          const left = newBuffer.substring(0, lastSpace);
-          const right = newBuffer.substring(lastSpace + 1);
-          return {
-            lines: [...lines, left],
-            buffer: right
-          };
-        }
-        return { lines: [...lines, buffer], buffer: char };
-      },
-      { buffer: "", lines: [] }
-    );
-
-    return [...measured.lines, measured.buffer];
-  }
-
-  _drawText({
-    canvasContext,
-    lines,
-    fontSize,
-    font,
-    initialOffset,
-    lineHeight,
-    scale,
-    colour
-  }:
-  {
-    canvasContext: CanvasRenderingContext2D,
-    lines: string[],
-    fontSize: number,
-    font: string,
-    initialOffset: number,
-    lineHeight: number,
-    scale: number,
-    colour: string
-  }) {
-    canvasContext.font = `${fontSize}px ${font}`;
-    canvasContext.fillStyle = colour;
-    lines.forEach((line, i) => {
-      const yOffset = initialOffset + lineHeight * (i + 1);
-      canvasContext.fillText(line, Config.padding * scale, yOffset);
-    });
-  }
-
-  _drawFurniture(canvas: HTMLCanvasElement ,canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number){
-    const splitHeadline = !furniture.headline && !furniture.kicker
-      ? []
-      : this._splitTextIntoLines({
-          canvasContext,
-          maxWidth: Config.headline[furniture.device].maxWidth * scale,
-          text: `${furniture.kicker || ""}${furniture.headline || ""}`,
-          font: Config.headline.font,
-          fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale
-        });
-
-    const splitStandfirst = !furniture.standfirst
-      ? []
-      : this._splitTextIntoLines({
-          canvasContext,
-          maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
-          text: furniture.standfirst,
-          font: Config.standfirst.font,
-          fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale
-        });
-
-    const splitByline = !furniture.byline
-      ? []
-      : this._splitTextIntoLines({
-          canvasContext,
-          maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
-          text: furniture.byline,
-          font: Config.standfirst.font,
-          fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale
-        });
-
-    const headlineHeight =
-      (splitHeadline.length * Config.headline[furniture.device].lineHeight[furniture.headlineSize] +
-        Config.padding) *
+    const lineHeight =
+      (Config.headline[furniture.device].lineHeight[furniture.headlineSize]) *
       scale;
-    const standfirstHeight =
-      splitStandfirst.length *
-      Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
-    const bylineHeight =
-      splitByline.length *
-      Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
 
+    //Do last split kick and first headline fit together on a line?
+    const fristHeadline = splitHeadlineAndKicker[0]
+    const firstHeadlineMinusKicker = splitHeadlineAndKicker[0].substr(lastKickerLine.length, fristHeadline.length).trim();
+    const kickerAndHeadlineisMixed = headlineRenderer.doesTextFit(`${lastKickerLine} ${firstHeadlineMinusKicker}`) && fristHeadline.length != lastKickerLine.length;
+
+    //If yes
+    if(kickerAndHeadlineisMixed){
+      const lineCount = splitKicker.length + splitHeadlineAndKicker.length - 1;
+      //render all lines but last
+      if(splitKicker.length > 1){
+        const kickerOffset = availableHeight * furniture.position / 100;
+        headlineRenderer.drawText(splitKicker.slice(0, splitKicker.length - 1), 0, kickerOffset, furniture.kickerColour);
+      }
+
+      //Render last kicker line
+      const lastKickerOfest = availableHeight * furniture.position / 100 + (lineHeight * (splitKicker.length - 1));
+      headlineRenderer.drawText([lastKickerLine], 0, lastKickerOfest, furniture.kickerColour);
+
+      //Render rest of rest of first headline
+      const xOffset = headlineRenderer.measureTextWidth(lastKickerLine);
+      headlineRenderer.drawText([firstHeadlineMinusKicker],xOffset, lastKickerOfest,furniture.headlineColour);
+
+      //Render rest of headline lines
+      if(splitHeadlineAndKicker.length > 1) {
+        const headlineOffset = availableHeight * furniture.position / 100 + (lineHeight * splitKicker.length);
+        headlineRenderer.drawText(splitHeadlineAndKicker.slice(1, splitHeadlineAndKicker.length), 0, headlineOffset, furniture.headlineColour);
+      }
+    }
+    //If No
+    else {
+      const lineCount = splitKicker.length + splitHeadlineAndKicker.length - 1;
+      //Render kicker lines
+      const kickerOffset = availableHeight * furniture.position / 100;
+      headlineRenderer.drawText(splitKicker, 0, kickerOffset, furniture.kickerColour);
+
+      //Render headline lines
+      const headlineOffset = availableHeight * furniture.position / 100 + (lineHeight * splitKicker.length);
+      headlineRenderer.drawText(splitHeadlineAndKicker.slice(1, splitHeadlineAndKicker.length), 0, headlineOffset, furniture.headlineColour);
+    }
+  }
+
+  private _drawFurniture(canvas: HTMLCanvasElement ,canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number){
+
+    const headlineAndKickerRenderer = new TextRenderer({
+      canvasContext,
+      maxWidth: Config.headline[furniture.device].maxWidth * scale,
+      font: Config.headline.font,
+      fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
+      lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
+      scale: scale,
+      padding: Config.padding
+    });
+
+    const standfirstAndBylineRenderer = new TextRenderer({
+      canvasContext,
+      maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
+      font: Config.standfirst.font,
+      fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
+      lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
+      scale: scale,
+      padding: Config.padding
+    });
+
+
+    const splitHeadlineAndKicker = !furniture.headline && !furniture.kicker ? [] : headlineAndKickerRenderer.splitTextIntoLines(`${furniture.kicker} ${furniture.headline}`);
+    const splitStandfirst = !furniture.standfirst ? [] : standfirstAndBylineRenderer.splitTextIntoLines(furniture.standfirst);
+    const splitByline = !furniture.byline ? [] : standfirstAndBylineRenderer.splitTextIntoLines(furniture.byline);
+
+    const headlineHeight = (splitHeadlineAndKicker.length * Config.headline[furniture.device].lineHeight[furniture.headlineSize] + Config.padding) * scale;
+    const standfirstHeight = splitStandfirst.length * Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
+    const bylineHeight = splitByline.length * Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
 
     const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - Config.padding * scale
 
 
-    if (splitHeadline.length > 0) {
-
+    if(!!furniture.headline && !!furniture.kicker){
+      this._drawKickerAndHeadline(headlineAndKickerRenderer, canvas, furniture, scale, availableHeight);
+    }
+    else if (!!furniture.headline) {
+      const splitHeadline = !furniture.headline ? [] : headlineAndKickerRenderer.splitTextIntoLines(`${furniture.headline}`);
       const headlineOffset = availableHeight * furniture.position / 100
-      this._drawText({
-        canvasContext,
-        lines: splitHeadline,
-        font: Config.headline.font,
-        fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
-        lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
-        initialOffset: headlineOffset,
-        scale,
-        colour: furniture.headlineColour
-      });
+      headlineAndKickerRenderer.drawText(splitHeadline, 0, headlineOffset, furniture.headlineColour);
+    }
+    else if(!!furniture.kicker) {
+      const splitKicker = !furniture.headline ? [] : headlineAndKickerRenderer.splitTextIntoLines(`${furniture.kicker}`);
+      const kickerOffset = availableHeight * furniture.position / 100
+      headlineAndKickerRenderer.drawText(splitKicker, 0, kickerOffset, furniture.kickerColour);
     }
 
     if (splitStandfirst.length > 0) {
       const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight
-      this._drawText({
-        canvasContext,
-        lines: splitStandfirst,
-        font: Config.standfirst.font,
-        fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
-        lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
-        initialOffset: standfirstOffset,
-        scale,
-        colour: furniture.standfirstColour
-      });
+      standfirstAndBylineRenderer.drawText(splitStandfirst, 0, standfirstOffset, furniture.standfirstColour);
     }
 
     if (splitByline.length > 0) {
-      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight + standfirstHeight
-      this._drawText({
-        canvasContext,
-        lines: splitByline,
-        font: Config.standfirst.font,
-        fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
-        lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
-        initialOffset: standfirstOffset,
-        scale,
-        colour: furniture.bylineColour
-      });
+      const bylineOffset = availableHeight * furniture.position / 100 + headlineHeight + standfirstHeight
+      standfirstAndBylineRenderer.drawText(splitByline, 0, bylineOffset, furniture.bylineColour);
     }
   }
 
-  _getImageDataUrl(imageUrl: string) : Promise<string> {
+  private _getImageDataUrl(imageUrl: string) : Promise<string> {
     const key = encodeURIComponent(imageUrl);
     const maybeItem = this.imageCache.get(key);
 
@@ -262,7 +220,7 @@ class CanvasCard {
       });
   }
 
-  _getImage(imageUrl: string) {
+  private _getImage(imageUrl: string) {
     return this._getImageDataUrl(imageUrl).then(
       (dataUrl: string) =>
         new Promise<HTMLImageElement>(resolve => {
