@@ -134,7 +134,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
             onChange={event => update('byline', event.target.value)}
           ></input>
 
-          <ColourPicker id="byline" colour={props.furniture?.bylineColour} update={colour => update('byline', colour)}/>
+          <ColourPicker id="byline" colour={props.furniture?.bylineColour} update={colour => update('bylineColour', colour)}/>
         </Collapsible>
 
         <Collapsible name="Position">

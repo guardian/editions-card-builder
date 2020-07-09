@@ -144,6 +144,95 @@ class CanvasCard {
     });
   }
 
+  _drawFurniture(canvas: HTMLCanvasElement ,canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number){
+    const splitHeadline = !furniture.headline
+      ? []
+      : this._splitTextIntoLines({
+          canvasContext,
+          maxWidth: Config.headline[furniture.device].maxWidth * scale,
+          text: furniture.headline,
+          font: Config.headline.font,
+          fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale
+        });
+
+    const splitStandfirst = !furniture.standfirst
+      ? []
+      : this._splitTextIntoLines({
+          canvasContext,
+          maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
+          text: furniture.standfirst,
+          font: Config.standfirst.font,
+          fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale
+        });
+
+    const splitByline = !furniture.byline
+      ? []
+      : this._splitTextIntoLines({
+          canvasContext,
+          maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
+          text: furniture.byline,
+          font: Config.standfirst.font,
+          fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale
+        });
+
+    const headlineHeight =
+      (splitHeadline.length * Config.headline[furniture.device].lineHeight[furniture.headlineSize] +
+        Config.padding) *
+      scale;
+    const standfirstHeight =
+      splitStandfirst.length *
+      Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
+    const bylineHeight =
+      splitByline.length *
+      Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
+
+
+    const availableHeight = canvas.height - standfirstHeight - headlineHeight - Config.padding * scale
+
+
+    if (splitHeadline.length > 0) {
+      canvasContext.fillStyle = furniture.headlineColour;
+      const headlineOffset = availableHeight * furniture.position / 100
+      this._drawText({
+        canvasContext,
+        lines: splitHeadline,
+        font: Config.headline.font,
+        fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
+        lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
+        initialOffset: headlineOffset,
+        scale
+      });
+    }
+
+    if (splitStandfirst.length > 0) {
+      canvasContext.fillStyle = furniture.standfirstColour;
+      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight
+      this._drawText({
+        canvasContext,
+        lines: splitStandfirst,
+        font: Config.standfirst.font,
+        fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
+        lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
+        initialOffset: standfirstOffset,
+        scale
+      });
+    }
+
+    if (splitByline.length > 0) {
+      canvasContext.fillStyle = furniture.bylineColour;
+      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight + standfirstHeight
+      this._drawText({
+        canvasContext,
+        lines: splitByline,
+        font: Config.standfirst.font,
+        fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
+        lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
+        initialOffset: standfirstOffset,
+        scale
+      });
+    }
+  }
+
   _getImageDataUrl(imageUrl: string) {
     const key = encodeURIComponent(imageUrl);
     const maybeItem = this.imageCache.get(key);
@@ -171,7 +260,7 @@ class CanvasCard {
 
   _getImage(imageUrl: string) {
     return this._getImageDataUrl(imageUrl).then(
-      dataUrl =>
+      (dataUrl: string) =>
         new Promise<HTMLImageElement>(resolve => {
           const image = new Image();
           image.addEventListener("load", _ => resolve(image));
@@ -205,67 +294,7 @@ class CanvasCard {
 
       if(canvasContext){
         this._drawImage({ canvasContext, image });
-
-        const splitHeadline = !furniture.headline
-          ? []
-          : this._splitTextIntoLines({
-              canvasContext,
-              maxWidth: Config.headline[furniture.device].maxWidth * scale,
-              text: furniture.headline,
-              font: Config.headline.font,
-              fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale
-            });
-
-        const splitStandfirst = !furniture.standfirst
-          ? []
-          : this._splitTextIntoLines({
-              canvasContext,
-              maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
-              text: furniture.standfirst,
-              font: Config.standfirst.font,
-              fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale
-            });
-
-        const headlineHeight =
-          (splitHeadline.length * Config.headline[furniture.device].lineHeight[furniture.headlineSize] +
-            Config.padding) *
-          scale;
-        const standfirstHeight =
-          splitStandfirst.length *
-          Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
-
-        const availableHeight = canvas.height - standfirstHeight - headlineHeight - Config.padding * scale
-
-        canvasContext.fillStyle = furniture.headlineColour;
-
-        if (splitHeadline.length > 0) {
-          const headlineOffset = availableHeight * furniture.position / 100
-
-          this._drawText({
-            canvasContext,
-            lines: splitHeadline,
-            font: Config.headline.font,
-            fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
-            lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
-            initialOffset: headlineOffset,
-            scale
-          });
-        }
-
-        canvasContext.fillStyle = furniture.standfirstColour;
-
-        if (splitStandfirst.length > 0) {
-          const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight
-          this._drawText({
-            canvasContext,
-            lines: splitStandfirst,
-            font: Config.standfirst.font,
-            fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
-            lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
-            initialOffset: standfirstOffset,
-            scale
-          });
-        }
+        this._drawFurniture(canvas, canvasContext, furniture, scale)
       }
     });
   }
