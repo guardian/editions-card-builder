@@ -224,7 +224,7 @@ header h1 {
 .card-builder-form legend {
   display: block;
   font-family: "Guardian Titlepiece";
-  font-size: 18px;
+  font-size: 15px;
   padding-top: var(--spacing);
 }
 
@@ -318,7 +318,9 @@ button.collapsible {
   border: none;
   text-align: left;
   outline: none;
-  background-color: #424242
+  background-color: #424242;
+  font-size: 16px;
+  padding-left: 8px;
 }
 
 button.collapsible:after {
