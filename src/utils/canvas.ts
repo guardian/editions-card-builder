@@ -144,7 +144,7 @@ class CanvasCard {
     });
   }
 
-  _getImageDataUrl({ imageUrl }: {imageUrl: string}) {
+  _getImageDataUrl(imageUrl: string) {
     const key = encodeURIComponent(imageUrl);
     const maybeItem = this.imageCache.get(key);
 
@@ -169,8 +169,8 @@ class CanvasCard {
       });
   }
 
-  _getImage({ imageUrl }: {imageUrl: string}) {
-    return this._getImageDataUrl({ imageUrl }).then(
+  _getImage(imageUrl: string) {
+    return this._getImageDataUrl(imageUrl).then(
       dataUrl =>
         new Promise<HTMLImageElement>(resolve => {
           const image = new Image();
@@ -188,7 +188,7 @@ class CanvasCard {
       return Promise.reject("no-image");
     }
 
-    return this._getImage(furniture).then(image => {
+    return this._getImage(furniture.imageUrl).then(image => {
       const [deviceWidth, deviceHeight] = Config.dimensions[furniture.device];
 
       const { width, height, scale } = this._getCanvasDimensions({

@@ -5,15 +5,19 @@ import { Device } from "../enums/device"
 
 export default function(): Furniture {
   return {
-    headline: "",
+    headline: undefined,
     headlineSize: HeadlineSize.Small,
     headlineColour: config.swatches.simple.white,
-    standfirst: "",
+    kicker: undefined,
+    kickerColour: config.swatches.simple.white,
+    standfirst: undefined,
     standfirstSize: StandfirstSize.Small,
     standfirstColour: config.swatches.simple.white,
+    byline: undefined,
+    bylineColour: config.swatches.simple.white,
     position: 0,
     device: Device.Mobile,
-    imageUrl: "",
+    imageUrl: undefined,
   }
 }
 
