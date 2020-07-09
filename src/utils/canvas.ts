@@ -1,5 +1,6 @@
 import Config from "./config";
 import { Furniture } from "../types/furniture";
+import { promises } from "fs";
 
 class CanvasCard {
 
@@ -125,7 +126,8 @@ class CanvasCard {
     font,
     initialOffset,
     lineHeight,
-    scale
+    scale,
+    colour
   }:
   {
     canvasContext: CanvasRenderingContext2D,
@@ -134,10 +136,11 @@ class CanvasCard {
     font: string,
     initialOffset: number,
     lineHeight: number,
-    scale: number
+    scale: number,
+    colour: string
   }) {
     canvasContext.font = `${fontSize}px ${font}`;
-
+    canvasContext.fillStyle = colour;
     lines.forEach((line, i) => {
       const yOffset = initialOffset + lineHeight * (i + 1);
       canvasContext.fillText(line, Config.padding * scale, yOffset);
@@ -145,12 +148,12 @@ class CanvasCard {
   }
 
   _drawFurniture(canvas: HTMLCanvasElement ,canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number){
-    const splitHeadline = !furniture.headline
+    const splitHeadline = !furniture.headline && !furniture.kicker
       ? []
       : this._splitTextIntoLines({
           canvasContext,
           maxWidth: Config.headline[furniture.device].maxWidth * scale,
-          text: furniture.headline,
+          text: `${furniture.kicker || ""}${furniture.headline || ""}`,
           font: Config.headline.font,
           fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale
         });
@@ -187,11 +190,11 @@ class CanvasCard {
       Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
 
 
-    const availableHeight = canvas.height - standfirstHeight - headlineHeight - Config.padding * scale
+    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - Config.padding * scale
 
 
     if (splitHeadline.length > 0) {
-      canvasContext.fillStyle = furniture.headlineColour;
+
       const headlineOffset = availableHeight * furniture.position / 100
       this._drawText({
         canvasContext,
@@ -200,12 +203,12 @@ class CanvasCard {
         fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
         lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
         initialOffset: headlineOffset,
-        scale
+        scale,
+        colour: furniture.headlineColour
       });
     }
 
     if (splitStandfirst.length > 0) {
-      canvasContext.fillStyle = furniture.standfirstColour;
       const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight
       this._drawText({
         canvasContext,
@@ -214,12 +217,12 @@ class CanvasCard {
         fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
         lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
         initialOffset: standfirstOffset,
-        scale
+        scale,
+        colour: furniture.standfirstColour
       });
     }
 
     if (splitByline.length > 0) {
-      canvasContext.fillStyle = furniture.bylineColour;
       const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight + standfirstHeight
       this._drawText({
         canvasContext,
@@ -228,12 +231,13 @@ class CanvasCard {
         fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
         lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
         initialOffset: standfirstOffset,
-        scale
+        scale,
+        colour: furniture.bylineColour
       });
     }
   }
 
-  _getImageDataUrl(imageUrl: string) {
+  _getImageDataUrl(imageUrl: string) : Promise<string> {
     const key = encodeURIComponent(imageUrl);
     const maybeItem = this.imageCache.get(key);
 
@@ -254,7 +258,7 @@ class CanvasCard {
       )
       .then(dataUrl => {
         this.imageCache.set(key, dataUrl);
-        return dataUrl;
+        return dataUrl as string;
       });
   }
 

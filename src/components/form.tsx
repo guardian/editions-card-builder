@@ -36,7 +36,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
             placeholder="headline..."
             value={props.furniture?.headline}
             onChange={event => update('headline', event.target.value)}
-          ></textarea>
+          />
 
           <fieldset>
             <legend>Size</legend>
@@ -81,9 +81,9 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
             id="kicker"
             name="kicker"
             placeholder="kicker..."
-            value={props.furniture?.kicker}
+            value={props.furniture?.kicker || ""}
             onChange={event => update('kicker', event.target.value)}
-          ></input>
+          />
 
           <ColourPicker id="kicker" colour={props.furniture?.kickerColour} update={colour => update('kickerColour', colour)}/>
         </Collapsible>
@@ -96,7 +96,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
             placeholder="standfirst..."
             value={props.furniture?.standfirst}
             onChange={event => update('standfirst', event.target.value)}
-          ></textarea>
+          />
 
           <fieldset>
             <legend>Size</legend>
@@ -130,9 +130,9 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
             id="byline"
             name="byline"
             placeholder="byline..."
-            value={props.furniture?.kicker}
+            value={props.furniture?.byline || ""}
             onChange={event => update('byline', event.target.value)}
-          ></input>
+          />
 
           <ColourPicker id="byline" colour={props.furniture?.bylineColour} update={colour => update('bylineColour', colour)}/>
         </Collapsible>
