@@ -97,8 +97,8 @@ class CanvasCard {
 
     //Do last split kick and first headline fit together on a line?
     const fristHeadline = splitHeadlineAndKicker[0]
-    const firstHeadlineMinusKicker = splitHeadlineAndKicker[0].substr(lastKickerLine.length, fristHeadline.length).trim();
-    const kickerAndHeadlineisMixed = headlineRenderer.doesTextFit(`${lastKickerLine} ${firstHeadlineMinusKicker}`) && fristHeadline.length != lastKickerLine.length;
+    const firstHeadlineMinusKicker = splitHeadlineAndKicker[0].substr(lastKickerLine.length, fristHeadline.length);
+    const kickerAndHeadlineisMixed = headlineRenderer.doesTextFit(`${lastKickerLine.trim()} ${firstHeadlineMinusKicker.trim()}`) && fristHeadline.length != lastKickerLine.length;
 
     //If yes
     if(kickerAndHeadlineisMixed){
@@ -158,8 +158,9 @@ class CanvasCard {
       padding: Config.padding
     });
 
+    const kickerAndHeadlineText = `${furniture.kicker ? furniture.kicker + " " : ""}${furniture.headline || ""}`
 
-    const splitHeadlineAndKicker = !furniture.headline && !furniture.kicker ? [] : headlineAndKickerRenderer.splitTextIntoLines(`${furniture.kicker} ${furniture.headline}`);
+    const splitHeadlineAndKicker = !furniture.headline && !furniture.kicker ? [] : headlineAndKickerRenderer.splitTextIntoLines(kickerAndHeadlineText);
     const splitStandfirst = !furniture.standfirst ? [] : standfirstAndBylineRenderer.splitTextIntoLines(furniture.standfirst);
     const splitByline = !furniture.byline ? [] : standfirstAndBylineRenderer.splitTextIntoLines(furniture.byline);
 
