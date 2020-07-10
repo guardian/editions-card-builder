@@ -174,23 +174,23 @@ class CanvasCard {
       this._drawKickerAndHeadline(headlineAndKickerRenderer, canvas, furniture, scale, availableHeight);
     }
     else if (!!furniture.headline) {
-      const splitHeadline = !furniture.headline ? [] : headlineAndKickerRenderer.splitTextIntoLines(`${furniture.headline}`);
-      const headlineOffset = availableHeight * furniture.position / 100
+      const splitHeadline = headlineAndKickerRenderer.splitTextIntoLines(furniture.headline);
+      const headlineOffset = availableHeight * furniture.position / 100;
       headlineAndKickerRenderer.drawText(splitHeadline, 0, headlineOffset, furniture.headlineColour);
     }
     else if(!!furniture.kicker) {
-      const splitKicker = !furniture.headline ? [] : headlineAndKickerRenderer.splitTextIntoLines(`${furniture.kicker}`);
-      const kickerOffset = availableHeight * furniture.position / 100
+      const splitKicker = headlineAndKickerRenderer.splitTextIntoLines(furniture.kicker);
+      const kickerOffset = availableHeight * furniture.position / 100;
       headlineAndKickerRenderer.drawText(splitKicker, 0, kickerOffset, furniture.kickerColour);
     }
 
     if (splitStandfirst.length > 0) {
-      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight
+      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight;
       standfirstAndBylineRenderer.drawText(splitStandfirst, 0, standfirstOffset, furniture.standfirstColour);
     }
 
     if (splitByline.length > 0) {
-      const bylineOffset = availableHeight * furniture.position / 100 + headlineHeight + standfirstHeight
+      const bylineOffset = availableHeight * furniture.position / 100 + headlineHeight + standfirstHeight;
       standfirstAndBylineRenderer.drawText(splitByline, 0, bylineOffset, furniture.bylineColour);
     }
   }
