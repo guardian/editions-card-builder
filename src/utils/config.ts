@@ -19,7 +19,7 @@ export default {
       fontSize: {
         small: 52,
         medium: 68,
-        large: 130
+        large: 82
       }
     },
     tablet: {
