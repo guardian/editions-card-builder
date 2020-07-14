@@ -10,10 +10,12 @@ class CanvasCard {
 
   imageCache: Map<any,any>;
   furniture?: Furniture;
+  drawCount: number;
 
   constructor() {
     this.imageCache = new Map();
     this.furniture = undefined;
+    this.drawCount = 0;
   }
 
   private _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }:
@@ -205,10 +207,12 @@ class CanvasCard {
     const maybeItem = this.imageCache.get(key);
 
     if (maybeItem) {
-      if(maybeItem != PLACEHOLDER)
+      if(maybeItem != PLACEHOLDER){
         return Promise.resolve(maybeItem);
-      else
+      }
+      else{
         return Promise.reject();
+      }
     }
     else {
       this.imageCache.set(key, PLACEHOLDER);
@@ -252,29 +256,34 @@ class CanvasCard {
 
     this.furniture = furniture;
 
+    var drawCount = ++this.drawCount;
+
     return this._getImage(furniture.imageUrl).then(image => {
 
-      if(this.furniture){
-        const [deviceWidth, deviceHeight] = Config.dimensions[this.furniture.device];
-
-        const { width, height, scale } = this._getCanvasDimensions({
-          deviceWidth,
-          deviceHeight,
-          imageHeight: image.height,
-          imageWidth: image.width
-        });
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const canvasContext = canvas.getContext("2d");
-
-        if(canvasContext){
-          this._drawImage({ canvasContext, image });
-          this._drawFurniture(canvas, canvasContext, this.furniture as Furniture, scale)
-        }
+      if(drawCount != this.drawCount || !this.furniture){
+        return Promise.reject();
       }
-    });
+
+      const [deviceWidth, deviceHeight] = Config.dimensions[this.furniture.device];
+
+      const { width, height, scale } = this._getCanvasDimensions({
+        deviceWidth,
+        deviceHeight,
+        imageHeight: image.height,
+        imageWidth: image.width
+      });
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const canvasContext = canvas.getContext("2d");
+
+      if(canvasContext){
+        this._drawImage({ canvasContext, image });
+        this._drawFurniture(canvas, canvasContext, this.furniture, scale)
+      }
+    },
+    () => this.drawCount--);
   }
 }
 
