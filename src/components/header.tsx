@@ -70,8 +70,8 @@ export default function(props: HeaderProps){
       </div>
       <div>
         {!!gridLink ? <a href={gridLink} id="gridLink" target="_blank" rel="noopener noreferrer">🖼 Grid</a> : null}
-        {!!canvasBlob ? <button id="upload" onClick={uploadImage}>{uploading ? "Uploading" : "Upload"}</button>: null}
-        {!!canvasBlob ? <button id="download" onClick={downloadImage}>Download</button> : null}
+        <button id="upload" onClick={uploadImage} disabled={!canvasBlob}>{uploading ? "Uploading" : "Upload"}</button>
+        <button id="download" onClick={downloadImage} disabled={!canvasBlob}>Download</button>
       </div>
     </header>
   )
