@@ -32,6 +32,7 @@ class App extends React.Component<any, AppState> {
 
   updateFurniture = (newFurniture: Furniture) => {
     this.setState({
+      canvasBlob: undefined,
       furniture: newFurniture
     })
   }

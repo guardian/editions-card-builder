@@ -3,13 +3,17 @@ import { HeadlineSize, StandfirstSize } from "../enums/size";
 
 export interface Furniture {
   device: Device
-  imageUrl: string
-  headline: string
+  imageUrl: string | undefined
+  headline: string | undefined
   headlineSize: HeadlineSize
   headlineColour: string
-  standfirst: string
+  kicker: string | undefined
+  kickerColour: string
+  standfirst: string | undefined
   standfirstSize: StandfirstSize
   standfirstColour: string
+  byline: string | undefined
+  bylineColour: string
   position: number
 }
 
