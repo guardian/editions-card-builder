@@ -256,11 +256,15 @@ class CanvasCard {
 
     this.furniture = furniture;
 
-    var drawCount = ++this.drawCount;
+    if (this.drawCount > 0) {
+      return Promise.reject("already-drawing");
+    }
+
+    this.drawCount++;
 
     return this._getImage(furniture.imageUrl).then(image => {
 
-      if(drawCount != this.drawCount || !this.furniture){
+      if(!this.furniture){
         return Promise.reject();
       }
 
@@ -278,10 +282,13 @@ class CanvasCard {
 
       const canvasContext = canvas.getContext("2d");
 
+
       if(canvasContext){
         this._drawImage({ canvasContext, image });
         this._drawFurniture(canvas, canvasContext, this.furniture, scale)
       }
+
+      this.drawCount--;
     },
     () => this.drawCount--);
   }
