@@ -47,7 +47,8 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
       state.card.draw(canvas, props.furniture)
         .then(() => {
           canvas.toBlob( (blob) => props.update(blob || undefined))
-        });
+        })
+        .catch( error =>  console.log(error) );
     }
   }
 

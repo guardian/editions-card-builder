@@ -4,12 +4,18 @@ import { promises } from "fs";
 import { line } from "@guardian/src-foundations/palette";
 import { TextRenderer } from "./text-renderer"
 
+const PLACEHOLDER = "PLACEHOLDER";
+
 class CanvasCard {
 
   imageCache: Map<any,any>;
+  furniture?: Furniture;
+  drawing: boolean;
 
   constructor() {
     this.imageCache = new Map();
+    this.furniture = undefined;
+    this.drawing = false;
   }
 
   private _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }:
@@ -201,7 +207,15 @@ class CanvasCard {
     const maybeItem = this.imageCache.get(key);
 
     if (maybeItem) {
-      return Promise.resolve(maybeItem);
+      if(maybeItem != PLACEHOLDER){
+        return Promise.resolve(maybeItem);
+      }
+      else{
+        return Promise.reject();
+      }
+    }
+    else {
+      this.imageCache.set(key, PLACEHOLDER);
     }
 
     return fetch(imageUrl)
@@ -240,8 +254,20 @@ class CanvasCard {
       return Promise.reject("no-image");
     }
 
+    this.furniture = furniture;
+
+    if (this.drawing) {
+      return Promise.reject("already-drawing");
+    }
+
+    this.drawing = true;
+
     return this._getImage(furniture.imageUrl).then(image => {
-      const [deviceWidth, deviceHeight] = Config.dimensions[furniture.device];
+      if(!this.furniture){
+        return Promise.reject();
+      }
+
+      const [deviceWidth, deviceHeight] = Config.dimensions[this.furniture.device];
 
       const { width, height, scale } = this._getCanvasDimensions({
         deviceWidth,
@@ -257,9 +283,12 @@ class CanvasCard {
 
       if(canvasContext){
         this._drawImage({ canvasContext, image });
-        this._drawFurniture(canvas, canvasContext, furniture, scale)
+        this._drawFurniture(canvas, canvasContext, this.furniture, scale)
       }
-    });
+    })
+    .finally(
+      () => this.drawing = false
+    );
   }
 }
 
