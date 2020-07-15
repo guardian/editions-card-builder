@@ -10,12 +10,12 @@ class CanvasCard {
 
   imageCache: Map<any,any>;
   furniture?: Furniture;
-  drawCount: number;
+  drawing: boolean;
 
   constructor() {
     this.imageCache = new Map();
     this.furniture = undefined;
-    this.drawCount = 0;
+    this.drawing = false;
   }
 
   private _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }:
@@ -256,14 +256,13 @@ class CanvasCard {
 
     this.furniture = furniture;
 
-    if (this.drawCount > 0) {
+    if (this.drawing) {
       return Promise.reject("already-drawing");
     }
 
-    this.drawCount++;
+    this.drawing = true;
 
     return this._getImage(furniture.imageUrl).then(image => {
-
       if(!this.furniture){
         return Promise.reject();
       }
@@ -282,15 +281,14 @@ class CanvasCard {
 
       const canvasContext = canvas.getContext("2d");
 
-
       if(canvasContext){
         this._drawImage({ canvasContext, image });
         this._drawFurniture(canvas, canvasContext, this.furniture, scale)
       }
-
-      this.drawCount--;
-    },
-    () => this.drawCount--);
+    })
+    .finally(
+      () => this.drawing = false
+    );
   }
 }
 
