@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { Furniture } from '../types/furniture';
 import { HeadlineSize, StandfirstSize } from '../enums/size';
 import { Device } from '../enums/device';
+import SizePicker from './size-picker';
 
 export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
@@ -40,35 +41,12 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
 
           <fieldset>
             <legend>Size</legend>
-            <input
-              type="radio"
-              id="headlineSmall"
-              name="headlineSize"
-              value={HeadlineSize.Small}
-              checked={props.furniture?.headlineSize === HeadlineSize.Small}
-              onChange={event => update('headlineSize', event.target.value)}
+            <SizePicker
+              id="headlineSize"
+              sizes={HeadlineSize}
+              chosenSize={props.furniture?.headlineSize}
+              update={size => update('headlineSize', size)}
             />
-            <label htmlFor="headlineSmall">Small</label>
-
-            <input
-              type="radio"
-              id="headlineMedium"
-              name="headlineSize"
-              value={HeadlineSize.Medium}
-              checked={props.furniture?.headlineSize === HeadlineSize.Medium}
-              onChange={event => update('headlineSize', event.target.value)}
-            />
-            <label htmlFor="headlineMedium">Medium</label>
-
-            <input
-              type="radio"
-              id="headlineLarge"
-              name="headlineSize"
-              value={HeadlineSize.Large}
-              checked={props.furniture?.headlineSize === HeadlineSize.Large}
-              onChange={event => update('headlineSize', event.target.value)}
-            />
-            <label htmlFor="headlineLarge">Large</label>
           </fieldset>
 
           <ColourPicker id="headline" colour={props.furniture?.headlineColour} update={colour => update('headlineColour', colour)}/>
@@ -100,25 +78,12 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
 
           <fieldset>
             <legend>Size</legend>
-            <input
-              type="radio"
-              id="standfirstSmall"
-              name="standfirstSize"
-              value={StandfirstSize.Small}
-              checked={props.furniture?.standfirstSize === StandfirstSize.Small}
-              onChange={event => update('standfirstSize', event.target.value)}
+            <SizePicker
+              id="standfirstSize"
+              sizes={StandfirstSize}
+              chosenSize={props.furniture?.standfirstSize}
+              update={size => update('standfirstSize', size)}
             />
-            <label htmlFor="standfirstSmall">Small</label>
-
-            <input
-              type="radio"
-              id="standfirstMedium"
-              name="standfirstSize"
-              value={StandfirstSize.Medium}
-              checked={props.furniture?.standfirstSize === StandfirstSize.Medium}
-              onChange={event => update('standfirstSize', event.target.value)}
-            />
-            <label htmlFor="standfirstMedium">Medium</label>
           </fieldset>
           <ColourPicker id="standfirst" colour={props.furniture?.standfirstColour} update={colour => update('standfirstColour', colour)}/>
         </Collapsible>

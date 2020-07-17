@@ -20,12 +20,14 @@ export default {
       lineHeight: {
         small: 56,
         medium: 70,
-        large: 84
+        large: 84,
+        xLarge: 92
       },
       fontSize: {
         small: 52,
         medium: 68,
-        large: 82
+        large: 82,
+        xLarge: 90
       }
     },
     tablet: {
@@ -33,12 +35,14 @@ export default {
       lineHeight: {
         small: 86,
         medium: 114,
-        large: 200
+        large: 200,
+        xLarge: 222
       },
       fontSize: {
         small: 80,
         medium: 105,
-        large: 180
+        large: 180,
+        xLarge: 200
       }
     }
   },
