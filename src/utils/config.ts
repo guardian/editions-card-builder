@@ -21,13 +21,13 @@ export default {
         small: 56,
         medium: 70,
         large: 84,
-        xLarge: 92
+        xLarge: 102
       },
       fontSize: {
         small: 52,
         medium: 68,
         large: 82,
-        xLarge: 90
+        xLarge: 100
       }
     },
     tablet: {
@@ -36,13 +36,13 @@ export default {
         small: 86,
         medium: 114,
         large: 200,
-        xLarge: 222
+        xLarge: 230
       },
       fontSize: {
         small: 80,
         medium: 105,
         large: 180,
-        xLarge: 200
+        xLarge: 210
       }
     }
   },
