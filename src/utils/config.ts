@@ -5,6 +5,8 @@ const MAIN = 400
 const BRIGHT = 500
 const PASTEL = 600
 const FADED = 800
+const headlineLineHeightMultiplier = 1.05;
+const standfirstLineHeightMultiplier = 1.1;
 
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
@@ -18,31 +20,31 @@ export default {
     mobile: {
       maxWidth: 420,
       lineHeight: {
-        small: 56,
-        medium: 70,
-        large: 84,
-        xLarge: 102
+        small: 32 * headlineLineHeightMultiplier,
+        medium: 42 * headlineLineHeightMultiplier,
+        large: 52 * headlineLineHeightMultiplier,
+        xLarge: 62 * headlineLineHeightMultiplier
       },
       fontSize: {
-        small: 52,
-        medium: 68,
-        large: 82,
-        xLarge: 100
+        small: 32,
+        medium: 42,
+        large: 52,
+        xLarge: 62
       }
     },
     tablet: {
       maxWidth: 648,
       lineHeight: {
-        small: 86,
-        medium: 114,
-        large: 200,
-        xLarge: 230
+        small: 50 * headlineLineHeightMultiplier,
+        medium: 65 * headlineLineHeightMultiplier,
+        large: 80 * headlineLineHeightMultiplier,
+        xLarge: 112 * headlineLineHeightMultiplier
       },
       fontSize: {
-        small: 80,
-        medium: 105,
-        large: 180,
-        xLarge: 210
+        small: 50,
+        medium: 65,
+        large: 80,
+        xLarge: 112
       }
     }
   },
@@ -51,23 +53,23 @@ export default {
     mobile: {
       maxWidth: 350,
       lineHeight: {
-        small: 36,
-        medium: 40
+        small: 16 * standfirstLineHeightMultiplier,
+        medium: 20 * standfirstLineHeightMultiplier
       },
       fontSize: {
-        small: 28,
-        medium: 32
+        small: 16,
+        medium: 20
       }
     },
     tablet: {
       maxWidth: 572,
       lineHeight: {
-        small: 50,
-        medium: 59
+        small: 26 * standfirstLineHeightMultiplier,
+        medium: 30 * standfirstLineHeightMultiplier
       },
       fontSize: {
-        small: 43,
-        medium: 49
+        small: 26,
+        medium: 30
       }
     }
   },
