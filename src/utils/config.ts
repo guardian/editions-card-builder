@@ -49,7 +49,7 @@ export default {
     }
   },
   standfirst: {
-    font: "Guardian Headline Full",
+    font: "GuardianTextEgyptian",
     mobile: {
       maxWidth: 350,
       lineHeight: {
