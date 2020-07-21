@@ -19,8 +19,8 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
     props.updateFurniture(newFurniture);
   }
 
-  function updatePostion(postion: string, value: any){
-    setPostion(postion);
+  function updatePosition(position: string, value: any){
+    setPostion(position);
     update('position', value);
   }
 
@@ -111,7 +111,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
               name="positionValue"
               value="top"
               checked={position == "top"}
-              onChange={event => updatePostion("top", 0)}
+              onChange={event => updatePosition("top", 0)}
             />
             <label htmlFor="positionTop">Top</label>
 
@@ -121,7 +121,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
               name="positionValue"
               value="middle"
               checked={position == "middle"}
-              onChange={event => updatePostion("middle", 40)}
+              onChange={event => updatePosition("middle", 40)}
             />
             <label htmlFor="positionMiddle">Middle</label>
             <input
@@ -130,7 +130,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
               name="positionValue"
               value="bottom"
               checked={position == "bottom"}
-              onChange={event => updatePostion("bottom", 100)}
+              onChange={event => updatePosition("bottom", 100)}
             />
             <label htmlFor="positionBottom">Bottom</label>
             <br/>
@@ -140,7 +140,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
                 id="positionCustom"
                 name="positionValue"
                 checked={position == "custom"}
-                onChange={() => updatePostion("custom", 50)}
+                onChange={() => updatePosition("custom", 50)}
                 value="custom"
               />
               <label htmlFor="positionCustom">Custom</label>
@@ -151,7 +151,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
                 value={props.furniture?.position}
                 min="1"
                 max="99"
-                onChange={event => updatePostion("custom", event.target.value)}
+                onChange={event => updatePosition("custom", event.target.value)}
               />
             </div>
 
