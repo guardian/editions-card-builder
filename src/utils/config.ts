@@ -49,7 +49,7 @@ export default {
     }
   },
   standfirst: {
-    font: "GuardianTextEgyptian",
+    font: "Guardian Text Egyptian",
     mobile: {
       maxWidth: 350,
       lineHeight: {
@@ -72,6 +72,9 @@ export default {
         medium: 30
       }
     }
+  },
+  byline: {
+    font: "Guardian Headline Light"
   },
   swatches: {
     simple: {
