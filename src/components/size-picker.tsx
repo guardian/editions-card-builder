@@ -16,13 +16,13 @@ export default(props: {
         >
           <input
             type="radio"
-            id={`${props.chosenSize}${value}`}
-            name={props.id}
+            id={`${props.id}_${key}`}
+            name={`${props.id}_${key}`}
             value={value}
             checked={props.chosenSize === value}
             onChange={event => props.update(event.target.value)}
           />
-          <label htmlFor={`${props.chosenSize}${value}`}>{key}</label>
+          <label htmlFor={`${props.id}_${key}`}>{key}</label>
         </span>
       ))}
     </div>
