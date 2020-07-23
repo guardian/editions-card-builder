@@ -1,5 +1,11 @@
 import { labs, lifestyle, culture, sport, opinion, news, brand, brandAlt, neutral, specialReport } from '@guardian/src-foundations/palette'
 
+const DARK = 300
+const MAIN = 400
+const BRIGHT = 500
+const PASTEL = 600
+const FADED = 800
+
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
   dimensions: {
@@ -88,14 +94,14 @@ export default {
 //    We considered merging labs/neutral/special into one entry, but Katy V
 //    was of the opinion that separate entries, even if short, were better.
 
-    brand: (({ dark, main, pastel }) => ({ dark, main, pastel }))(brand),
-    highlight: (({ dark, main }) => ({ dark, main }))(brandAlt),
-    news: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(news),
-    opinion: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(opinion),
-    sport: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(sport),
-    culture: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(culture),
-    lifestyle: (({ dark, main, bright, pastel, faded }) => ({ dark, main, bright, pastel, faded }))(lifestyle),
-    labs: (({ dark, main }) => ({ dark, main }))(labs),
+    brand: { dark: brand[DARK], main: brand[MAIN], pastel: brand[PASTEL] },
+    highlight: { dark: brandAlt[DARK], main: brandAlt[MAIN] },
+    news: { dark: news[DARK], main: news[MAIN], bright: news[BRIGHT], pastel: news[PASTEL], faded: news[FADED] },
+    opinion: { dark: opinion[DARK], main: opinion[MAIN], bright: opinion[BRIGHT], pastel: opinion[PASTEL], faded: opinion[FADED] },
+    sport: { dark: sport[DARK], main: sport[MAIN], bright: sport[BRIGHT], pastel: sport[PASTEL], faded: sport[FADED] },
+    culture: { dark: culture[DARK], main: culture[MAIN], bright: culture[BRIGHT], pastel: culture[PASTEL], faded: culture[FADED] },
+    lifestyle: { dark: lifestyle[DARK], main: lifestyle[MAIN], bright: lifestyle[BRIGHT], pastel: lifestyle[PASTEL], faded: lifestyle[FADED], },
+    labs: { dark: labs[DARK], main: labs[MAIN] },
     neutral: { main: neutral["60"] },
     special: { main: specialReport["100"] }
   },
