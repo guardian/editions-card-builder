@@ -6,12 +6,13 @@ import Canvas from "./canvas"
 import * as React from 'react'
 import { Furniture } from '../types/furniture'
 import newFurniture from '../utils/furniture-helpers'
+import { GridImage } from '@guardian/grid-client'
 
 
 interface AppState {
   canvasBlob?: Blob
   furniture?: Furniture
-  originalImageData?: object
+  originalImageData?: GridImage
 }
 
 
@@ -37,7 +38,7 @@ class App extends React.Component<any, AppState> {
     })
   }
 
-  updateOriginalImageData = (imageData: object) => {
+  updateOriginalImageData = (imageData: GridImage) => {
     this.setState({
       originalImageData: imageData
     })

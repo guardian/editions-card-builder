@@ -3,10 +3,11 @@ import { jsx } from '@emotion/core'
 import * as React from 'react';
 import config from "../utils/config"
 import Modal from './modal';
+import {Validators as GridValidators, CropSelection, GridImage} from '@guardian/grid-client'
 
 interface GridModalProps {
   updateImageUrl: (imageUrl: string) => void
-  updateOriginalImageData: (imageData: object) => void
+  updateOriginalImageData: (imageData: GridImage) => void
 }
 
 interface GridModalState {
@@ -31,10 +32,6 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
     }
   };
 
-  validMessage(data: any) {
-    return data && data.crop && data.crop.data && data.image && data.image.data;
-  }
-
   closeModal = () => {
     this.setState({ modalOpen: false });
     window.removeEventListener('message', this.onMessage, false);
@@ -56,18 +53,21 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
       return;
     }
 
-    if (!this.validMessage(data)) {
+    const gridImage: CropSelection | undefined = GridValidators.iframePostMessage(data)
+
+    if(!gridImage) {
       return;
     }
 
-    const imageUrl = event.data.crop.data.master.secureUrl;
+    const imageUrl: URL = gridImage?.crop.data.master?.secureUrl!
+
     this.setState({
-      imageId: event.data.image.data.id as string
+      imageId: gridImage?.image.data.id
     });
 
     this.closeModal();
-    this.props.updateImageUrl(imageUrl);
-    this.props.updateOriginalImageData(event.data.image);
+    this.props.updateImageUrl(imageUrl.toString());
+    this.props.updateOriginalImageData(gridImage.image.data);
   };
 
   getIframeUrl(){

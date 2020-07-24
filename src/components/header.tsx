@@ -4,16 +4,17 @@ import { upload as GridUpload, upload } from "../grid/upload";
 import download from "downloadjs";
 import config from '../utils/config';
 import { useState } from 'react';
+import { GridImage } from '@guardian/grid-client';
 
 interface HeaderProps {
   canvasBlob?: Blob
-  originalImageData?: object
+  originalImageData?: GridImage
 }
 
 export default function(props: HeaderProps){
   const {canvasBlob} = props;
 
-  const [gridLink, setGridLink] = useState<string>();
+  const [gridLink, setGridLink] = useState<URL>();
   const [uploading, setUploading] = useState(false);
 
   const uploadImage = () => {
@@ -33,12 +34,12 @@ export default function(props: HeaderProps){
         GridUpload({
           gridDomain: config.gridDomain,
           image: new Uint8Array(arrayBuffer),
-          originalImage: props.originalImageData
+          originalImage: props.originalImageData!
         })
       )
       .then(apiResponse => {
         setUploading(false);
-        const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")?.href;
+        const imageUrl = apiResponse.links?.find(({ rel }) => rel === "ui:image")?.href;
         if(imageUrl){
           setGridLink(imageUrl);
         }
@@ -69,7 +70,7 @@ export default function(props: HeaderProps){
         create cards for the Editions app
       </div>
       <div>
-        {!!gridLink ? <a href={gridLink} id="gridLink" target="_blank" rel="noopener noreferrer">🖼 Grid</a> : null}
+        {!!gridLink ? <a href={gridLink.toString()} id="gridLink" target="_blank" rel="noopener noreferrer">🖼 Grid</a> : null}
         <button id="upload" onClick={uploadImage} disabled={!canvasBlob}>{uploading ? "Uploading" : "Upload"}</button>
         <button id="download" onClick={downloadImage} disabled={!canvasBlob}>Download</button>
       </div>

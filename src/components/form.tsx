@@ -8,8 +8,9 @@ import { useState } from 'react'
 import { Furniture } from '../types/furniture';
 import { HeadlineSize, StandfirstSize } from '../enums/size';
 import { Device } from '../enums/device';
+import { GridImage } from '@guardian/grid-client';
 
-export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
+export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: GridImage) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
   const [position, setPostion] = useState("top");
 
