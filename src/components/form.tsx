@@ -9,6 +9,7 @@ import { Furniture } from '../types/furniture';
 import { HeadlineSize, StandfirstSize } from '../enums/size';
 import { Device } from '../enums/device';
 import SizePicker from './size-picker';
+import { BylineLocation } from '../enums/location';
 
 export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
@@ -66,6 +67,41 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
           <ColourPicker id="kicker" colour={props.furniture?.kickerColour} update={colour => update('kickerColour', colour)}/>
         </Collapsible>
 
+        <Collapsible name="Byline">
+          <label htmlFor="byline">Text</label>
+          <textarea
+            id="byline"
+            name="byline"
+            placeholder="byline..."
+            value={props.furniture?.byline || ""}
+            onChange={event => update('byline', event.target.value)}
+          />
+
+          <fieldset>
+            <legend>Locate under</legend>
+            <input
+              type="radio"
+              id="locationHeadline"
+              name="locationValue"
+              value={BylineLocation.Headline}
+              checked={props.furniture?.bylineLocation == BylineLocation.Headline}
+              onChange={event => update("bylineLocation", event.target.value)}
+            />
+            <label htmlFor="locationHeadline">Headline</label>
+            <input
+              type="radio"
+              id="locationStandfirst"
+              name="locationValue"
+              value={BylineLocation.Standfirst}
+              checked={props.furniture?.bylineLocation == BylineLocation.Standfirst}
+              onChange={event => update("bylineLocation", event.target.value)}
+            />
+            <label htmlFor="locationStandfirst">Standfirst</label>
+          </fieldset>
+
+          <ColourPicker id="byline" colour={props.furniture?.bylineColour} update={colour => update('bylineColour', colour)}/>
+        </Collapsible>
+
         <Collapsible name="Standfirst">
           <label htmlFor="standfirst">Text</label>
           <textarea
@@ -86,18 +122,6 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
             />
           </fieldset>
           <ColourPicker id="standfirst" colour={props.furniture?.standfirstColour} update={colour => update('standfirstColour', colour)}/>
-        </Collapsible>
-
-        <Collapsible name="Byline">
-          <label htmlFor="byline">Text</label>
-          <textarea
-            id="byline"
-            name="byline"
-            placeholder="byline..."
-            value={props.furniture?.byline || ""}
-            onChange={event => update('byline', event.target.value)}
-          />
-          <ColourPicker id="byline" colour={props.furniture?.bylineColour} update={colour => update('bylineColour', colour)}/>
         </Collapsible>
 
         <Collapsible name="Position">

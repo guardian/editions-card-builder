@@ -1,5 +1,6 @@
 import { Device } from "../enums/device";
 import { HeadlineSize, StandfirstSize } from "../enums/size";
+import { BylineLocation } from "../enums/location";
 
 export interface Furniture {
   device: Device
@@ -14,6 +15,6 @@ export interface Furniture {
   standfirstColour: string
   byline: string | undefined
   bylineColour: string
+  bylineLocation: BylineLocation
   position: number
 }
-

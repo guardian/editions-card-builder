@@ -2,6 +2,7 @@ import config from './config'
 import { Furniture } from '../types/furniture'
 import {  HeadlineSize, StandfirstSize } from "../enums/size"
 import { Device } from "../enums/device"
+import { BylineLocation } from '../enums/location'
 
 export default function(): Furniture {
   return {
@@ -15,9 +16,9 @@ export default function(): Furniture {
     standfirstColour: config.swatches.simple.white,
     byline: undefined,
     bylineColour: config.swatches.simple.white,
+    bylineLocation: BylineLocation.Headline,
     position: 0,
     device: Device.Mobile,
     imageUrl: undefined,
   }
 }
-
