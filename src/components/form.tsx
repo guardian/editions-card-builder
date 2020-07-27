@@ -12,7 +12,7 @@ import SizePicker from './size-picker';
 
 export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
-  const [position, setPostion] = useState("top");
+  const [position, setPosition] = useState("top");
 
   function update(field: string, value: any) {
     const newFurniture = {...props.furniture, [field]: value} as Furniture;
@@ -20,7 +20,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
   }
 
   function updatePosition(position: string, value: any){
-    setPostion(position);
+    setPosition(position);
     update('position', value);
   }
 
