@@ -5,8 +5,6 @@ const MAIN = 400
 const BRIGHT = 500
 const PASTEL = 600
 const FADED = 800
-const headlineLineHeightMultiplier = 1.05;
-const standfirstLineHeightMultiplier = 1.1;
 
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
@@ -20,61 +18,54 @@ export default {
     mobile: {
       maxWidth: 420,
       lineHeight: {
-        small: 32 * headlineLineHeightMultiplier,
-        medium: 42 * headlineLineHeightMultiplier,
-        large: 52 * headlineLineHeightMultiplier,
-        xLarge: 62 * headlineLineHeightMultiplier
+        small: 56,
+        medium: 70,
+        large: 84
       },
       fontSize: {
-        small: 32,
-        medium: 42,
-        large: 52,
-        xLarge: 62
+        small: 52,
+        medium: 68,
+        large: 82
       }
     },
     tablet: {
       maxWidth: 648,
       lineHeight: {
-        small: 50 * headlineLineHeightMultiplier,
-        medium: 65 * headlineLineHeightMultiplier,
-        large: 80 * headlineLineHeightMultiplier,
-        xLarge: 112 * headlineLineHeightMultiplier
+        small: 86,
+        medium: 114,
+        large: 200
       },
       fontSize: {
-        small: 50,
-        medium: 65,
-        large: 80,
-        xLarge: 112
+        small: 80,
+        medium: 105,
+        large: 180
       }
     }
   },
   standfirst: {
-    font: "Guardian Text Egyptian",
+    font: "Guardian Headline Full",
     mobile: {
       maxWidth: 350,
       lineHeight: {
-        small: 16 * standfirstLineHeightMultiplier,
-        medium: 20 * standfirstLineHeightMultiplier
+        small: 36,
+        medium: 40
       },
       fontSize: {
-        small: 16,
-        medium: 20
+        small: 28,
+        medium: 32
       }
     },
     tablet: {
       maxWidth: 572,
       lineHeight: {
-        small: 26 * standfirstLineHeightMultiplier,
-        medium: 30 * standfirstLineHeightMultiplier
+        small: 50,
+        medium: 59
       },
       fontSize: {
-        small: 26,
-        medium: 30
+        small: 43,
+        medium: 49
       }
     }
-  },
-  byline: {
-    font: "Guardian Headline Light"
   },
   swatches: {
     simple: {
