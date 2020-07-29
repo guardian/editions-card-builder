@@ -5,8 +5,6 @@ const MAIN = 400
 const BRIGHT = 500
 const PASTEL = 600
 const FADED = 800
-const headlineLineHeightMultiplier = 1.05;
-const standfirstLineHeightMultiplier = 1.1;
 
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
@@ -20,41 +18,37 @@ export default {
     mobile: {
       maxWidth: 420,
       lineHeight: {
-        small: 52 * headlineLineHeightMultiplier,
-        medium: 68 * headlineLineHeightMultiplier,
-        large: 84 * headlineLineHeightMultiplier,
-        xLarge: 100 * headlineLineHeightMultiplier
+        small: 56,
+        medium: 70,
+        large: 84
       },
       fontSize: {
         small: 52,
         medium: 68,
-        large: 84,
-        xLarge: 100
+        large: 82
       }
     },
     tablet: {
       maxWidth: 648,
       lineHeight: {
-        small: 80 * headlineLineHeightMultiplier,
-        medium: 105 * headlineLineHeightMultiplier,
-        large: 128 * headlineLineHeightMultiplier,
-        xLarge: 180 * headlineLineHeightMultiplier
+        small: 86,
+        medium: 114,
+        large: 200
       },
       fontSize: {
         small: 80,
         medium: 105,
-        large: 128,
-        xLarge: 180
+        large: 180
       }
     }
   },
   standfirst: {
-    font: "Guardian Text Egyptian",
+    font: "Guardian Headline Full",
     mobile: {
       maxWidth: 350,
       lineHeight: {
-        small: 28 * standfirstLineHeightMultiplier,
-        medium: 32 * standfirstLineHeightMultiplier
+        small: 36,
+        medium: 40
       },
       fontSize: {
         small: 28,
@@ -64,17 +58,14 @@ export default {
     tablet: {
       maxWidth: 572,
       lineHeight: {
-        small: 43 * standfirstLineHeightMultiplier,
-        medium: 49 * standfirstLineHeightMultiplier
+        small: 50,
+        medium: 59
       },
       fontSize: {
         small: 43,
         medium: 49
       }
     }
-  },
-  byline: {
-    font: "Guardian Text Egyptian"
   },
   swatches: {
     simple: {
