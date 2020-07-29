@@ -1,5 +1,15 @@
 @font-face {
-  font-family: "Guardian Headline Full";
+  font-family: "Guardian Text Egyptian";
+  src: url(https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Bold.woff2)
+    format("woff2"),
+      url(https://assets.guim.co.uk/static/frontend/fonts/guardian-textegyptian/noalts-not-hinted/GuardianTextEgyptian-Bold.woff)
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Guardian Headline Light";
   src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.woff2)
       format("woff2"),
     url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-Light.woff)
@@ -11,7 +21,7 @@
 }
 
 @font-face {
-  font-family: "Guardian Headline Full";
+  font-family: "Guardian Headline Light";
   src: url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.woff2)
       format("woff2"),
     url(https://interactive.guim.co.uk/fonts/garnett/GHGuardianHeadline-LightItalic.woff)
