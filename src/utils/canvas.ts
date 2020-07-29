@@ -167,7 +167,7 @@ class CanvasCard {
       new TextRenderer({
         canvasContext,
         maxWidth: Config.headline[furniture.device].maxWidth * scale,
-        font: Config.standfirst.font,
+        font: Config.byline.underHeadline.font,
         fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
         lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
         scale: scale,
@@ -176,7 +176,7 @@ class CanvasCard {
       new TextRenderer({
         canvasContext,
         maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
-        font: Config.standfirst.font,
+        font: Config.byline.underStandfirst.font,
         fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
         lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
         scale: scale,

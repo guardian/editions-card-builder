@@ -74,7 +74,12 @@ export default {
     }
   },
   byline: {
-    font: "Guardian Text Egyptian"
+   underHeadline: {
+      font: "Guardian Headline Light"
+    },
+    underStandfirst: {
+      font: "Guardian Text Egyptian"
+    }
   },
   swatches: {
     simple: {
