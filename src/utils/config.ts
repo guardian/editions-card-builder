@@ -20,31 +20,31 @@ export default {
     mobile: {
       maxWidth: 420,
       lineHeight: {
-        small: 32 * headlineLineHeightMultiplier,
-        medium: 42 * headlineLineHeightMultiplier,
-        large: 52 * headlineLineHeightMultiplier,
-        xLarge: 62 * headlineLineHeightMultiplier
+        small: 52 * headlineLineHeightMultiplier,
+        medium: 68 * headlineLineHeightMultiplier,
+        large: 84 * headlineLineHeightMultiplier,
+        xLarge: 100 * headlineLineHeightMultiplier
       },
       fontSize: {
-        small: 32,
-        medium: 42,
-        large: 52,
-        xLarge: 62
+        small: 52,
+        medium: 68,
+        large: 84,
+        xLarge: 100
       }
     },
     tablet: {
       maxWidth: 648,
       lineHeight: {
-        small: 50 * headlineLineHeightMultiplier,
-        medium: 65 * headlineLineHeightMultiplier,
-        large: 80 * headlineLineHeightMultiplier,
-        xLarge: 112 * headlineLineHeightMultiplier
+        small: 80 * headlineLineHeightMultiplier,
+        medium: 105 * headlineLineHeightMultiplier,
+        large: 128 * headlineLineHeightMultiplier,
+        xLarge: 180 * headlineLineHeightMultiplier
       },
       fontSize: {
-        small: 50,
-        medium: 65,
-        large: 80,
-        xLarge: 112
+        small: 80,
+        medium: 105,
+        large: 128,
+        xLarge: 180
       }
     }
   },
@@ -53,28 +53,28 @@ export default {
     mobile: {
       maxWidth: 350,
       lineHeight: {
-        small: 16 * standfirstLineHeightMultiplier,
-        medium: 20 * standfirstLineHeightMultiplier
+        small: 28 * standfirstLineHeightMultiplier,
+        medium: 32 * standfirstLineHeightMultiplier
       },
       fontSize: {
-        small: 16,
-        medium: 20
+        small: 28,
+        medium: 32
       }
     },
     tablet: {
       maxWidth: 572,
       lineHeight: {
-        small: 26 * standfirstLineHeightMultiplier,
-        medium: 30 * standfirstLineHeightMultiplier
+        small: 43 * standfirstLineHeightMultiplier,
+        medium: 49 * standfirstLineHeightMultiplier
       },
       fontSize: {
-        small: 26,
-        medium: 30
+        small: 43,
+        medium: 49
       }
     }
   },
   byline: {
-    font: "Guardian Headline Light"
+    font: "Guardian Text Egyptian"
   },
   swatches: {
     simple: {
