@@ -125,15 +125,13 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
 
         <Collapsible name="Byline">
           <label htmlFor="byline">Text</label>
-          <input
-            type="text"
+          <textarea
             id="byline"
             name="byline"
             placeholder="byline..."
             value={props.furniture?.byline || ""}
             onChange={event => update('byline', event.target.value)}
           />
-
           <ColourPicker id="byline" colour={props.furniture?.bylineColour} update={colour => update('bylineColour', colour)}/>
         </Collapsible>
 
