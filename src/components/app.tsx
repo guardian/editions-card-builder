@@ -9,7 +9,7 @@ import newFurniture from '../utils/furniture-helpers'
 
 
 interface AppState {
-  canvasBlob?: Blob
+  canvas?: HTMLCanvasElement
   furniture?: Furniture
   originalImageData?: object
 }
@@ -19,20 +19,20 @@ class App extends React.Component<any, AppState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      canvasBlob: undefined,
+      canvas: undefined,
       furniture: newFurniture()
     }
   }
 
-  updateCanvasBlob = (newBlob?: Blob) => {
+  updateCanvasBlob = (newCanvas?: HTMLCanvasElement) => {
     this.setState({
-      canvasBlob: newBlob
+      canvas: newCanvas
     })
   }
 
   updateFurniture = (newFurniture: Furniture) => {
     this.setState({
-      canvasBlob: undefined,
+      canvas: undefined,
       furniture: newFurniture
     })
   }
@@ -45,7 +45,7 @@ class App extends React.Component<any, AppState> {
 
   render() {
     return <div>
-      <Header canvasBlob={this.state.canvasBlob} originalImageData={this.state.originalImageData} />
+      <Header canvas={this.state.canvas} originalImageData={this.state.originalImageData} />
       <div className="card-builder">
         <Form furniture={this.state.furniture} updateFurniture={this.updateFurniture} updateOriginalImageData={this.updateOriginalImageData}/>
         <Canvas furniture={this.state.furniture} update={this.updateCanvasBlob}/>

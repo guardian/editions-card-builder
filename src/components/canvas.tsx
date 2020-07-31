@@ -6,13 +6,12 @@ import CanvasCard from '../utils/canvas'
 import debounce  from 'debounce'
 
 interface CanvasProps {
-  update: (blob? : Blob) => void
+  update: (canvas? : HTMLCanvasElement) => void
   furniture?: Furniture
 }
 
 interface CanvasState {
   card: CanvasCard
-  blobDebounce: any
   showCanvas: boolean
 }
 
@@ -21,7 +20,6 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
     super(props)
     this.state = {
       card: new CanvasCard(),
-      blobDebounce: debounce(this.updateBlob, 1000),
       showCanvas: false
     }
   }
@@ -39,18 +37,12 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
   draw() {
     if( this.props.furniture) {
       const canvas = this.refs.canvas as HTMLCanvasElement;
-      this.state.blobDebounce.clear();
       this.state.card.draw(canvas, this.props.furniture)
         .then(() => {
-          this.state.blobDebounce.clear();
-          this.state.blobDebounce(canvas, this.props.update);
+          this.props.update(canvas);
         })
         .catch( error =>  console.log(error) );
     }
-  }
-
-  updateBlob(canvas: HTMLCanvasElement, update: (blob? : Blob) => void){
-    canvas.toBlob(blob => update(blob || undefined))
   }
 
   render() {
