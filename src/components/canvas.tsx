@@ -12,7 +12,6 @@ interface CanvasProps {
 
 interface CanvasState {
   card: CanvasCard
-  drawDebounce: any
   blobDebounce: any
   showCanvas: boolean
 }
@@ -22,7 +21,6 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
     super(props)
     this.state = {
       card: new CanvasCard(),
-      drawDebounce: debounce(this.draw, 50),
       blobDebounce: debounce(this.updateBlob, 1000),
       showCanvas: false
     }
@@ -34,26 +32,25 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
   }
 
   componentDidUpdate() {
-    const canvas = this.refs.canvas as HTMLCanvasElement;
-    this.state.drawDebounce.clear();
-    this.state.drawDebounce(canvas, this.state, this.props);
+    this.draw();
     this.setState({showCanvas: true});
   }
 
-  draw(canvas: HTMLCanvasElement, state: CanvasState, props: CanvasProps) {
-    if( props.furniture) {
-      state.blobDebounce.clear();
-      state.card.draw(canvas, props.furniture)
+  draw() {
+    if( this.props.furniture) {
+      const canvas = this.refs.canvas as HTMLCanvasElement;
+      this.state.blobDebounce.clear();
+      this.state.card.draw(canvas, this.props.furniture)
         .then(() => {
-          state.blobDebounce.clear();
-          state.blobDebounce(canvas, props);
+          this.state.blobDebounce.clear();
+          this.state.blobDebounce(canvas, this.props.update);
         })
         .catch( error =>  console.log(error) );
     }
   }
 
-  updateBlob(canvas: HTMLCanvasElement, props: CanvasProps){
-    canvas.toBlob(blob => props.update(blob || undefined))
+  updateBlob(canvas: HTMLCanvasElement, update: (blob? : Blob) => void){
+    canvas.toBlob(blob => update(blob || undefined))
   }
 
   render() {
