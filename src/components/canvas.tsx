@@ -13,6 +13,7 @@ interface CanvasProps {
 interface CanvasState {
   card: CanvasCard
   drawDebounce: any
+  blobDebounce: any
   showCanvas: boolean
 }
 
@@ -21,13 +22,10 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
     super(props)
     this.state = {
       card: new CanvasCard(),
-      drawDebounce: undefined,
+      drawDebounce: debounce(this.draw, 50),
+      blobDebounce: debounce(this.updateBlob, 1000),
       showCanvas: false
     }
-  }
-
-  componentDidMount(){
-    this.setState({drawDebounce: debounce(this.draw, 50)});
   }
 
   shouldComponentUpdate(nextProps: CanvasProps, nextState: CanvasState){
@@ -44,12 +42,18 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
 
   draw(canvas: HTMLCanvasElement, state: CanvasState, props: CanvasProps) {
     if( props.furniture) {
+      state.blobDebounce.clear();
       state.card.draw(canvas, props.furniture)
         .then(() => {
-          canvas.toBlob( (blob) => props.update(blob || undefined))
+          state.blobDebounce.clear();
+          state.blobDebounce(canvas, props);
         })
         .catch( error =>  console.log(error) );
     }
+  }
+
+  updateBlob(canvas: HTMLCanvasElement, props: CanvasProps){
+    canvas.toBlob(blob => props.update(blob || undefined))
   }
 
   render() {
