@@ -15,6 +15,7 @@ export default function(props: HeaderProps){
 
   const [gridLink, setGridLink] = useState<string>();
   const [uploading, setUploading] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   const uploadImage = () => {
 
@@ -59,13 +60,18 @@ export default function(props: HeaderProps){
   }
 
   const downloadImage = () => {
-    if(canvas){
-      canvas.toBlob( (blob) => {
-        if(blob){
-          download(blob, "image.png", "image/png");
-        }
-      });
+
+    if(downloading || !canvas){
+      return;
     }
+
+    setDownloading(true);
+    canvas.toBlob( (blob) => {
+      if(blob){
+        download(blob, "image.png", "image/png");
+      }
+      setDownloading(false);
+    });
   }
 
 
