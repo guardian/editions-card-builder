@@ -8,18 +8,19 @@ import { useState } from 'react'
 import { Furniture } from '../types/furniture';
 import { HeadlineSize, StandfirstSize } from '../enums/size';
 import { Device } from '../enums/device';
+import SizePicker from './size-picker';
 
 export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
-  const [position, setPostion] = useState("top");
+  const [position, setPosition] = useState("top");
 
   function update(field: string, value: any) {
     const newFurniture = {...props.furniture, [field]: value} as Furniture;
     props.updateFurniture(newFurniture);
   }
 
-  function updatePostion(postion: string, value: any){
-    setPostion(postion);
+  function updatePosition(position: string, value: any){
+    setPosition(position);
     update('position', value);
   }
 
@@ -40,35 +41,12 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
 
           <fieldset>
             <legend>Size</legend>
-            <input
-              type="radio"
-              id="headlineSmall"
-              name="headlineSize"
-              value={HeadlineSize.Small}
-              checked={props.furniture?.headlineSize === HeadlineSize.Small}
-              onChange={event => update('headlineSize', event.target.value)}
+            <SizePicker
+              id="headlineSize"
+              sizes={HeadlineSize}
+              chosenSize={props.furniture?.headlineSize}
+              update={size => update('headlineSize', size)}
             />
-            <label htmlFor="headlineSmall">Small</label>
-
-            <input
-              type="radio"
-              id="headlineMedium"
-              name="headlineSize"
-              value={HeadlineSize.Medium}
-              checked={props.furniture?.headlineSize === HeadlineSize.Medium}
-              onChange={event => update('headlineSize', event.target.value)}
-            />
-            <label htmlFor="headlineMedium">Medium</label>
-
-            <input
-              type="radio"
-              id="headlineLarge"
-              name="headlineSize"
-              value={HeadlineSize.Large}
-              checked={props.furniture?.headlineSize === HeadlineSize.Large}
-              onChange={event => update('headlineSize', event.target.value)}
-            />
-            <label htmlFor="headlineLarge">Large</label>
           </fieldset>
 
           <ColourPicker id="headline" colour={props.furniture?.headlineColour} update={colour => update('headlineColour', colour)}/>
@@ -100,25 +78,12 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
 
           <fieldset>
             <legend>Size</legend>
-            <input
-              type="radio"
-              id="standfirstSmall"
-              name="standfirstSize"
-              value={StandfirstSize.Small}
-              checked={props.furniture?.standfirstSize === StandfirstSize.Small}
-              onChange={event => update('standfirstSize', event.target.value)}
+            <SizePicker
+              id="standfirstSize"
+              sizes={StandfirstSize}
+              chosenSize={props.furniture?.standfirstSize}
+              update={size => update('standfirstSize', size)}
             />
-            <label htmlFor="standfirstSmall">Small</label>
-
-            <input
-              type="radio"
-              id="standfirstMedium"
-              name="standfirstSize"
-              value={StandfirstSize.Medium}
-              checked={props.furniture?.standfirstSize === StandfirstSize.Medium}
-              onChange={event => update('standfirstSize', event.target.value)}
-            />
-            <label htmlFor="standfirstMedium">Medium</label>
           </fieldset>
           <ColourPicker id="standfirst" colour={props.furniture?.standfirstColour} update={colour => update('standfirstColour', colour)}/>
         </Collapsible>
@@ -144,7 +109,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
               name="positionValue"
               value="top"
               checked={position == "top"}
-              onChange={event => updatePostion("top", 0)}
+              onChange={event => updatePosition("top", 0)}
             />
             <label htmlFor="positionTop">Top</label>
 
@@ -154,7 +119,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
               name="positionValue"
               value="middle"
               checked={position == "middle"}
-              onChange={event => updatePostion("middle", 40)}
+              onChange={event => updatePosition("middle", 40)}
             />
             <label htmlFor="positionMiddle">Middle</label>
             <input
@@ -163,7 +128,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
               name="positionValue"
               value="bottom"
               checked={position == "bottom"}
-              onChange={event => updatePostion("bottom", 100)}
+              onChange={event => updatePosition("bottom", 100)}
             />
             <label htmlFor="positionBottom">Bottom</label>
             <br/>
@@ -173,7 +138,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
                 id="positionCustom"
                 name="positionValue"
                 checked={position == "custom"}
-                onChange={() => updatePostion("custom", 50)}
+                onChange={() => updatePosition("custom", 50)}
                 value="custom"
               />
               <label htmlFor="positionCustom">Custom</label>
@@ -184,7 +149,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
                 value={props.furniture?.position}
                 min="1"
                 max="99"
-                onChange={event => updatePostion("custom", event.target.value)}
+                onChange={event => updatePosition("custom", event.target.value)}
               />
             </div>
 
