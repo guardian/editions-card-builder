@@ -69,6 +69,7 @@ export class TextRenderer {
   ) {
     this.canvasContext.font = `${this.fontSize}px ${this.font}`;
     this.canvasContext.fillStyle = colour;
+    this.canvasContext.textBaseline = "bottom";
     lines.forEach((line, i) => {
       const xOffset = this.padding * this.scale + initialXOffset
       const yOffset = initialYOffset + this.lineHeight * (i + 1);
