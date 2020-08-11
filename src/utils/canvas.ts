@@ -1,8 +1,7 @@
 import Config from "./config";
 import { Furniture } from "../types/furniture";
-import { promises } from "fs";
-import { line } from "@guardian/src-foundations/palette";
 import { TextRenderer } from "./text-renderer"
+import { BylineLocation } from "../enums/location";
 
 const PLACEHOLDER = "PLACEHOLDER";
 
@@ -142,7 +141,7 @@ class CanvasCard {
     }
   }
 
-  private _drawFurniture(canvas: HTMLCanvasElement ,canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number){
+  private _drawFurniture(canvas: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number){
 
     const headlineAndKickerRenderer = new TextRenderer({
       canvasContext,
@@ -154,7 +153,7 @@ class CanvasCard {
       padding: Config.padding
     });
 
-    const standfirstAndBylineRenderer = new TextRenderer({
+    const standfirstRenderer = new TextRenderer({
       canvasContext,
       maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
       font: Config.standfirst.font,
@@ -164,17 +163,38 @@ class CanvasCard {
       padding: Config.padding
     });
 
+    const bylineRenderer = furniture.bylineLocation == BylineLocation.Headline ?
+      new TextRenderer({
+        canvasContext,
+        maxWidth: Config.headline[furniture.device].maxWidth * scale,
+        font: Config.byline.underHeadline.font,
+        fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
+        lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
+        scale: scale,
+        padding: Config.padding
+      }) :
+      new TextRenderer({
+        canvasContext,
+        maxWidth: Config.standfirst[furniture.device].maxWidth * scale,
+        font: Config.byline.underStandfirst.font,
+        fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
+        lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
+        scale: scale,
+        padding: Config.padding
+      }) ;
+
     const kickerAndHeadlineText = `${furniture.kicker ? furniture.kicker + " " : ""}${furniture.headline || ""}`
 
     const splitHeadlineAndKicker = !furniture.headline && !furniture.kicker ? [] : headlineAndKickerRenderer.splitTextIntoLines(kickerAndHeadlineText);
-    const splitStandfirst = !furniture.standfirst ? [] : standfirstAndBylineRenderer.splitTextIntoLines(furniture.standfirst);
-    const splitByline = !furniture.byline ? [] : standfirstAndBylineRenderer.splitTextIntoLines(furniture.byline);
+    const splitStandfirst = !furniture.standfirst ? [] : standfirstRenderer.splitTextIntoLines(furniture.standfirst);
+    const splitByline = !furniture.byline ? [] : bylineRenderer.splitTextIntoLines(furniture.byline);
 
-    const headlineHeight = (splitHeadlineAndKicker.length * Config.headline[furniture.device].lineHeight[furniture.headlineSize] + Config.padding) * scale;
-    const standfirstHeight = splitStandfirst.length * Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
-    const bylineHeight = splitByline.length * Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale;
+    const paddingHeight = Config.padding * scale;
+    const headlineHeight = splitHeadlineAndKicker.length * headlineAndKickerRenderer.lineHeight;
+    const standfirstHeight = splitStandfirst.length * standfirstRenderer.lineHeight;
+    const bylineHeight = splitByline.length * bylineRenderer.lineHeight;
 
-    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - Config.padding * scale
+    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - paddingHeight;
 
 
     if(!!furniture.headline && !!furniture.kicker){
@@ -192,13 +212,15 @@ class CanvasCard {
     }
 
     if (splitStandfirst.length > 0) {
-      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight;
-      standfirstAndBylineRenderer.drawText(splitStandfirst, 0, standfirstOffset, furniture.standfirstColour);
+      const additionalOffset = furniture.bylineLocation == BylineLocation.Headline ? bylineHeight : 0;
+      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight + paddingHeight + additionalOffset;
+      standfirstRenderer.drawText(splitStandfirst, 0, standfirstOffset, furniture.standfirstColour);
     }
 
     if (splitByline.length > 0) {
-      const bylineOffset = availableHeight * furniture.position / 100 + headlineHeight + standfirstHeight;
-      standfirstAndBylineRenderer.drawText(splitByline, 0, bylineOffset, furniture.bylineColour);
+      const additionalOffset = furniture.bylineLocation == BylineLocation.Standfirst ? standfirstHeight + paddingHeight : 0;
+      const bylineOffset = availableHeight * furniture.position / 100 + headlineHeight + additionalOffset;
+      bylineRenderer.drawText(splitByline, 0, bylineOffset, furniture.bylineColour);
     }
   }
 
