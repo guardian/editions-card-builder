@@ -22,8 +22,9 @@
   },
   "homepage": "https://github.com/guardian/editions-card-builder#readme",
   "dependencies": {
-    "@emotion/core": "^10.0.28",
+    "@emotion/core": "^10.0.34",
     "@guardian/src-foundations": "^1.5.0",
+    "@types/css-font-loading-module": "0.0.4",
     "@types/debounce": "^1.2.0",
     "@types/downloadjs": "^1.4.2",
     "debounce": "^1.2.0",
@@ -39,7 +40,7 @@
     "gh-pages": "^2.1.1",
     "parcel-bundler": "^1.12.4",
     "prettier": "1.18.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.7"
   },
   "browserslist": [
     "Chrome >= 77",
