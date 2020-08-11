@@ -88,7 +88,7 @@ class CanvasCard {
     );
   }
 
-  private _drawKickerAndHeadline(headlineRenderer: TextRenderer, canvas: HTMLCanvasElement, furniture: Furniture, scale: number, availableHeight: number){
+  private _drawKickerAndHeadline(headlineRenderer: TextRenderer, canvas: HTMLCanvasElement, furniture: Furniture, scale: number, availableHeight: number, initialHeight: number){
     //Split kicker into multiple lines
     const splitKicker = headlineRenderer.splitTextIntoLines(furniture.kicker as string);
     const lastKickerLine = splitKicker[splitKicker.length - 1];
@@ -110,12 +110,12 @@ class CanvasCard {
       const lineCount = splitKicker.length + splitHeadlineAndKicker.length - 1;
       //render all lines but last
       if(splitKicker.length > 1){
-        const kickerOffset = availableHeight * furniture.position / 100;
+        const kickerOffset = initialHeight;
         headlineRenderer.drawText(splitKicker.slice(0, splitKicker.length - 1), 0, kickerOffset, furniture.kickerColour);
       }
 
       //Render last kicker line
-      const lastKickerOfest = availableHeight * furniture.position / 100 + (lineHeight * (splitKicker.length - 1));
+      const lastKickerOfest = initialHeight + (lineHeight * (splitKicker.length - 1));
       headlineRenderer.drawText([lastKickerLine], 0, lastKickerOfest, furniture.kickerColour);
 
       //Render rest of rest of first headline
@@ -124,7 +124,7 @@ class CanvasCard {
 
       //Render rest of headline lines
       if(splitHeadlineAndKicker.length > 1) {
-        const headlineOffset = availableHeight * furniture.position / 100 + (lineHeight * splitKicker.length);
+        const headlineOffset = initialHeight + (lineHeight * splitKicker.length);
         headlineRenderer.drawText(splitHeadlineAndKicker.slice(1, splitHeadlineAndKicker.length), 0, headlineOffset, furniture.headlineColour);
       }
     }
@@ -132,11 +132,11 @@ class CanvasCard {
     else {
       const lineCount = splitKicker.length + splitHeadlineAndKicker.length - 1;
       //Render kicker lines
-      const kickerOffset = availableHeight * furniture.position / 100;
+      const kickerOffset = initialHeight;
       headlineRenderer.drawText(splitKicker, 0, kickerOffset, furniture.kickerColour);
 
       //Render headline lines
-      const headlineOffset = availableHeight * furniture.position / 100 + (lineHeight * splitKicker.length);
+      const headlineOffset = initialHeight + (lineHeight * splitKicker.length);
       headlineRenderer.drawText(splitHeadlineAndKicker.slice(1, splitHeadlineAndKicker.length), 0, headlineOffset, furniture.headlineColour);
     }
   }
@@ -194,32 +194,33 @@ class CanvasCard {
     const standfirstHeight = splitStandfirst.length * standfirstRenderer.lineHeight;
     const bylineHeight = splitByline.length * bylineRenderer.lineHeight;
 
-    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - paddingHeight;
+    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - (paddingHeight * 2);
+    const initialHeight = availableHeight * furniture.position / 100 + paddingHeight;
 
 
     if(!!furniture.headline && !!furniture.kicker){
-      this._drawKickerAndHeadline(headlineAndKickerRenderer, canvas, furniture, scale, availableHeight);
+      this._drawKickerAndHeadline(headlineAndKickerRenderer, canvas, furniture, scale, availableHeight, initialHeight);
     }
     else if (!!furniture.headline) {
       const splitHeadline = headlineAndKickerRenderer.splitTextIntoLines(furniture.headline);
-      const headlineOffset = availableHeight * furniture.position / 100;
+      const headlineOffset = initialHeight;
       headlineAndKickerRenderer.drawText(splitHeadline, 0, headlineOffset, furniture.headlineColour);
     }
     else if(!!furniture.kicker) {
       const splitKicker = headlineAndKickerRenderer.splitTextIntoLines(furniture.kicker);
-      const kickerOffset = availableHeight * furniture.position / 100;
+      const kickerOffset = initialHeight;
       headlineAndKickerRenderer.drawText(splitKicker, 0, kickerOffset, furniture.kickerColour);
     }
 
     if (splitStandfirst.length > 0) {
       const additionalOffset = furniture.bylineLocation == BylineLocation.Headline ? bylineHeight : 0;
-      const standfirstOffset = availableHeight * furniture.position / 100 + headlineHeight + paddingHeight + additionalOffset;
+      const standfirstOffset = initialHeight + headlineHeight + paddingHeight + additionalOffset;
       standfirstRenderer.drawText(splitStandfirst, 0, standfirstOffset, furniture.standfirstColour);
     }
 
     if (splitByline.length > 0) {
       const additionalOffset = furniture.bylineLocation == BylineLocation.Standfirst ? standfirstHeight + paddingHeight : 0;
-      const bylineOffset = availableHeight * furniture.position / 100 + headlineHeight + additionalOffset;
+      const bylineOffset = initialHeight + headlineHeight + additionalOffset;
       bylineRenderer.drawText(splitByline, 0, bylineOffset, furniture.bylineColour);
     }
   }
