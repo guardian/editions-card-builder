@@ -194,7 +194,7 @@ class CanvasCard {
     const standfirstHeight = splitStandfirst.length * standfirstRenderer.lineHeight;
     const bylineHeight = splitByline.length * bylineRenderer.lineHeight;
 
-    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - (paddingHeight * 2);
+    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - (paddingHeight * 3);
     const initialHeight = availableHeight * furniture.position / 100 + paddingHeight;
 
 
