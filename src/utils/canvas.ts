@@ -190,7 +190,7 @@ class CanvasCard {
     const splitByline = !furniture.byline ? [] : bylineRenderer.splitTextIntoLines(furniture.byline);
 
     const paddingHeight = Config.padding * scale;
-    const headlineHeight = splitHeadlineAndKicker.length * headlineAndKickerRenderer.lineHeight + paddingHeight;
+    const headlineHeight = splitHeadlineAndKicker.length * headlineAndKickerRenderer.lineHeight;
     const standfirstHeight = splitStandfirst.length * standfirstRenderer.lineHeight;
     const bylineHeight = splitByline.length * bylineRenderer.lineHeight;
 
@@ -202,7 +202,7 @@ class CanvasCard {
     }
     else if (!!furniture.headline) {
       const splitHeadline = headlineAndKickerRenderer.splitTextIntoLines(furniture.headline);
-      const headlineOffset = + paddingHeight + availableHeight * furniture.position / 100;
+      const headlineOffset = availableHeight * furniture.position / 100;
       headlineAndKickerRenderer.drawText(splitHeadline, 0, headlineOffset, furniture.headlineColour);
     }
     else if(!!furniture.kicker) {
