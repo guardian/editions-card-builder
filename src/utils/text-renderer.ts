@@ -1,7 +1,9 @@
+import { FontWeight } from "../enums/font-weight";
+
 export class TextRenderer {
 
-  constructor({canvasContext, maxWidth, font, fontSize, lineHeight, scale, padding} :
-    {canvasContext: CanvasRenderingContext2D, maxWidth: number, font: string, fontSize: number, lineHeight: number, scale: number, padding: number}){
+  constructor({canvasContext, maxWidth, font, fontSize, lineHeight, scale, padding, weight} :
+    {canvasContext: CanvasRenderingContext2D, maxWidth: number, font: string, fontSize: number, lineHeight: number, scale: number, padding: number, weight: string }){
     this.canvasContext = canvasContext;
     this.maxWidth = maxWidth;
     this.font = font;
@@ -9,6 +11,7 @@ export class TextRenderer {
     this.lineHeight = lineHeight;
     this.scale = scale;
     this.padding = padding;
+    this.weight = weight;
   }
 
   canvasContext: CanvasRenderingContext2D;
@@ -18,6 +21,7 @@ export class TextRenderer {
   lineHeight: number;
   scale: number;
   padding: number;
+  weight: string;
 
   doesTextFit(text: string) {
     const measure = this.canvasContext.measureText(text);
@@ -67,7 +71,7 @@ export class TextRenderer {
     initialYOffset: number,
     colour: string
   ) {
-    this.canvasContext.font = `${this.fontSize}px ${this.font}`;
+    this.canvasContext.font = `${this.weight} ${this.fontSize}px ${this.font}`;
     this.canvasContext.fillStyle = colour;
     this.canvasContext.textBaseline = "bottom";
     lines.forEach((line, i) => {

@@ -10,6 +10,7 @@ import { HeadlineSize, StandfirstSize } from '../enums/size';
 import { Device } from '../enums/device';
 import SizePicker from './size-picker';
 import { BylineLocation } from '../enums/location';
+import { FontWeight } from '../enums/font-weight';
 
 export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: Furniture) => void, updateOriginalImageData: (imageData: object) => void }) => {
   const swatchSelectOptions = Object.keys(Config.swatches)
@@ -121,6 +122,29 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
               update={size => update('standfirstSize', size)}
             />
           </fieldset>
+
+          <fieldset>
+            <legend>Weight</legend>
+            <input
+              type="radio"
+              id="regularStandfirst"
+              name="standfirstWeight"
+              value={FontWeight.Regular}
+              checked={props.furniture?.standfirstWeight == FontWeight.Regular}
+              onChange={event => update("standfirstWeight", event.target.value)}
+            />
+            <label htmlFor="regularStandfirst">Regular</label>
+            <input
+              type="radio"
+              id="boldStandfirst"
+              name="standfirstWeight"
+              value={FontWeight.Bold}
+              checked={props.furniture?.standfirstWeight == FontWeight.Bold}
+              onChange={event => update("standfirstWeight", event.target.value)}
+            />
+            <label htmlFor="boldStandfirst">Bold</label>
+          </fieldset>
+
           <ColourPicker id="standfirst" colour={props.furniture?.standfirstColour} update={colour => update('standfirstColour', colour)}/>
         </Collapsible>
 
