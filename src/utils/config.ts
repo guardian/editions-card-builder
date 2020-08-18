@@ -1,6 +1,7 @@
 import { labs, lifestyle, culture, sport, opinion, news, brand, brandAlt, neutral, specialReport } from '@guardian/src-foundations/palette'
 
-document.fonts.load("52px  Guardian Headline Light");
+document.fonts.load("52px Guardian Headline Light");
+document.fonts.load("700 28px Guardian Text Egyptian");
 
 const DARK = 300
 const MAIN = 400

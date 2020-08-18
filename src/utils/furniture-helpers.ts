@@ -3,6 +3,7 @@ import { Furniture } from '../types/furniture'
 import {  HeadlineSize, StandfirstSize } from "../enums/size"
 import { Device } from "../enums/device"
 import { BylineLocation } from '../enums/location'
+import { FontWeight } from '../enums/font-weight'
 
 export default function(): Furniture {
   return {
@@ -14,6 +15,7 @@ export default function(): Furniture {
     standfirst: undefined,
     standfirstSize: StandfirstSize.Small,
     standfirstColour: config.swatches.simple.white,
+    standfirstWeight: FontWeight.Regular,
     byline: undefined,
     bylineColour: config.swatches.simple.white,
     bylineLocation: BylineLocation.Headline,

@@ -2,6 +2,7 @@ import Config from "./config";
 import { Furniture } from "../types/furniture";
 import { TextRenderer } from "./text-renderer"
 import { BylineLocation } from "../enums/location";
+import { FontWeight } from "../enums/font-weight";
 
 const PLACEHOLDER = "PLACEHOLDER";
 
@@ -150,7 +151,8 @@ class CanvasCard {
       fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
       lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
       scale: scale,
-      padding: Config.padding
+      padding: Config.padding,
+      weight: FontWeight.Bold
     });
 
     const standfirstRenderer = new TextRenderer({
@@ -160,7 +162,8 @@ class CanvasCard {
       fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
       lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
       scale: scale,
-      padding: Config.padding
+      padding: Config.padding,
+      weight: furniture.standfirstWeight
     });
 
     const bylineRenderer = furniture.bylineLocation == BylineLocation.Headline ?
@@ -171,7 +174,8 @@ class CanvasCard {
         fontSize: Config.headline[furniture.device].fontSize[furniture.headlineSize] * scale,
         lineHeight: Config.headline[furniture.device].lineHeight[furniture.headlineSize] * scale,
         scale: scale,
-        padding: Config.padding
+        padding: Config.padding,
+        weight: FontWeight.Light
       }) :
       new TextRenderer({
         canvasContext,
@@ -180,7 +184,8 @@ class CanvasCard {
         fontSize: Config.standfirst[furniture.device].fontSize[furniture.standfirstSize] * scale,
         lineHeight: Config.standfirst[furniture.device].lineHeight[furniture.standfirstSize] * scale,
         scale: scale,
-        padding: Config.padding
+        padding: Config.padding,
+        weight: FontWeight.Regular
       }) ;
 
     const kickerAndHeadlineText = `${furniture.kicker ? furniture.kicker + " " : ""}${furniture.headline || ""}`
