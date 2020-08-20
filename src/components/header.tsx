@@ -23,10 +23,12 @@ export default function(props: HeaderProps){
       return;
     }
 
-    canvas.toBlob( (blob) => {
+    setUploading(true);
+
+    convertCanvasToBlob(canvas, (blob) => {
       var upload = (canvasBlob: Blob) =>
         new Promise<ArrayBuffer>(resolve => {
-          setUploading(true);
+
           const reader = new FileReader();
           reader.onloadend = () => resolve(reader.result as ArrayBuffer);
           reader.readAsArrayBuffer(canvasBlob);
@@ -66,12 +68,20 @@ export default function(props: HeaderProps){
     }
 
     setDownloading(true);
-    canvas.toBlob( (blob) => {
+
+    convertCanvasToBlob(canvas, (blob) => {
       if(blob){
-        download(blob, "image.png", "image/png");
+        download(blob, "image.jpeg", "image/jpeg");
       }
       setDownloading(false);
     });
+  }
+
+  const convertCanvasToBlob = (canvas: HTMLCanvasElement, callback: BlobCallback) =>
+  {
+    const mimeType = "image/jpeg";
+    const quality = 0.95;
+    canvas.toBlob(callback, mimeType, quality);
   }
 
 
