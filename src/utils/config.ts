@@ -14,7 +14,7 @@ const standfirstLineHeightMultiplier = 1.1;
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
   dimensions: {
-    mobile: [525, 810],
+    mobile: [525, 945], // This is the ratio of an iPhone 5S, the narrowest screen we tolerate
     tablet: [975, 1088]
   },
   padding: 10,
