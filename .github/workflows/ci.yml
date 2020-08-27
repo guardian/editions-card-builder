@@ -1,7 +1,5 @@
 name: CI
-on:
-  workflow_dispatch:
-  pull_request:
+on: pull_request
 jobs:
   validate:
     runs-on: ubuntu-latest
