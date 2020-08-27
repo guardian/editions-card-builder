@@ -124,7 +124,7 @@ export default {
   },
   upload: {
     labels: ["edition-cover-card"],
-    collections: ["iPad Daily Edition"],
+    collections: ["UK Daily Edition"],
     metadataToCopy: [
       "credit",
       "description",
