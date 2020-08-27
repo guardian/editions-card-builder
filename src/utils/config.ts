@@ -14,7 +14,7 @@ const standfirstLineHeightMultiplier = 1.1;
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
   dimensions: {
-    mobile: [525, 893], // this is a 1.7 aspect ratio aimed to fit iphone 5s/s3 - our tallest devices
+    mobile: [525, 810],
     tablet: [975, 1088]
   },
   padding: 10,
