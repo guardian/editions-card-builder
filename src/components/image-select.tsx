@@ -4,7 +4,6 @@ import * as React from 'react';
 import config from "../utils/config"
 import Modal from './modal';
 import {IframePostMessageService} from "@guardian/grid-client"
-import {Reporter} from "@guardian/grid-client/lib/utils"
 
 interface GridModalProps {
   updateImageUrl: (imageUrl: string) => void
@@ -52,7 +51,7 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
       return;
     }
 
-    const postMessageService = new IframePostMessageService(event, Reporter.default)
+    const postMessageService = new IframePostMessageService(event)
 
     if(!postMessageService.isValid) {
       return;
