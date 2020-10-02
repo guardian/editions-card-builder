@@ -29,7 +29,7 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
   return (
     <div className="card-builder-left">
       <form className="card-builder-form">
-        <ImageSelect updateImageUrl={imageUrl => update('imageUrl', imageUrl)} updateOriginalImageData={props.updateOriginalImageData} />
+        <ImageSelect device={props.furniture?.device} updateImageUrl={imageUrl => update('imageUrl', imageUrl)} updateOriginalImageData={props.updateOriginalImageData} />
 
         <Collapsible name="Headline">
           <label htmlFor="headline">Text</label>
