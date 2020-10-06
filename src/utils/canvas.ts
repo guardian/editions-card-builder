@@ -18,8 +18,17 @@ class CanvasCard {
     this.drawing = false;
   }
 
-  private _getCanvasDimensions({ deviceWidth, deviceHeight, imageWidth, imageHeight }:
-     { deviceWidth: number, deviceHeight: number, imageWidth: number, imageHeight: number }) {
+  private _getCanvasDimensions({
+    deviceWidth,
+    deviceHeight,
+    imageWidth,
+    imageHeight
+  }: {
+    deviceWidth: number;
+    deviceHeight: number;
+    imageWidth: number;
+    imageHeight: number;
+  }) {
     //For each unit of width, the image has this height
     const deviceRatio = deviceWidth / deviceHeight;
     const imageRatio = imageWidth / imageHeight;
@@ -290,33 +299,32 @@ class CanvasCard {
 
     this.drawing = true;
 
-    return this._getImage(furniture.imageUrl).then(image => {
-      if(!this.furniture){
-        return Promise.reject();
-      }
+    return this._getImage(furniture.imageUrl)
+      .then(image => {
+        if (!this.furniture) {
+          return Promise.reject();
+        }
 
-      const [deviceWidth, deviceHeight] = Config.dimensions[this.furniture.device];
+        const { cropWidth, cropHeight } = Config.crop[this.furniture.device];
 
-      const { width, height, scale } = this._getCanvasDimensions({
-        deviceWidth,
-        deviceHeight,
-        imageHeight: image.height,
-        imageWidth: image.width
-      });
+        const { width, height, scale } = this._getCanvasDimensions({
+          deviceWidth: cropWidth,
+          deviceHeight: cropHeight,
+          imageHeight: image.height,
+          imageWidth: image.width
+        });
 
-      canvas.width = width;
-      canvas.height = height;
+        canvas.width = width;
+        canvas.height = height;
 
-      const canvasContext = canvas.getContext("2d");
+        const canvasContext = canvas.getContext("2d");
 
-      if(canvasContext){
-        this._drawImage({ canvasContext, image });
-        this._drawFurniture(canvas, canvasContext, this.furniture, scale)
-      }
-    })
-    .finally(
-      () => this.drawing = false
-    );
+        if (canvasContext) {
+          this._drawImage({ canvasContext, image });
+          this._drawFurniture(canvas, canvasContext, this.furniture, scale);
+        }
+      })
+      .finally(() => (this.drawing = false));
   }
 }
 

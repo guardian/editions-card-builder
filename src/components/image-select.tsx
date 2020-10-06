@@ -1,18 +1,20 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core'
-import * as React from 'react';
-import config from "../utils/config"
-import Modal from './modal';
-import {IframePostMessageService} from "@guardian/grid-client"
+import { jsx } from "@emotion/core";
+import * as React from "react";
+import config from "../utils/config";
+import Modal from "./modal";
+import { IframePostMessageService } from "@guardian/grid-client";
+import { Device } from "../enums/device";
 
 interface GridModalProps {
-  updateImageUrl: (imageUrl: string) => void
-  updateOriginalImageData: (imageData: object) => void
+  updateImageUrl: (imageUrl: string) => void;
+  updateOriginalImageData: (imageData: object) => void;
+  device?: Device;
 }
 
 interface GridModalState {
-  modalOpen: boolean
-  imageId: string
+  modalOpen: boolean;
+  imageId: string;
 }
 
 class ImageSelect extends React.Component<GridModalProps, GridModalState> {
@@ -68,25 +70,34 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
     this.props.updateOriginalImageData(event.data.image);
   };
 
-  getIframeUrl(){
+  getGridQueryString() {
+    const { cropWidth, cropHeight, label } = config.crop[
+      this.props.device || "mobile"
+    ];
+    return `?cropType=${label}&customRatio=${label},${cropWidth},${cropHeight}`;
+  }
+
+  getIframeUrl() {
+    const queryString = this.getGridQueryString();
     return this.state.imageId
-      ? `${this.getGridUrl()}/images/${this.state.imageId}`
-      : this.getGridUrl();
+      ? `${this.getGridUrl()}/images/${this.state.imageId}${queryString}`
+      : `${this.getGridUrl()}${queryString}`;
   }
 
   getGridUrl() {
-    return`https://${config.gridDomain}`;
+    return `https://${config.gridDomain}`;
   }
 
   render() {
-    return(
+    return (
       <div>
-        <button type="button" className="image-select" onClick={this.openModal}>Select image</button>
+        <button type="button" className="image-select" onClick={this.openModal}>
+          Select image
+        </button>
 
         <Modal isOpen={this.state.modalOpen} dismiss={this.closeModal}>
-          <iframe css={{border: 'none'}} src={this.getIframeUrl()} />
+          <iframe css={{ border: "none" }} src={this.getIframeUrl()} />
         </Modal>
-
       </div>
     );
   }

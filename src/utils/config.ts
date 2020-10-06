@@ -1,21 +1,40 @@
-import { labs, lifestyle, culture, sport, opinion, news, brand, brandAlt, neutral, specialReport } from '@guardian/src-foundations/palette'
+import {
+  labs,
+  lifestyle,
+  culture,
+  sport,
+  opinion,
+  news,
+  brand,
+  brandAlt,
+  neutral,
+  specialReport
+} from "@guardian/src-foundations/palette";
 
 document.fonts.load("52px Guardian Headline Light");
 document.fonts.load("700 28px Guardian Text Egyptian");
 
-const DARK = 300
-const MAIN = 400
-const BRIGHT = 500
-const PASTEL = 600
-const FADED = 800
+const DARK = 300;
+const MAIN = 400;
+const BRIGHT = 500;
+const PASTEL = 600;
+const FADED = 800;
 const headlineLineHeightMultiplier = 1.05;
 const standfirstLineHeightMultiplier = 1.1;
 
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
-  dimensions: {
-    mobile: [525, 810],
-    tablet: [975, 1088]
+  crop: {
+    mobile: {
+      cropWidth: 525,
+      cropHeight: 810,
+      label: "mobile cover card"
+    },
+    tablet: {
+      cropWidth: 975,
+      cropHeight: 1088,
+      label: "tablet cover card"
+    }
   },
   padding: 10,
   headline: {
