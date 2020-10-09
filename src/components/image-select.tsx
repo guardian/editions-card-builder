@@ -78,7 +78,9 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
   }
 
   getIframeUrl() {
-    const queryString = this.getGridQueryString();
+    // TODO: query string removed in rushed friday afternoon fix
+    // suspected to be related to https://github.com/guardian/editions-card-builder/pull/86
+    const queryString = '';
     return this.state.imageId
       ? `${this.getGridUrl()}/images/${this.state.imageId}${queryString}`
       : `${this.getGridUrl()}${queryString}`;
