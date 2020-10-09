@@ -78,7 +78,7 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
   }
 
   getIframeUrl() {
-    const queryString = this.getGridQueryString();
+    const queryString = ''; // TODO: query string removed in rushed friday afternoon fix
     return this.state.imageId
       ? `${this.getGridUrl()}/images/${this.state.imageId}${queryString}`
       : `${this.getGridUrl()}${queryString}`;
