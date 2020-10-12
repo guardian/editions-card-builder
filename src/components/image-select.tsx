@@ -3,6 +3,8 @@ import { jsx } from "@emotion/core";
 import * as React from "react";
 import config from "../utils/config";
 import Modal from "./modal";
+import { IframePostMessageService } from "@guardian/grid-client";
+import { Reporter } from "@guardian/grid-client/lib/utils"
 import { Device } from "../enums/device";
 
 interface GridModalProps {
@@ -52,24 +54,20 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
       return;
     }
 
-    const data = event.data;
+    const postMessageService = new IframePostMessageService(event, Reporter.default)
 
-    if(!data) {
+    if(!postMessageService.isValid) {
       return;
     }
 
-    if(!this.validMessage(data)) {
-      return;
-    }
-
-    const imageUrl = event.data.crop.data.master.secureUrl;
+    const imageUrl: URL = postMessageService.highestQualityImageURL!;
 
     this.setState({
-      imageId: event.data.image.data.id as string
+      imageId: postMessageService.imageId!
     });
 
     this.closeModal();
-    this.props.updateImageUrl(imageUrl);
+    this.props.updateImageUrl(imageUrl.toString());
     this.props.updateOriginalImageData(event.data.image);
   };
 
