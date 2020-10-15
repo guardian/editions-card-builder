@@ -283,6 +283,29 @@ class CanvasCard {
     );
   }
 
+  // this code has been shamelessly lifted from https://stackoverflow.com/a/32206237
+  private crossHatchPattern(canvasContext: CanvasRenderingContext2D) {
+    const pattern = document.createElement("canvas")
+    pattern.width=32;
+    pattern.height=16;
+    const patternCtx= pattern.getContext('2d');
+
+    const [x0, x1, y0, y1, offset] = [36, -4, -2, 18, 32];
+    if (patternCtx) {
+      patternCtx.strokeStyle = "rgba(255,0,0,0.5)";
+      patternCtx.lineWidth=2;
+      patternCtx.beginPath();
+      patternCtx.moveTo(x0,y0);
+      patternCtx.lineTo(x1,y1);
+      patternCtx.moveTo(x0-offset,y0);
+      patternCtx.lineTo(x1-offset,y1);
+      patternCtx.moveTo(x0+offset,y0);
+      patternCtx.lineTo(x1+offset,y1);
+      patternCtx.stroke();
+      return canvasContext.createPattern(pattern,'repeat');
+  }
+}
+
   private _drawUnsafearea(
     canvasContext: CanvasRenderingContext2D,
     width: number,
@@ -292,9 +315,14 @@ class CanvasCard {
   ) {
     const safeAreaProportion = safeRatio / cropRatio;
     const unsafeAreaY = Math.floor(height * safeAreaProportion);
-    canvasContext.fillStyle = "rgba(255,255,255,0.5)";
-    canvasContext.fillRect(0, unsafeAreaY, width, height - unsafeAreaY);
-  };
+    const pattern = this.crossHatchPattern(canvasContext);
+
+    if (pattern) {
+      canvasContext.fillStyle=pattern;
+      canvasContext.fillRect(0, unsafeAreaY, width, height - unsafeAreaY);
+    }
+  }
+
 
   draw(canvas: HTMLCanvasElement, furniture: Furniture) {
     if (!furniture.imageUrl) {
