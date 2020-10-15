@@ -284,7 +284,7 @@ class CanvasCard {
   }
 
   private _drawUnsafearea(
-    canvasContext: CanvasRenderingContext2D,,
+    canvasContext: CanvasRenderingContext2D,
     width: number,
     height: number,
     safeRatio: number,
