@@ -335,7 +335,6 @@ class CanvasCard {
           this._drawImage({ canvasContext, image });
           this._drawFurniture(canvas, canvasContext, this.furniture, scale);
           this._drawUnsafearea(canvasContext, width, height, safeRatio, cropRatio);
-
         }
       })
       .finally(() => (this.drawing = false));
