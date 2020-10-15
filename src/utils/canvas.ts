@@ -283,10 +283,20 @@ class CanvasCard {
     );
   }
 
-  draw(
-    canvas: HTMLCanvasElement,
-    furniture: Furniture
-   ) {
+  private _drawUnsafearea(
+    canvasContext: CanvasRenderingContext2D,,
+    width: number,
+    height: number,
+    safeRatio: number,
+    cropRatio: number
+  ) {
+    const safeAreaProportion = safeRatio / cropRatio;
+    const unsafeAreaY = Math.floor(height * safeAreaProportion);
+    canvasContext.fillStyle = "rgba(255,255,255,0.5)";
+    canvasContext.fillRect(0, unsafeAreaY, width, height - unsafeAreaY);
+  };
+
+  draw(canvas: HTMLCanvasElement, furniture: Furniture) {
     if (!furniture.imageUrl) {
       return Promise.reject("no-image");
     }
@@ -305,11 +315,13 @@ class CanvasCard {
           return Promise.reject();
         }
 
-        const { cropWidth, cropHeight } = Config.crop[this.furniture.device];
+        const { cropWidth, safeRatio, cropRatio } = Config.crop[
+          this.furniture.device
+        ];
 
         const { width, height, scale } = this._getCanvasDimensions({
           deviceWidth: cropWidth,
-          deviceHeight: cropHeight,
+          deviceHeight: Math.floor(cropWidth * cropRatio),
           imageHeight: image.height,
           imageWidth: image.width
         });
@@ -322,6 +334,8 @@ class CanvasCard {
         if (canvasContext) {
           this._drawImage({ canvasContext, image });
           this._drawFurniture(canvas, canvasContext, this.furniture, scale);
+          this._drawUnsafearea(canvasContext, width, height, safeRatio, cropRatio);
+
         }
       })
       .finally(() => (this.drawing = false));
