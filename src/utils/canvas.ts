@@ -293,7 +293,7 @@ class CanvasCard {
     const [x0, x1, y0, y1, offset] = [36, -4, -2, 18, 32];
     if (patternCtx) {
       patternCtx.strokeStyle = "rgba(255,0,0,0.5)";
-      patternCtx.lineWidth=2;
+      patternCtx.lineWidth=5;
       patternCtx.beginPath();
       patternCtx.moveTo(x0,y0);
       patternCtx.lineTo(x1,y1);
