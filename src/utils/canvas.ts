@@ -324,7 +324,7 @@ class CanvasCard {
   }
 
 
-  draw(canvas: HTMLCanvasElement, furniture: Furniture) {
+  draw(canvas: HTMLCanvasElement, canvasOverlay: HTMLCanvasElement, furniture: Furniture) {
     if (!furniture.imageUrl) {
       return Promise.reject("no-image");
     }
@@ -356,13 +356,18 @@ class CanvasCard {
 
         canvas.width = width;
         canvas.height = height;
+        canvasOverlay.width = width;
+        canvasOverlay.height = height;
 
         const canvasContext = canvas.getContext("2d");
+        const canvasOverlayContext = canvasOverlay.getContext("2d");
 
         if (canvasContext) {
           this._drawImage({ canvasContext, image });
           this._drawFurniture(canvas, canvasContext, this.furniture, scale);
-          this._drawUnsafearea(canvasContext, width, height, safeRatio, cropRatio);
+        }
+        if (canvasOverlayContext){
+          this._drawUnsafearea(canvasOverlayContext, width, height, safeRatio, cropRatio);
         }
       })
       .finally(() => (this.drawing = false));

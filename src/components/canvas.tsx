@@ -37,7 +37,9 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
   draw() {
     if( this.props.furniture) {
       const canvas = this.refs.canvas as HTMLCanvasElement;
-      this.state.card.draw(canvas, this.props.furniture)
+      const canvasOverlay = this.refs.canvasoverlay as HTMLCanvasElement;
+
+      this.state.card.draw(canvas, canvasOverlay, this.props.furniture)
         .then(() => {
           this.props.update(canvas);
         })
@@ -48,7 +50,8 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
   render() {
     return (
       <div className="card-builder-right">
-        <canvas ref="canvas" className="card" css={{ display: this.state.showCanvas ? "block" : "none" }}></canvas>
+        <canvas ref="canvas" className="card canvas-layers" css={{ display: this.state.showCanvas ? "block" : "none" }}></canvas>
+        <canvas ref="canvasoverlay" className="canvas-layers" css={{ display: this.state.showCanvas ? "block" : "none" }}></canvas>
       </div>
     )
   }
