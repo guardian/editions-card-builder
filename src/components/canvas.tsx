@@ -49,9 +49,11 @@ class Canvas extends React.Component<CanvasProps, CanvasState> {
 
   render() {
     return (
-      <div className="card-builder-right">
-        <canvas ref="canvas" className="card canvas-layers" css={{ display: this.state.showCanvas ? "block" : "none" }}></canvas>
-        <canvas ref="canvasoverlay" className="canvas-layers" css={{ display: this.state.showCanvas ? "block" : "none" }}></canvas>
+      <div className="card-builder-right" >
+        <div css={{ display: this.state.showCanvas ? "block" : "none" }}>
+          <canvas ref="canvas" className="card canvas-layers"></canvas>
+          <canvas ref="canvasoverlay" className="canvas-layers"></canvas>
+        </div>
       </div>
     )
   }
