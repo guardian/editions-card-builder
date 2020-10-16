@@ -28,11 +28,15 @@ export default {
     mobile: {
       cropWidth: 525,
       cropHeight: 810,
+      safeRatio: 1.3,
+      cropRatio: 1.6,
       label: "mobile cover card"
     },
     tablet: {
       cropWidth: 975,
       cropHeight: 1088,
+      cropRatio: 1.1,
+      safeRatio: 1.1,
       label: "tablet cover card"
     }
   },
