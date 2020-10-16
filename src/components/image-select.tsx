@@ -72,8 +72,10 @@ class ImageSelect extends React.Component<GridModalProps, GridModalState> {
   };
 
   getGridQueryString() {
-    const { cropRatio, label } = config.crop[this.props.device || "mobile"];
-    return `?cropType=${label}&customRatio=${label},10,${cropRatio * 10}`;
+    const { cropWidth, cropHeight, label } = config.crop[
+      this.props.device || "mobile"
+    ];
+    return `?cropType=${label}&customRatio=${label},${cropWidth},${cropHeight}`;
   }
 
   getIframeUrl() {
