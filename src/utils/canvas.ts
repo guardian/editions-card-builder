@@ -367,7 +367,8 @@ class CanvasCard {
           this._drawFurniture(canvas, canvasContext, this.furniture, scale);
         }
         if (canvasOverlayContext){
-          this._drawUnsafearea(canvasOverlayContext, width, height, safeRatio, cropRatio);
+          // feature disabled till it can be made more accessible
+          // this._drawUnsafearea(canvasOverlayContext, width, height, safeRatio, cropRatio);
         }
       })
       .finally(() => (this.drawing = false));
