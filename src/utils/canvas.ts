@@ -283,10 +283,48 @@ class CanvasCard {
     );
   }
 
-  draw(
-    canvas: HTMLCanvasElement,
-    furniture: Furniture
-   ) {
+  // this code has been shamelessly lifted from https://stackoverflow.com/a/32206237
+  private crossHatchPattern(canvasContext: CanvasRenderingContext2D) {
+    const pattern = document.createElement("canvas")
+    pattern.width=32;
+    pattern.height=16;
+    const patternCtx= pattern.getContext('2d');
+
+    const [x0, x1, y0, y1, offset] = [36, -4, -2, 18, 32];
+    if (patternCtx) {
+      patternCtx.strokeStyle = "rgba(255,0,0,0.5)";
+      patternCtx.lineWidth=5;
+      patternCtx.beginPath();
+      patternCtx.moveTo(x0,y0);
+      patternCtx.lineTo(x1,y1);
+      patternCtx.moveTo(x0-offset,y0);
+      patternCtx.lineTo(x1-offset,y1);
+      patternCtx.moveTo(x0+offset,y0);
+      patternCtx.lineTo(x1+offset,y1);
+      patternCtx.stroke();
+      return canvasContext.createPattern(pattern,'repeat');
+  }
+}
+
+  private _drawUnsafearea(
+    canvasContext: CanvasRenderingContext2D,
+    width: number,
+    height: number,
+    safeRatio: number,
+    cropRatio: number
+  ) {
+    const safeAreaProportion = safeRatio / cropRatio;
+    const unsafeAreaY = Math.floor(height * safeAreaProportion);
+    const pattern = this.crossHatchPattern(canvasContext);
+
+    if (pattern) {
+      canvasContext.fillStyle=pattern;
+      canvasContext.fillRect(0, unsafeAreaY, width, height - unsafeAreaY);
+    }
+  }
+
+
+  draw(canvas: HTMLCanvasElement, canvasOverlay: HTMLCanvasElement, furniture: Furniture) {
     if (!furniture.imageUrl) {
       return Promise.reject("no-image");
     }
@@ -305,23 +343,31 @@ class CanvasCard {
           return Promise.reject();
         }
 
-        const { cropWidth, cropHeight } = Config.crop[this.furniture.device];
+        const { cropWidth, safeRatio, cropRatio } = Config.crop[
+          this.furniture.device
+        ];
 
         const { width, height, scale } = this._getCanvasDimensions({
           deviceWidth: cropWidth,
-          deviceHeight: cropHeight,
+          deviceHeight: Math.floor(cropWidth * cropRatio),
           imageHeight: image.height,
           imageWidth: image.width
         });
 
         canvas.width = width;
         canvas.height = height;
+        canvasOverlay.width = width;
+        canvasOverlay.height = height;
 
         const canvasContext = canvas.getContext("2d");
+        const canvasOverlayContext = canvasOverlay.getContext("2d");
 
         if (canvasContext) {
           this._drawImage({ canvasContext, image });
           this._drawFurniture(canvas, canvasContext, this.furniture, scale);
+        }
+        if (canvasOverlayContext){
+          this._drawUnsafearea(canvasOverlayContext, width, height, safeRatio, cropRatio);
         }
       })
       .finally(() => (this.drawing = false));
