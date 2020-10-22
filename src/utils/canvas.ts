@@ -286,21 +286,20 @@ class CanvasCard {
   // this code has been shamelessly lifted from https://stackoverflow.com/a/32206237
   private crossHatchPattern(canvasContext: CanvasRenderingContext2D) {
     const pattern = document.createElement("canvas")
-    pattern.width=32;
-    pattern.height=16;
-    const patternCtx= pattern.getContext('2d');
+    pattern.width = 100;
+    pattern.height = 20;
+    const patternCtx = pattern.getContext('2d');
 
-    const [x0, x1, y0, y1, offset] = [36, -4, -2, 18, 32];
     if (patternCtx) {
-      patternCtx.strokeStyle = "rgba(255,0,0,0.5)";
-      patternCtx.lineWidth=5;
       patternCtx.beginPath();
-      patternCtx.moveTo(x0,y0);
-      patternCtx.lineTo(x1,y1);
-      patternCtx.moveTo(x0-offset,y0);
-      patternCtx.lineTo(x1-offset,y1);
-      patternCtx.moveTo(x0+offset,y0);
-      patternCtx.lineTo(x1+offset,y1);
+      patternCtx.strokeStyle = "rgba(255,0,0,0.5)";
+      patternCtx.lineWidth = pattern.height
+      patternCtx.moveTo(0 ,0);
+      patternCtx.lineTo(pattern.width, 0);
+      patternCtx.stroke();
+      patternCtx.strokeStyle = "rgba(255,255,255,0.5)";
+      patternCtx.moveTo(0 ,pattern.height / 2);
+      patternCtx.lineTo(pattern.width, pattern.height / 2);
       patternCtx.stroke();
       return canvasContext.createPattern(pattern,'repeat');
   }
@@ -367,8 +366,7 @@ class CanvasCard {
           this._drawFurniture(canvas, canvasContext, this.furniture, scale);
         }
         if (canvasOverlayContext){
-          // feature disabled till it can be made more accessible
-          // this._drawUnsafearea(canvasOverlayContext, width, height, safeRatio, cropRatio);
+          this._drawUnsafearea(canvasOverlayContext, width, height, safeRatio, cropRatio);
         }
       })
       .finally(() => (this.drawing = false));
