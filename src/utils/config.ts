@@ -22,19 +22,21 @@ const FADED = 800;
 const headlineLineHeightMultiplier = 1.05;
 const standfirstLineHeightMultiplier = 1.1;
 
+const MOBILE_CROP_WIDTH = 525
+const TABLET_CROP_WIDTH = 975
+const TEXT_MARGIN = 25
+
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
   crop: {
     mobile: {
-      cropWidth: 525,
-      cropHeight: 810,
+      cropWidth: MOBILE_CROP_WIDTH,
       safeRatio: 1.3,
       cropRatio: 1.6,
       label: "mobile cover card"
     },
     tablet: {
-      cropWidth: 975,
-      cropHeight: 1088,
+      cropWidth: TABLET_CROP_WIDTH,
       cropRatio: 1.1,
       safeRatio: 1.1,
       label: "tablet cover card"
@@ -44,7 +46,7 @@ export default {
   headline: {
     font: "Guardian Titlepiece",
     mobile: {
-      maxWidth: 420,
+      maxWidth: MOBILE_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
         small: 52 * headlineLineHeightMultiplier,
         medium: 68 * headlineLineHeightMultiplier,
@@ -59,7 +61,7 @@ export default {
       }
     },
     tablet: {
-      maxWidth: 648,
+      maxWidth: TABLET_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
         small: 80 * headlineLineHeightMultiplier,
         medium: 105 * headlineLineHeightMultiplier,
@@ -77,7 +79,7 @@ export default {
   standfirst: {
     font: "Guardian Text Egyptian",
     mobile: {
-      maxWidth: 350,
+      maxWidth: MOBILE_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
         small: 28 * standfirstLineHeightMultiplier,
         medium: 32 * standfirstLineHeightMultiplier
@@ -88,7 +90,7 @@ export default {
       }
     },
     tablet: {
-      maxWidth: 572,
+      maxWidth: TABLET_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
         small: 43 * standfirstLineHeightMultiplier,
         medium: 49 * standfirstLineHeightMultiplier
