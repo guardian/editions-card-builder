@@ -229,6 +229,9 @@ export default (props: {furniture?: Furniture, updateFurniture: (newFurniture: F
           </fieldset>
         </Collapsible>
     </form>
+    <div>
+      <p>Note: Shaded/striped section of image is likely to be cropped on wider screen devices</p>
+    </div>
     </div>
   )
 }
