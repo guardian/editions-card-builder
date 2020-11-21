@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/guardian/editions-card-builder#readme",
   "dependencies": {
-    "@emotion/core": "^10.0.34",
+    "@emotion/core": "^10.0.35",
     "@guardian/grid-client": "^1.1.1",
     "@guardian/src-foundations": "^1.5.0",
     "@types/css-font-loading-module": "0.0.4",
