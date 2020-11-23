@@ -38,7 +38,7 @@ export default {
     tablet: {
       cropWidth: TABLET_CROP_WIDTH,
       cropRatio: 1.1,
-      safeRatio: 1.1,
+      safeRatio: 1.0,
       label: "tablet cover card"
     }
   },
