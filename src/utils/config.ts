@@ -32,7 +32,7 @@ export default {
     mobile: {
       cropWidth: MOBILE_CROP_WIDTH,
       safeRatio: 1.3,
-      cropRatio: 1.6,
+      cropRatio: 1.7,
       label: "mobile cover card"
     },
     tablet: {
