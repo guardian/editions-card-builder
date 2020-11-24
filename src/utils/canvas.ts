@@ -151,7 +151,7 @@ class CanvasCard {
     }
   }
 
-  private _drawFurniture(canvas: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number){
+  private _drawFurniture(canvas: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D, furniture: Furniture, scale: number, safeHeight: number){
 
     const headlineAndKickerRenderer = new TextRenderer({
       canvasContext,
@@ -208,7 +208,7 @@ class CanvasCard {
     const standfirstHeight = splitStandfirst.length * standfirstRenderer.lineHeight;
     const bylineHeight = splitByline.length * bylineRenderer.lineHeight;
 
-    const availableHeight = canvas.height - bylineHeight - standfirstHeight - headlineHeight - (paddingHeight * 3);
+    const availableHeight = safeHeight - bylineHeight - standfirstHeight - headlineHeight - (paddingHeight * 3);
     const initialHeight = availableHeight * furniture.position / 100 + paddingHeight;
 
 
@@ -363,7 +363,7 @@ class CanvasCard {
 
         if (canvasContext) {
           this._drawImage({ canvasContext, image });
-          this._drawFurniture(canvas, canvasContext, this.furniture, scale);
+          this._drawFurniture(canvas, canvasContext, this.furniture, scale, Math.floor(width * safeRatio));
         }
         if (canvasOverlayContext){
           this._drawUnsafearea(canvasOverlayContext, width, height, safeRatio, cropRatio);
