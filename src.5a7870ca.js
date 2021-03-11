@@ -332,4 +332,4 @@ var e;!function(t,n){"function"==typeof e&&e.amd?e([],n):"object"==typeof export
 },{"@emotion/core":"haMh","./header":"YGgk","./form":"jDKA","./canvas":"buUQ","react":"n8MK","../utils/furniture-helpers":"QOwQ"}],"zo2T":[function(require,module,exports) {
 "use strict";var e=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0});const t=require("@emotion/core"),r=require("react-dom"),o=e(require("./components/app"));r.render(t.jsx(o.default,null),document.getElementById("root"));
 },{"@emotion/core":"haMh","react-dom":"NKHc","./components/app":"DKsQ"}]},{},["zo2T"], null)
-//# sourceMappingURL=/src.6a88016e.js.map
+//# sourceMappingURL=/src.5a7870ca.js.map
