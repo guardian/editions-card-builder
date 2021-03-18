@@ -42,7 +42,7 @@ export default function(props: HeaderProps){
         )
         .then(apiResponse => {
           setUploading(false);
-          const imageUrl = apiResponse.links.find(({ rel }) => rel === "ui:image")?.href;
+          const imageUrl = apiResponse?.links.find(({ rel }) => rel === "ui:image")?.href;
           if(imageUrl){
             setGridLink(imageUrl);
           }
