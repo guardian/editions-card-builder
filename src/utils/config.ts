@@ -28,9 +28,11 @@ const TEXT_MARGIN = 25;
 const MOBILE_CROP_WIDTH = 525;
 const TABLET_CROP_WIDTH = 975;
 
+// used to calculate the 'safe' area of the canvas, ie the area that is less likely to be obscured based on screen sizes
 const MOBILE_SAFE_RATIO = 1.3;
 const TABLET_SAFE_RATIO = 1.0;
 
+// used to calculate the height of the canvas as a ratio of the crop width
 const MOBILE_CROP_RATIO = 1.7;
 const TABLET_CROP_RATIO = 1.1;
 
