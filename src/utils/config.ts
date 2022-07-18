@@ -19,26 +19,46 @@ const MAIN = 400;
 const BRIGHT = 500;
 const PASTEL = 600;
 const FADED = 800;
-const headlineLineHeightMultiplier = 1.05;
-const standfirstLineHeightMultiplier = 1.1;
 
-const MOBILE_CROP_WIDTH = 525
-const TABLET_CROP_WIDTH = 975
-const TEXT_MARGIN = 25
+const HEADLINE_LINE_HEIGHT_MULTIPLIER = 1.05;
+const STANDFIRST_LINE_HEIGHT_MULTIPLIER = 1.1;
+
+const TEXT_MARGIN = 25;
+
+const MOBILE_CROP_WIDTH = 525;
+const TABLET_CROP_WIDTH = 975;
+
+// used to calculate the 'safe' area of the canvas, ie the area that is less likely to be obscured based on screen sizes
+const MOBILE_SAFE_RATIO = 1.3;
+const TABLET_SAFE_RATIO = 1.0;
+
+// used to calculate the height of the canvas as a ratio of the crop width
+const MOBILE_CROP_RATIO = 1.7;
+const TABLET_CROP_RATIO = 1.1;
+
+const HEADLINE_FONT_SIZE_SMALL = 52;
+const HEADLINE_FONT_SIZE_MEDIUM = 68;
+const HEADLINE_FONT_SIZE_LARGE = 84;
+const HEADLINE_FONT_SIZE_XLARGE = 100;
+
+const scaleFontSizeForTablet = (fontSize: number) => {
+  // scale the tablet font size based on the device height ratio so the font size appears consistent between devices
+  return Math.floor(fontSize / ((MOBILE_CROP_WIDTH * MOBILE_CROP_RATIO) / (TABLET_CROP_WIDTH * TABLET_CROP_RATIO)))
+}
 
 export default {
   gridDomain: process.env.GRID_DOMAIN as string,
   crop: {
     mobile: {
       cropWidth: MOBILE_CROP_WIDTH,
-      safeRatio: 1.3,
-      cropRatio: 1.7,
+      safeRatio: MOBILE_SAFE_RATIO,
+      cropRatio: MOBILE_CROP_RATIO,
       label: "mobile cover card"
     },
     tablet: {
       cropWidth: TABLET_CROP_WIDTH,
-      cropRatio: 1.1,
-      safeRatio: 1.0,
+      safeRatio: TABLET_SAFE_RATIO,
+      cropRatio: TABLET_CROP_RATIO,
       label: "tablet cover card"
     }
   },
@@ -48,31 +68,31 @@ export default {
     mobile: {
       maxWidth: MOBILE_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
-        small: 52 * headlineLineHeightMultiplier,
-        medium: 68 * headlineLineHeightMultiplier,
-        large: 84 * headlineLineHeightMultiplier,
-        xLarge: 100 * headlineLineHeightMultiplier
+        small: HEADLINE_FONT_SIZE_SMALL * HEADLINE_LINE_HEIGHT_MULTIPLIER,
+        medium: HEADLINE_FONT_SIZE_MEDIUM * HEADLINE_LINE_HEIGHT_MULTIPLIER,
+        large: HEADLINE_FONT_SIZE_LARGE * HEADLINE_LINE_HEIGHT_MULTIPLIER,
+        xLarge: HEADLINE_FONT_SIZE_XLARGE * HEADLINE_LINE_HEIGHT_MULTIPLIER
       },
       fontSize: {
-        small: 52,
-        medium: 68,
-        large: 84,
-        xLarge: 100
+        small: HEADLINE_FONT_SIZE_SMALL,
+        medium: HEADLINE_FONT_SIZE_MEDIUM,
+        large: HEADLINE_FONT_SIZE_LARGE,
+        xLarge: HEADLINE_FONT_SIZE_XLARGE
       }
     },
     tablet: {
       maxWidth: TABLET_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
-        small: 80 * headlineLineHeightMultiplier,
-        medium: 105 * headlineLineHeightMultiplier,
-        large: 128 * headlineLineHeightMultiplier,
-        xLarge: 180 * headlineLineHeightMultiplier
+        small: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_SMALL) * HEADLINE_LINE_HEIGHT_MULTIPLIER,
+        medium: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_MEDIUM) * HEADLINE_LINE_HEIGHT_MULTIPLIER,
+        large: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_LARGE) * HEADLINE_LINE_HEIGHT_MULTIPLIER,
+        xLarge: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_XLARGE) * HEADLINE_LINE_HEIGHT_MULTIPLIER
       },
       fontSize: {
-        small: 80,
-        medium: 105,
-        large: 128,
-        xLarge: 180
+        small: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_SMALL),
+        medium: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_MEDIUM),
+        large: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_LARGE),
+        xLarge: scaleFontSizeForTablet(HEADLINE_FONT_SIZE_XLARGE)
       }
     }
   },
@@ -81,8 +101,8 @@ export default {
     mobile: {
       maxWidth: MOBILE_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
-        small: 28 * standfirstLineHeightMultiplier,
-        medium: 32 * standfirstLineHeightMultiplier
+        small: 28 * STANDFIRST_LINE_HEIGHT_MULTIPLIER,
+        medium: 32 * STANDFIRST_LINE_HEIGHT_MULTIPLIER
       },
       fontSize: {
         small: 28,
@@ -92,8 +112,8 @@ export default {
     tablet: {
       maxWidth: TABLET_CROP_WIDTH - TEXT_MARGIN,
       lineHeight: {
-        small: 43 * standfirstLineHeightMultiplier,
-        medium: 49 * standfirstLineHeightMultiplier
+        small: 43 * STANDFIRST_LINE_HEIGHT_MULTIPLIER,
+        medium: 49 * STANDFIRST_LINE_HEIGHT_MULTIPLIER
       },
       fontSize: {
         small: 43,
