@@ -3,15 +3,23 @@ on:
   workflow_dispatch:
   pull_request:
 jobs:
-  validate:
+  CI:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3.7.0
         with:
-          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
       - run: ./script/ci
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist
+      - uses: guardian/actions-static-site@v2
+        with:
+          app: editions-card-builder
+          domain: editions-card-builder.gutools.co.uk
+          guActionsRiffRaffRoleArn: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}

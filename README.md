@@ -19,4 +19,4 @@ Images originate from [Grid](https://github.com/guardian/grid).
 🌍 Run `./script/start` and open https://editions-card-builder.local.dev-gutools.co.uk/ in your browser
 
 ## Deploying
-Upon merging a PR, the [CD workflow](./.github/workflows/cd.yml) will be run and publish to GitHub Pages. 
+This project uses [actions-static-site](https://github.com/guardian/actions-static-site) for hosting and is deployed with [riff-raff](https://github.com/guardian/riff-raff).
