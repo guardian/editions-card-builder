@@ -1,5 +1,5 @@
 {
   "checkpoints": {
-    "PROD": { "url": "https://editions-card-builder.gutools.co.uk/build-info.json", "overdue": "10M" }
+    "PROD": { "url": "https://editions-card-builder.gutools.co.uk/_prout", "overdue": "10M" }
   }
 }
