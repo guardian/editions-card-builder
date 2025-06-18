@@ -11,6 +11,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - name: Setup node
@@ -18,11 +19,12 @@ jobs:
         with:
           cache: 'npm'
       - run: ./script/ci
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist
-      - uses: guardian/actions-static-site@v2
+      - uses: guardian/actions-static-site@v3
         with:
           app: editions-card-builder
           domain: editions-card-builder.gutools.co.uk
-          guActionsRiffRaffRoleArn: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
+          roleArn: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
